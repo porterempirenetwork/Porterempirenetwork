@@ -1,108 +1,957 @@
-PE
-PORTER EMPIRE NETWORK
-☰
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-A NEW KIND OF NETWORK
-People with vision. Connections with purpose.
-Porter Empire Network brings ambitious people into the same room — entrepreneurs, professionals, creators, students, builders and people ready for their next move.
-Join The Network → See Connect & Rise
-CONNECT. GROW. MOVE FORWARD.
-PORTER EMPIRE NETWORK
-● BUILDING
+  <title>Porter Empire Network</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.95);
+      border-bottom: 1px solid #292929;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      background:
+        radial-gradient(circle at center, #171717 0%, #050505 65%);
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(45px, 8vw, 90px);
+      line-height: 1;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #aaa;
+      font-size: 19px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 35px;
+      padding: 15px 28px;
+      background: #d4af37;
+      color: #050505;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: 0.3s;
+      border: 1px solid #d4af37;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: #d4af37;
+    }
+
+    section {
+      padding: 100px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 42px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      color: #999;
+      margin-bottom: 50px;
+      max-width: 650px;
+    }
+
+    .gold {
+      color: #d4af37;
+    }
+
+    .network-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #282828;
+      padding: 35px 25px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #d4af37;
+    }
+
+    .card h3 {
+      color: #d4af37;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #999;
+    }
+
+    .event {
+      background: #0d0d0d;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .event-box {
+      border: 1px solid #d4af37;
+      padding: 50px;
+      text-align: center;
+      border-radius: 8px;
+      background: linear-gradient(
+        145deg,
+        rgba(212, 175, 55, 0.08),
+        rgba(0, 0, 0, 0)
+      );
+    }
+
+    .event-box h3 {
+      font-size: 45px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .event-box p {
+      color: #aaa;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .founder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .founder-image {
+      min-height: 450px;
+      background:
+        linear-gradient(
+          rgba(212, 175, 55, 0.1),
+          rgba(0, 0, 0, 0.5)
+        ),
+        #151515;
+      border: 1px solid #333;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d4af37;
+      font-size: 20px;
+      letter-spacing: 3px;
+      text-align: center;
+    }
+
+    .founder-text p {
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .join {
+      background: #0c0c0c;
+    }
+
+    form {
+      max-width: 800px;
+      margin: auto;
+      background: #111;
+      padding: 40px;
+      border: 1px solid #292929;
+      border-radius: 8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      margin-bottom: 8px;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background: #080808;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    footer .footer-logo {
+      color: #d4af37;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .network-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .founder {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #080808;
+        flex-direction: column;
+        padding: 25px;
+        border-bottom: 1px solid #222;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .network-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      form {
+        padding: 25px;
+      }
+
+      .event-box {
+        padding: 35px 20px;
+      }
+
+      .event-box h3 {
+        font-size: 32px;
+      }
+
+      section {
+        padding: 80px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav">
+
+      <a href="#home" class="logo">
+        PORTER EMPIRE
+      </a>
+
+      <button class="menu-btn" id="menuBtn">
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#network">Network</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#founder">Founder</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+
+    </nav>
+  </header>
 
 
-PE
-Your next move
-can start with
-one connection.
-Not another social page. A real-world network built around people, conversations and opportunities.
-PEOPLE • CONNECTION • MUSIC • INSPIRATION • GROWTH • OPPORTUNITY • PEOPLE • CONNECTION
-01 / THE NETWORK
-Not just networking. Real connection.
-The goal is simple: bring the right people together, create conversations that matter, and give people a reason to keep moving.
-01
-Connect
-Meet people outside your normal circle and start conversations that could open new doors.
-02
-Inspire
-Hear real stories, ideas and perspectives from people building something of their own.
-03
-Grow
-Learn from people in different industries, backgrounds and stages of their journey.
-04
-Move
-Turn conversations into next steps. Keep building instead of staying stuck in yesterday.
-02 / LIVE EXPERIENCE
-CONNECT
-& RISE
-Music. People. Energy. Inspiration. A room full of people who are ready to meet, talk, learn and make their next move.
-MUSIC
-CONNECTIONS
-INSPIRATION
-GROWTH
-Request An Invite →
-THE EXPERIENCE
-Come in as a stranger. Leave knowing more people.
-THE FOUNDER
-A short message from Jaden Porter on the vision behind the Network.
-THE ENERGY
-Music, conversation and a room designed to make people move.
-03 / HOW IT WORKS
-One room. Three moves.
-The Network is built to be easy to enter and useful to stay in.
-01
-Show Up
-Come to an event, join the community or introduce yourself through the Network.
-02
-Connect
-Tell people what you do, what you're building and what kind of people you want around you.
-03
-Move Forward
-Follow up, collaborate, learn, create and keep building. The connection is the beginning.
-04 / WHO BELONGS
-Different paths. Same hunger.
-You don't need the same career, title or background. You need a reason to build.
-Entrepreneurs & Business Owners
-People building companies, brands, services and ideas.BUILDERS
-Professionals & Career Builders
-People developing skills, careers and meaningful relationships.GROWTH-MINDED
-Creators, Artists & Designers
-People creating music, visuals, fashion, media and culture.CREATIVES
-Students & Next-Move People
-People figuring out what comes next and looking for real connections.NEXT GENERATION
-“Don't let where you've been decide where you're going.”
-— PORTER EMPIRE NETWORK
-JP
-Jaden Porter
-Founder & CEO, The Porter Empire
-05 / FOUNDER’S MESSAGE
-Build the room you wish existed.
-I’m building Porter Empire Network around a simple idea: the right connection can change what becomes possible.
-This is for people who want more than another follow, another DM or another business card. It’s about creating spaces where people can actually meet, talk, learn and move.
-The Network is one part of a bigger Porter Empire vision — building opportunities, bringing people together and creating something that can grow far beyond one event.
-JADEN PORTER / FOUNDER & CEO
-06 / ENTER THE NETWORK
-Make your next move.
-Tell us who you are, what you're building and what kind of connections you're looking for. This is the starting point.
-No promises of jobs, deals or investment returns — just a place to meet people and create legitimate opportunities through real relationships.
+  <!-- HERO -->
+  <section class="hero" id="home">
 
-FIRST NAME
-LAST NAME
-EMAIL
-PHONE
-WHAT BEST DESCRIBES YOU?
-            Choose one
-            EntrepreneurBusiness OwnerProfessional
-            StudentCreator / ArtistJob SeekerOther
-          
-CAREER / INDUSTRY
-WHAT DO YOU WANT TO CONNECT ABOUT?
-By submitting, you’re asking Porter Empire Network to contact you about community and event opportunities. Keep your information accurate.
-Enter The Network →
-PORTER EMPIRE NETWORK
-A community built around connection, inspiration and forward movement.
-Network
-Events
-Founder
-Join
-© 2026 THE PORTER EMPIRE. ALL RIGHTS RESERVED.
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        PORTER EMPIRE NETWORK
+      </div>
+
+      <h1>
+        The right people can change your trajectory.
+      </h1>
+
+      <p>
+        A private network built around relationships,
+        opportunity, collaboration, and growth.
+      </p>
+
+      <a href="#join" class="btn">
+        Enter The Network
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- NETWORK -->
+  <section id="network">
+
+    <div class="container">
+
+      <h2 class="section-title">
+        The <span class="gold">Network</span>
+      </h2>
+
+      <p class="section-subtitle">
+        Porter Empire Network is built to bring ambitious
+        people together and create opportunities through
+        meaningful relationships.
+      </p>
+
+      <div class="network-grid">
+
+        <a href="#join" class="card">
+          <h3>Connect</h3>
+          <p>
+            Meet people who can expand your network,
+            perspective, and opportunities.
+          </p>
+        </a>
+
+        <a href="#join" class="card">
+          <h3>Inspire</h3>
+          <p>
+            Share ideas, experiences, and motivation
+            with people moving forward.
+          </p>
+        </a>
+
+        <a href="#join" class="card">
+          <h3>Grow</h3>
+          <p>
+            Build relationships that create personal
+            and professional growth.
+          </p>
+        </a>
+
+        <a href="#join" class="card">
+          <h3>Move</h3>
+          <p>
+            Turn conversations into action, connections,
+            and opportunities.
+          </p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EVENT -->
+  <section class="event" id="events">
+
+    <div class="container">
+
+      <div class="event-box">
+
+        <div class="eyebrow">
+          PORTER EMPIRE NETWORK
+        </div>
+
+        <h3>
+          The Invite
+        </h3>
+
+        <p>
+          An opportunity to meet, connect, collaborate,
+          and build relationships with people within
+          the Porter Empire Network.
+        </p>
+
+        <a href="#join" class="btn">
+          Request An Invite
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOUNDER -->
+  <section id="founder">
+
+    <div class="container">
+
+      <div class="founder">
+
+        <div class="founder-image">
+          PORTER EMPIRE<br>
+          NETWORK
+        </div>
+
+        <div class="founder-text">
+
+          <div class="eyebrow">
+            THE FOUNDER
+          </div>
+
+          <h2 class="section-title">
+            Built Through <span class="gold">Connection.</span>
+          </h2>
+
+          <p>
+            Porter Empire Network was created around a
+            simple idea: the people you surround yourself
+            with can open doors, introduce new perspectives,
+            and create opportunities.
+          </p>
+
+          <p>
+            The goal is to create a network where
+            relationships come first and members can
+            connect with people who share their ambition.
+          </p>
+
+          <a href="#join" class="btn">
+            Join The Network
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- JOIN -->
+  <section class="join" id="join">
+
+    <div class="container">
+
+      <div style="text-align:center; margin-bottom:40px;">
+
+        <div class="eyebrow">
+          PORTER EMPIRE NETWORK
+        </div>
+
+        <h2 class="section-title">
+          Join The <span class="gold">Network</span>
+        </h2>
+
+        <p class="section-subtitle" style="margin:0 auto;">
+          Fill out the form below and we'll get in touch.
+        </p>
+
+      </div>
+
+
+      <!-- FORM -->
+      <form
+        id="joinForm"
+        action="https://formsubmit.co/porterempirenetwork@gmail.com"
+        method="POST"
+      >
+
+        <!-- FORM SUBMIT SETTINGS -->
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="New Porter Empire Network Application"
+        >
+
+        <input
+          type="hidden"
+          name="_template"
+          value="table"
+        >
+
+        <input
+          type="hidden"
+          name="_replyto"
+          id="formReplyTo"
+          value=""
+        >
+
+        <input
+          type="hidden"
+          name="_url"
+          id="formURL"
+          value=""
+        >
+
+        <!-- SPAM PROTECTION -->
+        <input
+          type="text"
+          name="_honey"
+          style="display:none"
+          tabindex="-1"
+          autocomplete="off"
+        >
+
+
+        <div class="form-grid">
+
+          <!-- FIRST NAME -->
+          <div class="field">
+
+            <label for="firstName">
+              First Name *
+            </label>
+
+            <input
+              type="text"
+              id="firstName"
+              name="First Name"
+              placeholder="First Name"
+              required
+              autocomplete="given-name"
+            >
+
+          </div>
+
+
+          <!-- LAST NAME -->
+          <div class="field">
+
+            <label for="lastName">
+              Last Name *
+            </label>
+
+            <input
+              type="text"
+              id="lastName"
+              name="Last Name"
+              placeholder="Last Name"
+              required
+              autocomplete="family-name"
+            >
+
+          </div>
+
+
+          <!-- EMAIL -->
+          <div class="field">
+
+            <label for="email">
+              Email *
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="Email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            >
+
+          </div>
+
+
+          <!-- PHONE -->
+          <div class="field">
+
+            <label for="phone">
+              Phone
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              name="Phone"
+              placeholder="Phone Number"
+              autocomplete="tel"
+            >
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+          <div class="field full">
+
+            <label for="identity">
+              What best describes you? *
+            </label>
+
+            <select
+              id="identity"
+              name="What Best Describes You"
+              required
+            >
+
+              <option value="">
+                Select one
+              </option>
+
+              <option value="Entrepreneur">
+                Entrepreneur
+              </option>
+
+              <option value="Business Owner">
+                Business Owner
+              </option>
+
+              <option value="Professional">
+                Professional
+              </option>
+
+              <option value="Creator">
+                Creator
+              </option>
+
+              <option value="Investor">
+                Investor
+              </option>
+
+              <option value="Student">
+                Student
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- INDUSTRY -->
+          <div class="field full">
+
+            <label for="industry">
+              Career / Industry
+            </label>
+
+            <input
+              type="text"
+              id="industry"
+              name="Career / Industry"
+              placeholder="Your career or industry"
+            >
+
+          </div>
+
+
+          <!-- GOAL -->
+          <div class="field full">
+
+            <label for="goal">
+              What do you want to connect about? *
+            </label>
+
+            <textarea
+              id="goal"
+              name="What You Want To Connect About"
+              placeholder="Tell us what you'd like to connect about..."
+              required
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn submit-btn"
+        >
+          Submit Application
+        </button>
+
+
+        <div
+          class="success-message"
+          id="successMessage"
+        >
+          Your application is being submitted.
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">
+      PORTER EMPIRE NETWORK
+    </div>
+
+    <p>
+      Building relationships. Creating opportunities.
+    </p>
+
+    <p style="margin-top:15px;">
+      © <span id="year"></span> Porter Empire Network.
+      All rights reserved.
+    </p>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    /* MOBILE MENU */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", function () {
+
+      navLinks.classList.toggle("active");
+
+    });
+
+
+    /* CLOSE MOBILE MENU WHEN LINK IS CLICKED */
+
+    document.querySelectorAll(".nav-links a").forEach(function(link) {
+
+      link.addEventListener("click", function() {
+
+        navLinks.classList.remove("active");
+
+      });
+
+    });
+
+
+    /* CURRENT YEAR */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* FORM */
+
+    const form = document.getElementById("joinForm");
+
+    const emailInput = document.getElementById("email");
+
+    const formReplyTo =
+      document.getElementById("formReplyTo");
+
+    const formURL =
+      document.getElementById("formURL");
+
+    const successMessage =
+      document.getElementById("successMessage");
+
+
+    /* KEEP REPLY-TO UPDATED */
+
+    emailInput.addEventListener("input", function() {
+
+      formReplyTo.value =
+        emailInput.value.trim();
+
+    });
+
+
+    /* FORM SUBMISSION */
+
+    form.addEventListener("submit", function(event) {
+
+      if (!form.checkValidity()) {
+
+        return;
+
+      }
+
+      /*
+        Make absolutely sure the visitor's email
+        is included as Reply-To before sending.
+      */
+
+      formReplyTo.value =
+        emailInput.value.trim();
+
+
+      /*
+        Record the page URL where the application
+        was submitted.
+      */
+
+      formURL.value =
+        window.location.href;
+
+
+      /*
+        Let FormSubmit handle the actual email.
+      */
+
+      successMessage.style.display = "block";
+
+    });
+
+  </script>
+
+</body>
+</html>
