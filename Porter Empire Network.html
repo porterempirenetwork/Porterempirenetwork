@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<meta name="description" content="Porter Empire Network — a modern community built around connection, opportunity, inspiration, and growth.">
+<title>Porter Empire Network — Connect. Grow. Move Forward.</title>
+<style>
+:root{
+  --black:#050505;
+  --deep:#090909;
+  --panel:#101010;
+  --panel2:#151515;
+  --line:rgba(255,255,255,.10);
+  --gold:#d7ad52;
+  --gold2:#f2d184;
+  --white:#f7f4ed;
+  --muted:#a7a39a;
+  --green:#79c99a;
+  --max:1180px;
+  --radius:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 85% 8%,rgba(215,173,82,.10),transparent 28rem),
+    radial-gradient(circle at 8% 45%,rgba(255,255,255,.035),transparent 25rem),
+    var(--black);
+  color:var(--white);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.20;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+.container{width:min(calc(100% - 40px),var(--max));margin:auto}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(5,5,5,.72);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-inner{height:78px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.04em}
+.mark{
+  width:40px;height:40px;border:1px solid rgba(215,173,82,.65);border-radius:12px;
+  display:grid;place-items:center;color:var(--gold2);font-size:13px;
+  box-shadow:inset 0 0 25px rgba(215,173,82,.08);
+}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:.22em;font-weight:700;margin-top:-2px}
+.links{display:flex;gap:27px;align-items:center;font-size:13px;color:#c9c6bd;font-weight:700}
+.links a:hover{color:var(--gold2)}
+.nav-cta,.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 18px;border-radius:999px;border:1px solid rgba(215,173,82,.5);
+  font-weight:850;font-size:13px;letter-spacing:.01em;transition:.25s;
+}
+.nav-cta,.btn.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#0a0a0a;box-shadow:0 10px 35px rgba(215,173,82,.12)}
+.nav-cta:hover,.btn:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(215,173,82,.18)}
+.menu{display:none;background:none;border:0;color:white;font-size:24px}
+
+.hero{min-height:100vh;padding:155px 0 90px;display:grid;align-items:center;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:65px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--gold2);font-size:11px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;margin-bottom:22px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px rgba(215,173,82,.8)}
+h1{font-size:clamp(48px,7.3vw,92px);line-height:.93;letter-spacing:-.065em;max-width:800px}
+.gradient{background:linear-gradient(100deg,#fff 10%,#d7ad52 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:650px;color:#b6b2aa;font-size:18px;margin:27px 0 31px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn.secondary{background:rgba(255,255,255,.035);border-color:var(--line);color:#eee}
+.micro{margin-top:20px;color:#77736c;font-size:11px;letter-spacing:.05em}
+.hero-card{
+  min-height:480px;border:1px solid var(--line);border-radius:34px;
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
+  padding:27px;position:relative;overflow:hidden;
+}
+.hero-card:before{content:"";position:absolute;width:240px;height:240px;right:-70px;top:-70px;border-radius:50%;background:rgba(215,173,82,.16);filter:blur(25px)}
+.card-top{display:flex;justify-content:space-between;color:#8e8a82;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.signal{color:var(--green);font-weight:900}
+.statement{position:absolute;left:27px;right:27px;bottom:31px}
+.statement .big{font-size:clamp(34px,4vw,56px);line-height:1;letter-spacing:-.045em;font-weight:900}
+.statement p{font-size:14px;color:#aaa69e;margin-top:15px;max-width:390px}
+.orbit{height:230px;display:grid;place-items:center;margin-top:30px}
+.orbit-core{width:112px;height:112px;border-radius:50%;border:1px solid rgba(215,173,82,.7);display:grid;place-items:center;color:var(--gold2);font-weight:950;letter-spacing:.08em;box-shadow:0 0 60px rgba(215,173,82,.10)}
+.ring{position:absolute;width:215px;height:215px;border:1px solid rgba(215,173,82,.18);border-radius:50%}
+.ring.r2{width:155px;height:155px;border-style:dashed;opacity:.55}
+
+.section{padding:110px 0}
+.section-head{display:flex;justify-content:space-between;gap:35px;align-items:end;margin-bottom:42px}
+.kicker{font-size:11px;color:var(--gold2);font-weight:900;letter-spacing:.2em;text-transform:uppercase}
+h2{font-size:clamp(35px,5vw,62px);line-height:.98;letter-spacing:-.055em;margin-top:11px}
+.lead{color:#aaa69e;max-width:470px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{
+  padding:26px;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  min-height:230px;transition:.25s;position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(215,173,82,.38)}
+.num{color:var(--gold);font-weight:900;font-size:11px;letter-spacing:.15em}
+.card h3{font-size:23px;margin:46px 0 9px;letter-spacing:-.025em}
+.card p{color:#96928a;font-size:14px}
+
+.banner{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:20px 0;overflow:hidden;white-space:nowrap;color:#6f6b63;font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;
+}
+.banner span{color:var(--gold2);margin:0 16px}
+
+.event{
+  border:1px solid rgba(215,173,82,.30);border-radius:34px;padding:42px;
+  background:radial-gradient(circle at 90% 0%,rgba(215,173,82,.13),transparent 32%),#0d0d0d;
+}
+.event-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:45px;align-items:end}
+.event-title{font-size:clamp(42px,6vw,74px);line-height:.92;letter-spacing:-.06em;margin:12px 0 18px}
+.event-copy{color:#aaa69e;max-width:620px}
+.event-pills{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:#c4c0b7;font-size:11px;font-weight:800}
+.event-side{border-left:1px solid var(--line);padding-left:35px}
+.event-side strong{display:block;font-size:14px;color:#eee;margin-bottom:7px}
+.event-side div{padding:16px 0;border-bottom:1px solid var(--line);color:#8e8a82;font-size:13px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{padding:30px;border:1px solid var(--line);border-radius:26px;background:#0c0c0c}
+.step-number{font-size:48px;font-weight:950;color:rgba(215,173,82,.28);line-height:1}
+.step h3{font-size:24px;margin:22px 0 8px}
+.step p{color:#99958d;font-size:14px}
+
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.person{padding:25px;border:1px solid var(--line);border-radius:22px;background:#0c0c0c}
+.person strong{display:block;font-size:17px;margin-bottom:5px}
+.person span{color:#85817a;font-size:13px}
+.person .tag{display:inline-block;margin-top:18px;color:var(--gold2);font-size:10px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+
+.quote{
+  padding:70px 0;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.quote blockquote{font-size:clamp(30px,5vw,58px);font-weight:900;letter-spacing:-.055em;line-height:1.02;max-width:920px;margin:auto}
+.quote em{font-style:normal;color:var(--gold2)}
+.quote cite{display:block;margin-top:22px;color:#77736c;font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+.founder{display:grid;grid-template-columns:.7fr 1.3fr;gap:65px;align-items:start}
+.founder-card{padding:30px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,#151515,#0a0a0a)}
+.initials{width:90px;height:90px;border-radius:24px;border:1px solid rgba(215,173,82,.55);display:grid;place-items:center;color:var(--gold2);font-size:28px;font-weight:950;margin-bottom:22px}
+.founder-card h3{font-size:26px}
+.founder-card p{color:#88847c;font-size:13px;margin-top:5px}
+.founder-copy p{color:#aaa69e;font-size:17px;margin:20px 0}
+.signature{color:var(--gold2);font-weight:900;letter-spacing:.04em}
+
+.form-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:35px;align-items:start}
+.form-intro p{color:#96928a;margin-top:18px;max-width:420px}
+.form{padding:30px;border:1px solid var(--line);border-radius:30px;background:#0b0b0b}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field.full{grid-column:1/-1}
+label{display:block;color:#b9b5ad;font-size:11px;font-weight:800;margin:0 0 7px 2px}
+input,select,textarea{
+  width:100%;border:1px solid rgba(255,255,255,.10);background:#121212;color:#f3f1ec;
+  border-radius:13px;padding:13px 14px;outline:none;font:inherit;font-size:14px;
+}
+input:focus,select:focus,textarea:focus{border-color:rgba(215,173,82,.65);box-shadow:0 0 0 3px rgba(215,173,82,.08)}
+textarea{min-height:120px;resize:vertical}
+.form-note{font-size:10px;color:#6e6a63;margin:14px 0 17px;line-height:1.5}
+.submit{width:100%;cursor:pointer;border:0}
+.success{display:none;padding:15px;border-radius:13px;border:1px solid rgba(121,201,154,.3);color:#9fe0b8;background:rgba(121,201,154,.07);font-size:13px;margin-bottom:13px}
+
+footer{padding:60px 0 35px;border-top:1px solid var(--line)}
+.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:end}
+.footer-brand{font-size:20px;font-weight:950}
+.footer-brand span{color:var(--gold2)}
+.footer-copy{color:#6f6b64;font-size:11px;margin-top:7px}
+.footer-links{display:flex;gap:18px;color:#8b877f;font-size:12px;font-weight:700}
+.copyright{margin-top:38px;color:#4f4b46;font-size:10px;letter-spacing:.08em}
+
+@media(max-width:900px){
+  .links{display:none}.menu{display:block}
+  .hero-grid,.event-grid,.founder,.form-wrap{grid-template-columns:1fr}
+  .hero{padding-top:125px}
+  .hero-card{min-height:390px}
+  .event-side{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}
+  .cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .container{width:min(calc(100% - 28px),var(--max))}
+  .nav-inner{height:68px}
+  .brand small{display:none}
+  .hero{padding:105px 0 70px}
+  h1{font-size:54px}
+  .hero p{font-size:16px}
+  .hero-card{min-height:350px;padding:21px}
+  .statement{left:21px;right:21px}
+  .cards,.steps,.people{grid-template-columns:1fr}
+  .section{padding:78px 0}
+  .section-head{display:block}
+  .lead{margin-top:18px}
+  .event{padding:25px;border-radius:25px}
+  .fields{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .footer-grid{display:block}
+  .footer-links{margin-top:20px;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">
+      <div class="mark">PE</div>
+      <div>PORTER EMPIRE NETWORK</div>
+    </a>
+    <nav class="links">
+      <a href="#network">Network</a>
+      <a href="#event">Event</a>
+      <a href="#vision">Vision</a>
+      <a href="#founder">Founder</a>
+      <a href="#join">Join</a>
+      <a class="nav-cta" href="#join">Enter The Network →</a>
+    </nav>
+    <button class="menu" aria-label="Menu" onclick="document.querySelector('.links').style.display=document.querySelector('.links').style.display==='flex'?'none':'flex'">☰</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> A new kind of network</div>
+      <h1>People with <span class="gradient">vision.</span><br>Connections with <span class="gradient">purpose.</span></h1>
+      <p>Porter Empire Network brings ambitious people into the same room — entrepreneurs, professionals, creators, students, builders and people ready for their next move.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#join">Join The Network →</a>
+        <a class="btn secondary" href="#event">See Connect & Rise</a>
+      </div>
+      <div class="micro">CONNECT. GROW. MOVE FORWARD.</div>
+    </div>
+    <div class="hero-card">
+      <div class="card-top"><span>PORTER EMPIRE NETWORK</span><span class="signal">● BUILDING</span></div>
+      <div class="orbit">
+        <div class="ring"></div><div class="ring r2"></div><div class="orbit-core">PE</div>
+      </div>
+      <div class="statement">
+        <div class="big">Your next move<br>can start with<br>one connection.</div>
+        <p>Not another social page. A real-world network built around people, conversations and opportunities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="banner">PEOPLE <span>•</span> CONNECTION <span>•</span> MUSIC <span>•</span> INSPIRATION <span>•</span> GROWTH <span>•</span> OPPORTUNITY <span>•</span> PEOPLE <span>•</span> CONNECTION</div>
+
+<section class="section" id="network">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">01 / The Network</div><h2>Not just networking.<br><span class="gradient">Real connection.</span></h2></div>
+      <p class="lead">The goal is simple: bring the right people together, create conversations that matter, and give people a reason to keep moving.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="num">01</div><h3>Connect</h3><p>Meet people outside your normal circle and start conversations that could open new doors.</p></article>
+      <article class="card"><div class="num">02</div><h3>Inspire</h3><p>Hear real stories, ideas and perspectives from people building something of their own.</p></article>
+      <article class="card"><div class="num">03</div><h3>Grow</h3><p>Learn from people in different industries, backgrounds and stages of their journey.</p></article>
+      <article class="card"><div class="num">04</div><h3>Move</h3><p>Turn conversations into next steps. Keep building instead of staying stuck in yesterday.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="event">
+  <div class="container">
+    <div class="event">
+      <div class="event-grid">
+        <div>
+          <div class="kicker">02 / Live Experience</div>
+          <div class="event-title">CONNECT<br><span class="gradient">& RISE</span></div>
+          <p class="event-copy">Music. People. Energy. Inspiration. A room full of people who are ready to meet, talk, learn and make their next move.</p>
+          <div class="event-pills">
+            <span class="pill">MUSIC</span><span class="pill">CONNECTIONS</span><span class="pill">INSPIRATION</span><span class="pill">GROWTH</span>
+          </div>
+          <a class="btn primary" href="#join">Request An Invite →</a>
+        </div>
+        <div class="event-side">
+          <div><strong>THE EXPERIENCE</strong>Come in as a stranger. Leave knowing more people.</div>
+          <div><strong>THE FOUNDER</strong>A short message from Jaden Porter on the vision behind the Network.</div>
+          <div><strong>THE ENERGY</strong>Music, conversation and a room designed to make people move.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="vision">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">03 / How It Works</div><h2>One room.<br><span class="gradient">Three moves.</span></h2></div>
+      <p class="lead">The Network is built to be easy to enter and useful to stay in.</p>
+    </div>
+    <div class="steps">
+      <article class="step"><div class="step-number">01</div><h3>Show Up</h3><p>Come to an event, join the community or introduce yourself through the Network.</p></article>
+      <article class="step"><div class="step-number">02</div><h3>Connect</h3><p>Tell people what you do, what you're building and what kind of people you want around you.</p></article>
+      <article class="step"><div class="step-number">03</div><h3>Move Forward</h3><p>Follow up, collaborate, learn, create and keep building. The connection is the beginning.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">04 / Who Belongs</div><h2>Different paths.<br><span class="gradient">Same hunger.</span></h2></div>
+      <p class="lead">You don't need the same career, title or background. You need a reason to build.</p>
+    </div>
+    <div class="people">
+      <div class="person"><strong>Entrepreneurs & Business Owners</strong><span>People building companies, brands, services and ideas.</span><div class="tag">BUILDERS</div></div>
+      <div class="person"><strong>Professionals & Career Builders</strong><span>People developing skills, careers and meaningful relationships.</span><div class="tag">GROWTH-MINDED</div></div>
+      <div class="person"><strong>Creators, Artists & Designers</strong><span>People creating music, visuals, fashion, media and culture.</span><div class="tag">CREATIVES</div></div>
+      <div class="person"><strong>Students & Next-Move People</strong><span>People figuring out what comes next and looking for real connections.</span><div class="tag">NEXT GENERATION</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="container">
+    <blockquote>“Don't let where you've been decide <em>where you're going.</em>”</blockquote>
+    <cite>— Porter Empire Network</cite>
+  </div>
+</section>
+
+<section class="section" id="founder">
+  <div class="container founder">
+    <div class="founder-card">
+      <div class="initials">JP</div>
+      <h3>Jaden Porter</h3>
+      <p>Founder & CEO, The Porter Empire</p>
+    </div>
+    <div class="founder-copy">
+      <div class="kicker">05 / Founder’s Message</div>
+      <h2>Build the room<br>you wish <span class="gradient">existed.</span></h2>
+      <p>I’m building Porter Empire Network around a simple idea: the right connection can change what becomes possible.</p>
+      <p>This is for people who want more than another follow, another DM or another business card. It’s about creating spaces where people can actually meet, talk, learn and move.</p>
+      <p>The Network is one part of a bigger Porter Empire vision — building opportunities, bringing people together and creating something that can grow far beyond one event.</p>
+      <div class="signature">JADEN PORTER / FOUNDER & CEO</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="join">
+  <div class="container form-wrap">
+    <div class="form-intro">
+      <div class="kicker">06 / Enter The Network</div>
+      <h2>Make your<br><span class="gradient">next move.</span></h2>
+      <p>Tell us who you are, what you're building and what kind of connections you're looking for. This is the starting point.</p>
+      <p style="font-size:11px;color:#66615a">No promises of jobs, deals or investment returns — just a place to meet people and create legitimate opportunities through real relationships.</p>
+    </div>
+    <form class="form" action="https://formsubmit.co/porterempirenetwork@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Porter Empire Network Connection Request">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <div class="success" id="success">Your request is ready to send. Thanks for stepping into the Network.</div>
+      <div class="fields">
+        <div><label>FIRST NAME</label><input name="First Name" required placeholder="First name"></div>
+        <div><label>LAST NAME</label><input name="Last Name" required placeholder="Last name"></div>
+        <div><label>EMAIL</label><input type="email" name="Email" required placeholder="you@email.com"></div>
+        <div><label>PHONE</label><input type="tel" name="Phone" placeholder="Phone number"></div>
+        <div>
+          <label>WHAT BEST DESCRIBES YOU?</label>
+          <select name="Identity" required>
+            <option value="">Choose one</option>
+            <option>Entrepreneur</option><option>Business Owner</option><option>Professional</option>
+            <option>Student</option><option>Creator / Artist</option><option>Job Seeker</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>CAREER / INDUSTRY</label><input name="Career or Industry" placeholder="e.g. music, real estate"></div>
+        <div class="field full"><label>WHAT DO YOU WANT TO CONNECT ABOUT?</label><textarea name="Connection Goal" required placeholder="Tell us what you're building, looking for, learning or hoping to connect around."></textarea></div>
+      </div>
+      <div class="form-note">By submitting, you’re asking Porter Empire Network to contact you about community and event opportunities. Keep your information accurate.</div>
+      <button class="btn primary submit" type="submit">Enter The Network →</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">PORTER <span>EMPIRE</span> NETWORK</div>
+        <div class="footer-copy">A community built around connection, inspiration and forward movement.</div>
+      </div>
+      <div class="footer-links"><a href="#network">Network</a><a href="#event">Events</a><a href="#founder">Founder</a><a href="#join">Join</a></div>
+    </div>
+    <div class="copyright">© 2026 THE PORTER EMPIRE. ALL RIGHTS RESERVED.</div>
+  </div>
+</footer>
+
+<script>
+document.querySelector('.form').addEventListener('submit', function(){
+  document.getElementById('success').style.display='block';
+});
+</script>
+</body>
+</html>
