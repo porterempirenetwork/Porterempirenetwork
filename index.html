@@ -1,710 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Porter Empire Network</title>
+<title>Join Porter Empire Network</title>
 
-  <meta
-    name="description"
-    content="Porter Empire Network — A new kind of network. People with vision. Connections with purpose."
-  >
+<meta
+  name="description"
+  content="Create your Porter Empire Network account and join a growing network of ambitious professionals, entrepreneurs, creatives, and leaders."
+>
 
-  <meta name="theme-color" content="#0a0a0a">
+<style>
+:root {
+  --black: #050505;
+  --black2: #0b0b0b;
+  --gold: #d4af37;
+  --gold2: #f0cf65;
+  --white: #ffffff;
+  --muted: #9b9b9b;
+  --border: rgba(255,255,255,.10);
+  --card: rgba(255,255,255,.045);
+}
 
-  <style>
-    :root {
-      --black: #070707;
-      --black2: #101010;
-      --gold: #d4af37;
-      --gold2: #f0cf67;
-      --cream: #f5f0e6;
-      --muted: #a9a39a;
-      --line: rgba(212,175,55,.18);
-      --card: rgba(255,255,255,.045);
-      --white: #fff;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212,175,55,.14), transparent 35%),
+    linear-gradient(135deg, #030303, #0a0a0a 50%, #020202);
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top right, rgba(212,175,55,.12), transparent 35%),
-        radial-gradient(circle at bottom left, rgba(212,175,55,.06), transparent 30%),
-        var(--black);
-      color: var(--cream);
-      font-family: Arial, Helvetica, sans-serif;
-    }
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
+nav {
+  width: 100%;
+  padding: 22px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(18px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    button {
-      cursor: pointer;
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 35px 18px;
-    }
+.logo-mark {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 15px;
+}
 
-    .container {
-      width: min(1100px, 100%);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(10,10,10,.88);
-      box-shadow: 0 40px 100px rgba(0,0,0,.55);
-      backdrop-filter: blur(20px);
-    }
+.logo-text {
+  font-weight: 900;
+  letter-spacing: 1px;
+}
 
-    .hero {
-      padding: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background:
-        linear-gradient(135deg, rgba(212,175,55,.13), transparent 50%),
-        #0a0a0a;
-      border-right: 1px solid var(--line);
-    }
+.logo-text span {
+  display: block;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-top: 3px;
+}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 50px;
-    }
+.company-email {
+  color: var(--muted);
+  font-size: 13px;
+}
 
-    .brand-mark {
-      width: 48px;
-      height: 48px;
-      border: 1px solid var(--gold);
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      color: var(--gold);
-      font-weight: 900;
-      letter-spacing: -2px;
-    }
+.company-email:hover {
+  color: var(--gold);
+}
 
-    .brand-name {
-      font-size: 15px;
-      letter-spacing: .18em;
-      font-weight: 800;
-    }
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
 
-    .eyebrow {
-      color: var(--gold2);
-      font-size: 12px;
-      letter-spacing: .22em;
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
+.signup-wrapper {
+  width: 100%;
+  max-width: 540px;
+}
 
-    h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(46px, 6vw, 76px);
-      line-height: .95;
-      margin-bottom: 25px;
-      letter-spacing: -.04em;
-    }
+.eyebrow {
+  text-align: center;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
 
-    .hero-copy {
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 500px;
-      font-size: 16px;
-    }
+h1 {
+  text-align: center;
+  font-size: clamp(36px, 7vw, 62px);
+  line-height: .95;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+}
 
-    .gold {
-      color: var(--gold2);
-    }
+.subtitle {
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
+  max-width: 450px;
+  margin: 0 auto 35px;
+}
 
-    .benefits {
-      display: grid;
-      gap: 12px;
-      margin-top: 38px;
-    }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 32px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  backdrop-filter: blur(20px);
+}
 
-    .benefit {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      color: #ddd6ca;
-      font-size: 14px;
-    }
+.form-group {
+  margin-bottom: 19px;
+}
 
-    .benefit span {
-      width: 26px;
-      height: 26px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      color: var(--gold);
-      font-size: 11px;
-    }
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
 
-    .form-area {
-      padding: 42px;
-      background: rgba(255,255,255,.02);
-    }
+input {
+  width: 100%;
+  padding: 16px 17px;
+  border-radius: 13px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  color: white;
+  outline: none;
+  font-size: 15px;
+  transition: .2s;
+}
 
-    .form-title {
-      font-family: Georgia, serif;
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
+input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,.10);
+}
 
-    .form-subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
+.password-wrap {
+  position: relative;
+}
 
-    form {
-      display: grid;
-      gap: 17px;
-    }
+.password-wrap input {
+  padding-right: 70px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
+.show-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    label {
-      display: grid;
-      gap: 8px;
-      color: #ddd6ca;
-      font-size: 12px;
-      font-weight: 700;
-    }
+.terms {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.1);
-      background: #111;
-      color: white;
-      border-radius: 13px;
-      padding: 14px;
-      outline: none;
-      transition: .2s;
-    }
+.terms input {
+  width: auto;
+  margin-top: 3px;
+}
 
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
-    }
+.button {
+  width: 100%;
+  border: 0;
+  padding: 17px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: #080808;
+  font-weight: 900;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .2s;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(212,175,55,.20);
+}
 
-    /* PHOTO UPLOAD */
+.message {
+  display: none;
+  padding: 13px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
 
-    .photo-upload {
-      border: 1px dashed rgba(212,175,55,.4);
-      border-radius: 20px;
-      padding: 20px;
-      background: rgba(212,175,55,.035);
-    }
+.error {
+  background: rgba(255,70,70,.10);
+  border: 1px solid rgba(255,70,70,.25);
+  color: #ff9c9c;
+}
 
-    .photo-row {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+footer {
+  padding: 25px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+}
 
-    .photo-preview {
-      width: 86px;
-      height: 86px;
-      min-width: 86px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(212,175,55,.6);
-      background: linear-gradient(135deg,#171717,#252525);
-      display: grid;
-      place-items: center;
-      color: var(--gold);
-      font-weight: 900;
-      font-size: 22px;
-    }
+footer strong {
+  color: var(--gold);
+}
 
-    .photo-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+@media(max-width:600px) {
+  nav {
+    padding: 17px 20px;
+  }
 
-    .photo-info {
-      flex: 1;
-    }
+  .company-email {
+    display: none;
+  }
 
-    .photo-info strong {
-      display: block;
-      margin-bottom: 5px;
-    }
+  main {
+    padding: 35px 15px;
+  }
 
-    .photo-info small {
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .upload-button {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 9px 13px;
-      border-radius: 10px;
-      background: rgba(212,175,55,.12);
-      border: 1px solid rgba(212,175,55,.3);
-      color: var(--gold2);
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    #photoInput {
-      display: none;
-    }
-
-    .remove-photo {
-      background: transparent;
-      border: 0;
-      color: #aaa;
-      font-size: 12px;
-      margin-left: 8px;
-    }
-
-    .agreement {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .agreement input {
-      width: auto;
-      margin-top: 3px;
-    }
-
-    .submit {
-      border: 0;
-      border-radius: 14px;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--gold2), var(--gold));
-      color: #0a0a0a;
-      font-weight: 900;
-      letter-spacing: .04em;
-      box-shadow: 0 15px 40px rgba(212,175,55,.16);
-      transition: .2s;
-    }
-
-    .submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 50px rgba(212,175,55,.25);
-    }
-
-    .note {
-      text-align: center;
-      color: #777;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    @media(max-width:850px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-        padding: 42px 28px;
-      }
-
-      .form-area {
-        padding: 28px;
-      }
-    }
-
-    @media(max-width:520px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 50px;
-      }
-
-      .photo-row {
-        align-items: flex-start;
-      }
-    }
-  </style>
+  .card {
+    padding: 23px;
+    border-radius: 20px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="page">
 
-  <main class="container">
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">PEN</div>
+    <div class="logo-text">
+      PORTER EMPIRE
+      <span>NETWORK</span>
+    </div>
+  </a>
 
-    <section class="hero">
+  <a
+    class="company-email"
+    href="mailto:porterempirenetwork@gmail.com"
+  >
+    porterempirenetwork@gmail.com
+  </a>
+</nav>
 
-      <div class="brand">
-        <div class="brand-mark">PE</div>
-        <div class="brand-name">PORTER EMPIRE NETWORK</div>
-      </div>
+<main>
 
-      <div class="eyebrow">A NEW KIND OF NETWORK</div>
+<div class="signup-wrapper">
 
-      <h1>
-        People with vision.<br>
-        <span class="gold">Connections with purpose.</span>
-      </h1>
+<div class="eyebrow">Porter Empire Network</div>
 
-      <p class="hero-copy">
-        Porter Empire Network brings ambitious people into the same room —
-        entrepreneurs, professionals, creators, students, builders and people
-        ready for their next move.
-      </p>
+<h1>Build Your Empire.</h1>
 
-      <div class="benefits">
+<p class="subtitle">
+Create your PEN account and take the first step toward connecting
+with entrepreneurs, professionals, creatives, and leaders.
+</p>
 
-        <div class="benefit">
-          <span>01</span>
-          Discover ambitious people
-        </div>
+<div class="card">
 
-        <div class="benefit">
-          <span>02</span>
-          Build meaningful connections
-        </div>
+<div id="errorMessage" class="message error"></div>
 
-        <div class="benefit">
-          <span>03</span>
-          Find opportunities
-        </div>
+<form id="signupForm">
 
-        <div class="benefit">
-          <span>04</span>
-          Grow together
-        </div>
+<div class="form-group">
+<label for="fullName">Full Name</label>
+<input
+  id="fullName"
+  type="text"
+  placeholder="Your full name"
+  autocomplete="name"
+  required
+>
+</div>
 
-      </div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input
+  id="email"
+  type="email"
+  placeholder="you@example.com"
+  autocomplete="email"
+  required
+>
+</div>
 
-    </section>
+<div class="form-group">
+<label for="password">Create Password</label>
 
-    <section class="form-area">
+<div class="password-wrap">
 
-      <h2 class="form-title">Join the Network</h2>
+<input
+  id="password"
+  type="password"
+  placeholder="At least 8 characters"
+  autocomplete="new-password"
+  minlength="8"
+  required
+>
 
-      <p class="form-subtitle">
-        Create your PEN profile and put yourself in the room with people who
-        are building what comes next.
-      </p>
+<button
+  type="button"
+  class="show-password"
+  onclick="togglePassword('password', this)"
+>
+Show
+</button>
 
-      <form id="joinForm">
+</div>
+</div>
 
-        <!-- PHOTO -->
+<div class="form-group">
+<label for="confirmPassword">Confirm Password</label>
 
-        <div class="photo-upload">
+<div class="password-wrap">
 
-          <div class="photo-row">
+<input
+  id="confirmPassword"
+  type="password"
+  placeholder="Re-enter your password"
+  autocomplete="new-password"
+  required
+>
 
-            <div class="photo-preview" id="photoPreview">
-              PE
-            </div>
+<button
+  type="button"
+  class="show-password"
+  onclick="togglePassword('confirmPassword', this)"
+>
+Show
+</button>
 
-            <div class="photo-info">
+</div>
+</div>
 
-              <strong>Add your profile picture</strong>
+<label class="terms">
+<input type="checkbox" id="agree" required>
 
-              <small>
-                Use a clear photo that represents you professionally.
-                JPG, PNG or WEBP recommended.
-              </small>
+<span>
+I agree to create a Porter Empire Network account and provide
+accurate information for my member profile.
+</span>
 
-              <div>
-                <label for="photoInput" class="upload-button">
-                  Choose Photo
-                </label>
+</label>
 
-                <button
-                  type="button"
-                  class="remove-photo"
-                  id="removePhoto"
-                >
-                  Remove
-                </button>
-              </div>
+<button class="button" type="submit">
+Create My PEN Account →
+</button>
 
-            </div>
+</form>
 
-          </div>
+</div>
+</div>
 
-          <input
-            type="file"
-            id="photoInput"
-            accept="image/png,image/jpeg,image/webp"
-          >
+</main>
 
-        </div>
-
-        <div class="grid">
-
-          <label>
-            Full Name
-            <input
-              id="fullName"
-              required
-              placeholder="Your full name"
-            >
-          </label>
-
-          <label>
-            Email
-            <input
-              id="email"
-              type="email"
-              required
-              placeholder="you@example.com"
-            >
-          </label>
-
-        </div>
-
-        <div class="grid">
-
-          <label>
-            Phone
-            <input
-              id="phone"
-              placeholder="Optional"
-            >
-          </label>
-
-          <label>
-            Location
-            <input
-              id="location"
-              placeholder="City, State"
-            >
-          </label>
-
-        </div>
-
-        <div class="grid">
-
-          <label>
-            Category
-            <select id="category" required>
-              <option value="">Choose one</option>
-              <option>Entrepreneur</option>
-              <option>Professional</option>
-              <option>Creator</option>
-              <option>Artist</option>
-              <option>Model</option>
-              <option>Student</option>
-              <option>Business</option>
-              <option>Builder</option>
-              <option>Other</option>
-            </select>
-          </label>
-
-          <label>
-            Profession / Role
-            <input
-              id="profession"
-              required
-              placeholder="Founder, Designer, Artist..."
-            >
-          </label>
-
-        </div>
-
-        <label>
-          Skills
-          <input
-            id="skills"
-            placeholder="Photography, marketing, fashion, coding..."
-          >
-        </label>
-
-        <label>
-          What are you looking for?
-          <input
-            id="looking"
-            placeholder="Collaborations, clients, mentors, opportunities..."
-          >
-        </label>
-
-        <label>
-          Bio
-          <textarea
-            id="bio"
-            placeholder="Tell the network who you are..."
-          ></textarea>
-        </label>
-
-        <label>
-          Socials
-          <input
-            id="socials"
-            placeholder="@username or social link"
-          >
-        </label>
-
-        <label class="agreement">
-          <input id="agree" type="checkbox" required>
-          <span>
-            I agree to be part of the Porter Empire Network and understand
-            that my profile may be visible to other members.
-          </span>
-        </label>
-
-        <button class="submit" type="submit">
-          JOIN THE NETWORK →
-        </button>
-
-        <div class="note">
-          Your profile information is saved in this browser for this prototype.
-        </div>
-
-      </form>
-
-    </section>
-
-  </main>
+<footer>
+<strong>PORTER EMPIRE NETWORK</strong><br>
+Building connections. Creating opportunities. Building empires.<br><br>
+<a href="mailto:porterempirenetwork@gmail.com">
+porterempirenetwork@gmail.com
+</a>
+</footer>
 
 </div>
 
 <script>
 
-  const photoInput = document.getElementById("photoInput");
-  const photoPreview = document.getElementById("photoPreview");
-  const removePhoto = document.getElementById("removePhoto");
+function togglePassword(id, button) {
 
-  let profilePhoto = "";
+  const input = document.getElementById(id);
 
-  function initials(name) {
-
-    if (!name) return "PE";
-
-    return name
-      .trim()
-      .split(/\s+/)
-      .slice(0,2)
-      .map(word => word[0])
-      .join("")
-      .toUpperCase();
-
+  if (input.type === "password") {
+    input.type = "text";
+    button.textContent = "Hide";
+  } else {
+    input.type = "password";
+    button.textContent = "Show";
   }
+}
 
-  document.getElementById("fullName").addEventListener("input", function() {
 
-    if (!profilePhoto) {
-      photoPreview.textContent = initials(this.value);
-    }
+function showError(message) {
 
+  const box = document.getElementById("errorMessage");
+
+  box.textContent = message;
+  box.style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
   });
+}
 
-  photoInput.addEventListener("change", function() {
 
-    const file = this.files[0];
+async function hashPassword(password) {
 
-    if (!file) return;
+  const encoder = new TextEncoder();
 
-    if (!file.type.startsWith("image/")) {
-      alert("Please choose an image file.");
+  const data = encoder.encode(password);
+
+  const hashBuffer = await crypto.subtle.digest(
+    "SHA-256",
+    data
+  );
+
+  return Array
+    .from(new Uint8Array(hashBuffer))
+    .map(byte => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+
+document
+  .getElementById("signupForm")
+  .addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const fullName =
+      document.getElementById("fullName").value.trim();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const confirmPassword =
+      document.getElementById("confirmPassword").value;
+
+    if (password.length < 8) {
+
+      showError(
+        "Your password must be at least 8 characters."
+      );
+
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert("Please choose an image smaller than 5MB.");
+    if (password !== confirmPassword) {
+
+      showError(
+        "Your passwords do not match."
+      );
+
       return;
     }
 
-    const reader = new FileReader();
+    if (!document.getElementById("agree").checked) {
 
-    reader.onload = function(event) {
+      showError(
+        "Please agree to the account terms."
+      );
 
-      profilePhoto = event.target.result;
+      return;
+    }
 
-      photoPreview.innerHTML =
-        `<img src="${profilePhoto}" alt="Profile preview">`;
+
+    const passwordHash =
+      await hashPassword(password);
+
+
+    const account = {
+
+      fullName: fullName,
+
+      email: email,
+
+      passwordHash: passwordHash,
+
+      createdAt: new Date().toISOString()
 
     };
 
-    reader.readAsDataURL(file);
+
+    localStorage.setItem(
+      "penAccount",
+      JSON.stringify(account)
+    );
+
+
+    /*
+      Send signup notification.
+
+      IMPORTANT:
+      Password is NEVER included in the email.
+    */
+
+    try {
+
+      const notificationForm =
+        document.createElement("form");
+
+      notificationForm.method = "POST";
+
+      notificationForm.action =
+        "https://formsubmit.co/porterempirenetwork@gmail.com";
+
+      notificationForm.target = "emailFrame";
+
+      const fields = {
+
+        _subject:
+          "New Porter Empire Network Signup",
+
+        _captcha:
+          "false",
+
+        _template:
+          "table",
+
+        Name:
+          fullName,
+
+        Email:
+          email,
+
+        Status:
+          "New PEN account created"
+
+      };
+
+
+      Object.entries(fields).forEach(
+        ([name, value]) => {
+
+          const input =
+            document.createElement("input");
+
+          input.type = "hidden";
+
+          input.name = name;
+
+          input.value = value;
+
+          notificationForm.appendChild(input);
+
+        }
+      );
+
+
+      document.body.appendChild(notificationForm);
+
+      notificationForm.submit();
+
+      notificationForm.remove();
+
+    } catch(error) {
+
+      console.log(
+        "Email notification could not be sent.",
+        error
+      );
+
+    }
+
+
+    window.location.href = "profile.html";
 
   });
 
-  removePhoto.addEventListener("click", function() {
+</script>
 
-    profilePhoto = "";
-    photoInput.value = "";
+<iframe
+  name="emailFrame"
+  style="display:none"
+></iframe>
 
-    const name =
-      document.getElementById("fullName").value;
-
-    photoPreview.textContent = initials(name);
-
-  });
-
-  document
-    .getElementById("joinForm")
-    .addEventListener("submit", function(event) {
-
-      event.preventDefault();
-
-      const profile = {
-
-        id: "me",
-
-        name:
-          document.getElementById("fullName").value.trim(),
-
-        email:
-          document.getElementById("email").value.trim(),
-
-        phone:
-          document.getElementById("phone").value.trim(),
-
-        location:
-          document.getElementById("location").value.trim(),
-
-        category:
-          document.getElementById("category").value,
-
-        profession:
-          document.getElementById("profession").value
+</body>
+</html>
