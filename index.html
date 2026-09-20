@@ -1,38 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Porter Empire Network</title>
 
   <meta
     name="description"
     content="Porter Empire Network — A new kind of network. People with vision. Connections with purpose."
-  />
+  >
 
-  <meta name="theme-color" content="#030303" />
+  <meta name="theme-color" content="#0a0a0a">
 
   <style>
     :root {
-      --black: #030303;
-      --black-2: #070707;
-      --black-3: #0c0c0c;
-      --black-4: #111111;
-
+      --black: #070707;
+      --black2: #101010;
       --gold: #d4af37;
-      --gold-light: #f2d477;
-      --gold-bright: #ffe39a;
-      --gold-dark: #8f6d16;
-
-      --white: #f6f3ea;
-      --gray: #aaa69b;
-      --gray-dark: #77736a;
-
-      --border: rgba(212, 175, 55, 0.18);
-      --border-light: rgba(255, 255, 255, 0.08);
-
-      --max: 1240px;
+      --gold2: #f0cf67;
+      --cream: #f5f0e6;
+      --muted: #a9a39a;
+      --line: rgba(212,175,55,.18);
+      --card: rgba(255,255,255,.045);
+      --white: #fff;
     }
 
     * {
@@ -46,26 +37,13 @@
     }
 
     body {
-      background: var(--black);
-      color: var(--white);
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    body::selection {
-      background: var(--gold);
-      color: #000;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(212,175,55,.12), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(212,175,55,.06), transparent 30%),
+        var(--black);
+      color: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     button,
@@ -76,2747 +54,657 @@
     }
 
     button {
-      border: 0;
+      cursor: pointer;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 18px;
     }
 
     .container {
-      width: min(calc(100% - 48px), var(--max));
-      margin: 0 auto;
-    }
-
-    /* =========================
-       BACKGROUND
-       ========================= */
-
-    .background-glow {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      border-radius: 28px;
       overflow: hidden;
+      background: rgba(10,10,10,.88);
+      box-shadow: 0 40px 100px rgba(0,0,0,.55);
+      backdrop-filter: blur(20px);
     }
-
-    .background-glow::before {
-      content: "";
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      left: -300px;
-      top: 5%;
-      background: radial-gradient(
-        circle,
-        rgba(212, 175, 55, 0.08),
-        transparent 68%
-      );
-      filter: blur(30px);
-    }
-
-    .background-glow::after {
-      content: "";
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      right: -350px;
-      top: 45%;
-      background: radial-gradient(
-        circle,
-        rgba(212, 175, 55, 0.055),
-        transparent 68%
-      );
-      filter: blur(40px);
-    }
-
-    /* =========================
-       NAVIGATION
-       ========================= */
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-
-      height: 82px;
-
-      display: flex;
-      align-items: center;
-
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-
-      background: rgba(3, 3, 3, 0.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    .nav-inner {
-      width: min(calc(100% - 48px), var(--max));
-      margin: 0 auto;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-mark {
-      width: 39px;
-      height: 39px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border: 1px solid rgba(212, 175, 55, 0.65);
-
-      color: var(--gold-light);
-
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-
-      box-shadow:
-        0 0 25px rgba(212, 175, 55, 0.08),
-        inset 0 0 15px rgba(212, 175, 55, 0.04);
-    }
-
-    .logo-text {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-    }
-
-    .nav-links a {
-      position: relative;
-
-      color: #aaa69b;
-
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a::after {
-      content: "";
-
-      position: absolute;
-      left: 0;
-      bottom: -7px;
-
-      width: 0;
-      height: 1px;
-
-      background: var(--gold);
-
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      padding: 11px 18px;
-
-      border: 1px solid rgba(212, 175, 55, 0.4);
-
-      color: var(--gold-light) !important;
-
-      background: rgba(212, 175, 55, 0.05);
-
-      transition:
-        background 0.3s ease,
-        border-color 0.3s ease,
-        transform 0.3s ease;
-    }
-
-    .nav-cta:hover {
-      background: rgba(212, 175, 55, 0.12);
-      border-color: rgba(212, 175, 55, 0.7);
-      transform: translateY(-1px);
-    }
-
-    .nav-cta::after {
-      display: none;
-    }
-
-    .menu-button {
-      display: none;
-
-      width: 42px;
-      height: 42px;
-
-      border: 1px solid rgba(255, 255, 255, 0.1);
-
-      background: transparent;
-      color: var(--gold-light);
-
-      cursor: pointer;
-    }
-
-    /* =========================
-       HERO
-       ========================= */
 
     .hero {
-      position: relative;
-      min-height: 100vh;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(212,175,55,.13), transparent 50%),
+        #0a0a0a;
+      border-right: 1px solid var(--line);
+    }
 
+    .brand {
       display: flex;
       align-items: center;
-
-      padding: 150px 0 90px;
-
-      overflow: hidden;
+      gap: 14px;
+      margin-bottom: 50px;
     }
 
-    .hero::before {
-      content: "";
-
-      position: absolute;
-      width: 850px;
-      height: 850px;
-
-      right: -350px;
-      top: -250px;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(212, 175, 55, 0.1),
-          rgba(212, 175, 55, 0.025) 34%,
-          transparent 70%
-        );
-
-      filter: blur(8px);
-      pointer-events: none;
-    }
-
-    .hero-grid {
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--gold);
+      border-radius: 14px;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: center;
-      gap: 70px;
+      place-items: center;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      letter-spacing: .18em;
+      font-weight: 800;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      color: var(--gold2);
+      font-size: 12px;
+      letter-spacing: .22em;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
 
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(46px, 6vw, 76px);
+      line-height: .95;
       margin-bottom: 25px;
-
-      color: var(--gold-light);
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-
-      width: 30px;
-      height: 1px;
-
-      background: var(--gold);
-    }
-
-    .hero h1 {
-      max-width: 850px;
-
-      font-size: clamp(52px, 7.5vw, 108px);
-      line-height: 0.94;
-
-      font-weight: 700;
-      letter-spacing: -0.055em;
-      text-transform: uppercase;
-    }
-
-    .gold-text {
-      background:
-        linear-gradient(
-          110deg,
-          #a47d19 0%,
-          #d4af37 28%,
-          #ffe39a 48%,
-          #d4af37 70%,
-          #987218 100%
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      letter-spacing: -.04em;
     }
 
     .hero-copy {
-      max-width: 570px;
-
-      margin-top: 30px;
-
-      color: #9d998f;
-
-      font-size: 17px;
+      color: var(--muted);
       line-height: 1.8;
+      max-width: 500px;
+      font-size: 16px;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
+    .gold {
+      color: var(--gold2);
+    }
 
+    .benefits {
+      display: grid;
+      gap: 12px;
       margin-top: 38px;
     }
 
-    .button {
-      min-height: 51px;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .benefit {
+      display: flex;
       gap: 12px;
-
-      padding: 0 22px;
-
-      border: 1px solid rgba(212, 175, 55, 0.5);
-
-      color: #080808;
-
-      background: linear-gradient(
-        135deg,
-        #a77f1c,
-        #e3c04f,
-        #b68c24
-      );
-
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-
-      cursor: pointer;
-
-      box-shadow: 0 10px 40px rgba(212, 175, 55, 0.08);
-
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 50px rgba(212, 175, 55, 0.15);
-    }
-
-    .button-outline {
-      color: var(--gold-light);
-      background: transparent;
-
-      box-shadow: none;
-    }
-
-    .button-outline:hover {
-      background: rgba(212, 175, 55, 0.06);
-    }
-
-    .hero-symbol-wrap {
-      position: relative;
-
-      display: flex;
       align-items: center;
-      justify-content: center;
-
-      min-height: 450px;
+      color: #ddd6ca;
+      font-size: 14px;
     }
 
-    .hero-symbol {
-      position: relative;
-
-      width: min(390px, 70vw);
-      aspect-ratio: 1;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border: 1px solid rgba(212, 175, 55, 0.2);
-
-      transform: rotate(45deg);
-
-      box-shadow:
-        0 0 100px rgba(212, 175, 55, 0.07),
-        inset 0 0 70px rgba(212, 175, 55, 0.025);
-    }
-
-    .hero-symbol::before,
-    .hero-symbol::after {
-      content: "";
-
-      position: absolute;
-
-      border: 1px solid rgba(212, 175, 55, 0.16);
-    }
-
-    .hero-symbol::before {
-      inset: 35px;
-    }
-
-    .hero-symbol::after {
-      inset: 70px;
-    }
-
-    .hero-symbol-inner {
-      width: 58%;
-
-      aspect-ratio: 1;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border: 1px solid rgba(212, 175, 55, 0.35);
-
-      transform: rotate(-45deg);
-
-      color: var(--gold-light);
-
-      font-size: clamp(38px, 6vw, 65px);
-      font-weight: 800;
-      letter-spacing: -0.1em;
-
-      box-shadow:
-        0 0 55px rgba(212, 175, 55, 0.08),
-        inset 0 0 40px rgba(212, 175, 55, 0.035);
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 35px;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      color: #666158;
-
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .hero-scroll::after {
-      content: "";
-
-      display: block;
-
-      width: 1px;
-      height: 32px;
-
-      margin: 10px auto 0;
-
-      background: linear-gradient(
-        to bottom,
-        var(--gold),
-        transparent
-      );
-    }
-
-    /* =========================
-       MARQUEE
-       ========================= */
-
-    .marquee {
-      overflow: hidden;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-      background: #050505;
-    }
-
-    .marquee-track {
-      width: max-content;
-
-      display: flex;
-      align-items: center;
-      gap: 45px;
-
-      padding: 19px 0;
-
-      animation: marquee 26s linear infinite;
-    }
-
-    .marquee span {
-      color: #7e796e;
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-    }
-
-    .marquee .dot {
-      width: 4px;
-      height: 4px;
-
-      border-radius: 50%;
-
-      background: var(--gold);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
-    }
-
-    @keyframes marquee {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* =========================
-       SECTIONS
-       ========================= */
-
-    section {
-      position: relative;
-    }
-
-    .section {
-      padding: 125px 0;
-    }
-
-    .section-heading {
-      max-width: 750px;
-      margin-bottom: 55px;
-    }
-
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
-      margin-bottom: 17px;
-
-      color: var(--gold-light);
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .section-label::before {
-      content: "";
-
-      width: 25px;
-      height: 1px;
-
-      background: var(--gold);
-    }
-
-    .section-title {
-      font-size: clamp(38px, 5vw, 70px);
-      line-height: 1;
-
-      font-weight: 650;
-      letter-spacing: -0.045em;
-      text-transform: uppercase;
-    }
-
-    .section-copy {
-      max-width: 650px;
-
-      margin-top: 20px;
-
-      color: #929087;
-
-      font-size: 16px;
-      line-height: 1.8;
-    }
-
-    /* =========================
-       NETWORK
-       ========================= */
-
-    .network-grid {
+    .benefit span {
+      width: 26px;
+      height: 26px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-
-      border: 1px solid rgba(255, 255, 255, 0.06);
-
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .network-card {
-      position: relative;
-
-      min-height: 245px;
-
-      padding: 32px;
-
-      background: var(--black-2);
-
-      overflow: hidden;
-
-      transition:
-        background 0.35s ease,
-        transform 0.35s ease;
-    }
-
-    .network-card::before {
-      content: "";
-
-      position: absolute;
-
-      left: 0;
-      top: 0;
-
-      width: 2px;
-      height: 0;
-
-      background: var(--gold);
-
-      transition: height 0.35s ease;
-    }
-
-    .network-card:hover {
-      background: #0a0a0a;
-      transform: translateY(-2px);
-    }
-
-    .network-card:hover::before {
-      height: 100%;
-    }
-
-    .card-number {
-      color: var(--gold-dark);
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-    }
-
-    .network-card h3 {
-      margin-top: 60px;
-
-      font-size: 23px;
-      line-height: 1.05;
-
-      letter-spacing: -0.025em;
-      text-transform: uppercase;
-    }
-
-    .network-card p {
-      margin-top: 13px;
-
-      color: #7f7b72;
-
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    /* =========================
-       MANIFESTO
-       ========================= */
-
-    .manifesto {
-      padding: 145px 0;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(212, 175, 55, 0.035),
-          transparent 50%
-        ),
-        #050505;
-    }
-
-    .manifesto-inner {
-      max-width: 1050px;
-      margin: 0 auto;
-
-      text-align: center;
-    }
-
-    .manifesto-small {
-      color: var(--gold-light);
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
-
-    .manifesto h2 {
-      margin-top: 25px;
-
-      font-size: clamp(39px, 6vw, 82px);
-      line-height: 1.02;
-
-      font-weight: 650;
-      letter-spacing: -0.055em;
-      text-transform: uppercase;
-    }
-
-    .manifesto h2 span {
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--line);
       color: var(--gold);
+      font-size: 11px;
     }
 
-    .manifesto p {
-      max-width: 670px;
-
-      margin: 30px auto 0;
-
-      color: #8e8a80;
-
-      font-size: 16px;
-      line-height: 1.85;
+    .form-area {
+      padding: 42px;
+      background: rgba(255,255,255,.02);
     }
 
-    /* =========================
-       CONNECT / RISE
-       ========================= */
+    .form-title {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
 
-    .feature-grid {
+    .form-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    form {
+      display: grid;
+      gap: 17px;
+    }
+
+    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: #ddd6ca;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.1);
+      background: #111;
+      color: white;
+      border-radius: 13px;
+      padding: 14px;
+      outline: none;
+      transition: .2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* PHOTO UPLOAD */
+
+    .photo-upload {
+      border: 1px dashed rgba(212,175,55,.4);
+      border-radius: 20px;
+      padding: 20px;
+      background: rgba(212,175,55,.035);
+    }
+
+    .photo-row {
+      display: flex;
+      align-items: center;
       gap: 18px;
     }
 
-    .feature-panel {
-      position: relative;
-
-      min-height: 450px;
-
-      padding: 42px;
-
-      border: 1px solid rgba(255, 255, 255, 0.07);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.025),
-          rgba(255, 255, 255, 0)
-        ),
-        #080808;
-
-      overflow: hidden;
-    }
-
-    .feature-panel::after {
-      content: "";
-
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      right: -140px;
-      bottom: -150px;
-
+    .photo-preview {
+      width: 86px;
+      height: 86px;
+      min-width: 86px;
       border-radius: 50%;
-
-      background: rgba(212, 175, 55, 0.055);
-
-      filter: blur(15px);
-    }
-
-    .feature-number {
-      color: var(--gold-dark);
-
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-    }
-
-    .feature-panel h3 {
-      margin-top: 95px;
-
-      font-size: clamp(38px, 4vw, 57px);
-      line-height: 0.95;
-
-      letter-spacing: -0.045em;
-      text-transform: uppercase;
-    }
-
-    .feature-panel p {
-      max-width: 470px;
-
-      margin-top: 20px;
-
-      color: #8c887e;
-
-      font-size: 14px;
-      line-height: 1.75;
-    }
-
-    .feature-line {
-      position: absolute;
-
-      left: 42px;
-      right: 42px;
-      bottom: 40px;
-
-      height: 1px;
-
-      background: linear-gradient(
-        90deg,
-        var(--gold),
-        rgba(212, 175, 55, 0.05)
-      );
-    }
-
-    /* =========================
-       VISION
-       ========================= */
-
-    .vision {
-      background: #060606;
-    }
-
-    .vision-grid {
+      overflow: hidden;
+      border: 2px solid rgba(212,175,55,.6);
+      background: linear-gradient(135deg,#171717,#252525);
       display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 90px;
-      align-items: center;
-    }
-
-    .vision-symbol {
-      width: min(370px, 75vw);
-      aspect-ratio: 1;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin: 0 auto;
-
-      border: 1px solid rgba(212, 175, 55, 0.22);
-
-      color: var(--gold-light);
-
-      font-size: 76px;
-      font-weight: 800;
-      letter-spacing: -0.1em;
-
-      box-shadow:
-        0 0 90px rgba(212, 175, 55, 0.05),
-        inset 0 0 60px rgba(212, 175, 55, 0.025);
-    }
-
-    .vision-text h2 {
-      font-size: clamp(42px, 5vw, 70px);
-      line-height: 0.98;
-
-      letter-spacing: -0.05em;
-      text-transform: uppercase;
-    }
-
-    .vision-text h2 span {
+      place-items: center;
       color: var(--gold);
+      font-weight: 900;
+      font-size: 22px;
     }
 
-    .vision-text p {
-      max-width: 620px;
-
-      margin-top: 28px;
-
-      color: #918d83;
-
-      font-size: 16px;
-      line-height: 1.85;
+    .photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .vision-points {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-
-      margin-top: 38px;
+    .photo-info {
+      flex: 1;
     }
 
-    .vision-point {
-      padding-top: 17px;
-
-      border-top: 1px solid rgba(212, 175, 55, 0.18);
-    }
-
-    .vision-point strong {
+    .photo-info strong {
       display: block;
-
-      color: var(--gold-light);
-
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      margin-bottom: 5px;
     }
 
-    .vision-point span {
-      display: block;
+    .photo-info small {
+      color: var(--muted);
+      line-height: 1.5;
+    }
 
-      margin-top: 8px;
-
-      color: #77736b;
-
+    .upload-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: rgba(212,175,55,.12);
+      border: 1px solid rgba(212,175,55,.3);
+      color: var(--gold2);
       font-size: 12px;
-      line-height: 1.6;
+      font-weight: 800;
+      cursor: pointer;
     }
 
-    /* =========================
-       APPLICATION
-       ========================= */
-
-    .join-section {
-      padding: 130px 0;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-      background:
-        radial-gradient(
-          circle at 80% 30%,
-          rgba(212, 175, 55, 0.06),
-          transparent 40%
-        ),
-        #030303;
+    #photoInput {
+      display: none;
     }
 
-    .join-grid {
-      display: grid;
-      grid-template-columns: 0.72fr 1.28fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .join-copy h2 {
-      font-size: clamp(45px, 5vw, 73px);
-      line-height: 0.95;
-
-      letter-spacing: -0.055em;
-      text-transform: uppercase;
-    }
-
-    .join-copy h2 span {
-      color: var(--gold);
-    }
-
-    .join-copy p {
-      max-width: 420px;
-
-      margin-top: 25px;
-
-      color: #8c887e;
-
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .join-note {
-      margin-top: 35px;
-
-      padding-left: 17px;
-
-      border-left: 1px solid var(--gold-dark);
-
-      color: #666259;
-
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .application-form {
-      width: 100%;
-
-      padding: 34px;
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.025),
-          rgba(255, 255, 255, 0)
-        ),
-        #080808;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .field {
-      width: 100%;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      display: block;
-
-      margin-bottom: 9px;
-
-      color: #8f8a7f;
-
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-
-      padding: 14px 15px;
-
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      outline: none;
-
-      background: #050505;
-      color: #eeeade;
-
-      font-size: 13px;
-
-      transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .field input::placeholder,
-    .field textarea::placeholder {
-      color: #4e4b46;
-    }
-
-    .field textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .field select {
-      appearance: none;
-      -webkit-appearance: none;
-
-      background-image:
-        linear-gradient(45deg, transparent 50%, #777 50%),
-        linear-gradient(135deg, #777 50%, transparent 50%);
-      background-position:
-        calc(100% - 17px) 18px,
-        calc(100% - 12px) 18px;
-      background-size:
-        5px 5px,
-        5px 5px;
-      background-repeat: no-repeat;
-    }
-
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      border-color: rgba(212, 175, 55, 0.55);
-
-      box-shadow:
-        0 0 0 2px rgba(212, 175, 55, 0.04),
-        0 0 25px rgba(212, 175, 55, 0.035);
+    .remove-photo {
+      background: transparent;
+      border: 0;
+      color: #aaa;
+      font-size: 12px;
+      margin-left: 8px;
     }
 
     .agreement {
-      grid-column: 1 / -1;
-
-      width: 100%;
-
       display: flex;
       align-items: flex-start;
-      justify-content: flex-start;
-
-      gap: 11px;
-
-      margin-top: 3px;
-
-      color: #89857b;
-
+      gap: 10px;
+      color: var(--muted);
       font-size: 12px;
-      line-height: 1.6;
-
-      text-align: left;
+      line-height: 1.5;
     }
 
     .agreement input {
-      flex: 0 0 17px;
-
-      width: 17px;
-      height: 17px;
-
-      margin-top: 2px;
-
-      accent-color: var(--gold);
+      width: auto;
+      margin-top: 3px;
     }
 
-    .agreement span {
-      display: block;
-
-      width: 100%;
-      max-width: 100%;
-
-      text-align: left;
+    .submit {
+      border: 0;
+      border-radius: 14px;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      color: #0a0a0a;
+      font-weight: 900;
+      letter-spacing: .04em;
+      box-shadow: 0 15px 40px rgba(212,175,55,.16);
+      transition: .2s;
     }
 
-    .submit-btn {
-      grid-column: 1 / -1;
-
-      width: 100%;
-
-      min-height: 56px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 20px;
-
-      border: 1px solid rgba(212, 175, 55, 0.45);
-
-      background:
-        linear-gradient(
-          120deg,
-          #9d771b,
-          #e1bd4b,
-          #a47c1d
-        );
-
-      color: #070707;
-
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .submit-btn:hover {
+    .submit:hover {
       transform: translateY(-2px);
-
-      box-shadow:
-        0 12px 35px rgba(212, 175, 55, 0.12);
+      box-shadow: 0 20px 50px rgba(212,175,55,.25);
     }
 
-    .submit-btn:disabled {
-      pointer-events: none;
-      opacity: 0.65;
-      cursor: wait;
-    }
-
-    .submit-arrow {
-      font-size: 20px;
-      font-weight: 400;
-    }
-
-    /* =========================
-       FORM STATUS
-       ========================= */
-
-    .form-status {
-      grid-column: 1 / -1;
-
-      width: 100%;
-
-      margin-top: 18px;
-
-      text-align: left;
-
-      transition: all 0.3s ease;
-    }
-
-    .form-status.sending {
-      color: #aaa;
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .success-message {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-
-      width: 100%;
-
-      padding: 18px 20px;
-
-      border: 1px solid rgba(212, 175, 55, 0.35);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(212, 175, 55, 0.08),
-          rgba(255, 255, 255, 0.02)
-        );
-    }
-
-    .success-mark {
-      width: 38px;
-      height: 38px;
-
-      flex: 0 0 38px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border: 1px solid var(--gold);
-
-      color: var(--gold-light);
-
-      font-size: 18px;
-    }
-
-    .success-message strong {
-      display: block;
-
-      margin-bottom: 4px;
-
-      color: var(--gold-light);
-
+    .note {
+      text-align: center;
+      color: #777;
       font-size: 11px;
-      letter-spacing: 0.16em;
+      line-height: 1.5;
     }
 
-    .success-message span {
-      display: block;
-
-      color: #9b978d;
-
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .error-message {
-      padding: 16px 18px;
-
-      border: 1px solid rgba(180, 60, 60, 0.4);
-
-      background: rgba(120, 30, 30, 0.08);
-    }
-
-    .error-message strong {
-      display: block;
-
-      margin-bottom: 5px;
-
-      color: #e9a0a0;
-
-      font-size: 11px;
-      letter-spacing: 0.12em;
-    }
-
-    .error-message span {
-      color: #aaa;
-
-      font-size: 12px;
-    }
-
-    /* =========================
-       FOOTER
-       ========================= */
-
-    footer {
-      padding: 45px 0 30px;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-      background: #020202;
-    }
-
-    .footer-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 30px;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer-brand .logo-mark {
-      width: 34px;
-      height: 34px;
-      font-size: 11px;
-    }
-
-    .footer-brand span {
-      color: #8d887e;
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 25px;
-    }
-
-    .footer-links a {
-      color: #625f58;
-
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-
-      margin-top: 35px;
-      padding-top: 20px;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.045);
-
-      color: #4d4a44;
-
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    /* =========================
-       REVEAL
-       ========================= */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-
-      transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================
-       MOBILE
-       ========================= */
-
-    @media (max-width: 900px) {
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-symbol-wrap {
-        min-height: 350px;
-      }
-
-      .network-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .vision-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .vision-symbol {
-        margin-bottom: 30px;
-      }
-
-      .join-grid {
-        grid-template-columns: 1fr;
-        gap: 55px;
-      }
-
-      .nav-links {
-        position: fixed;
-
-        left: 20px;
-        right: 20px;
-        top: 75px;
-
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-
-        padding: 20px;
-
-        border: 1px solid rgba(255, 255, 255, 0.08);
-
-        background: rgba(5, 5, 5, 0.97);
-
-        backdrop-filter: blur(20px);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links a {
-        padding: 13px 5px;
-      }
-
-      .menu-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .nav-cta {
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 650px) {
-
+    @media(max-width:850px) {
       .container {
-        width: min(calc(100% - 30px), var(--max));
-      }
-
-      .nav-inner {
-        width: min(calc(100% - 30px), var(--max));
-      }
-
-      .navbar {
-        height: 72px;
-      }
-
-      .logo-text {
-        font-size: 10px;
+        grid-template-columns: 1fr;
       }
 
       .hero {
-        padding-top: 125px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 42px 28px;
       }
 
-      .hero h1 {
-        font-size: clamp(47px, 14vw, 76px);
-      }
-
-      .hero-copy {
-        font-size: 15px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .hero-symbol-wrap {
-        min-height: 285px;
-      }
-
-      .hero-symbol {
-        width: 245px;
-      }
-
-      .hero-scroll {
-        display: none;
-      }
-
-      .section {
-        padding: 90px 0;
-      }
-
-      .network-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .network-card {
-        min-height: 210px;
-      }
-
-      .network-card h3 {
-        margin-top: 45px;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .feature-panel {
-        min-height: 390px;
+      .form-area {
         padding: 28px;
-      }
-
-      .feature-panel h3 {
-        margin-top: 70px;
-      }
-
-      .feature-line {
-        left: 28px;
-        right: 28px;
-        bottom: 28px;
-      }
-
-      .manifesto {
-        padding: 100px 0;
-      }
-
-      .vision-points {
-        grid-template-columns: 1fr;
-      }
-
-      .application-form {
-        padding: 22px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .field.full,
-      .agreement,
-      .submit-btn,
-      .form-status {
-        grid-column: 1;
-      }
-
-      .agreement {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .agreement span {
-        width: auto;
-      }
-
-      .success-message {
-        align-items: flex-start;
-      }
-
-      .footer-top,
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-links {
-        flex-wrap: wrap;
       }
     }
 
+    @media(max-width:520px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      .photo-row {
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="background-glow"></div>
+<div class="page">
 
-  <!-- =========================
-       NAVIGATION
-       ========================= -->
-
-  <header class="navbar">
-
-    <div class="nav-inner">
-
-      <a href="#top" class="logo">
-
-        <div class="logo-mark">
-          PE
-        </div>
-
-        <div class="logo-text">
-          PORTER EMPIRE NETWORK
-        </div>
-
-      </a>
-
-      <nav class="nav-links" id="navLinks">
-
-        <a href="#network">
-          Network
-        </a>
-
-        <a href="#why">
-          Why PEN
-        </a>
-
-        <a href="#vision">
-          Vision
-        </a>
-
-        <a href="#join" class="nav-cta">
-          Join PEN
-        </a>
-
-      </nav>
-
-      <button
-        class="menu-button"
-        id="menuButton"
-        aria-label="Open menu"
-        type="button"
-      >
-        ☰
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <main id="top">
-
-    <!-- =========================
-         HERO
-         ========================= -->
+  <main class="container">
 
     <section class="hero">
 
-      <div class="container">
+      <div class="brand">
+        <div class="brand-mark">PE</div>
+        <div class="brand-name">PORTER EMPIRE NETWORK</div>
+      </div>
 
-        <div class="hero-grid">
+      <div class="eyebrow">A NEW KIND OF NETWORK</div>
 
-          <div class="hero-content reveal">
+      <h1>
+        People with vision.<br>
+        <span class="gold">Connections with purpose.</span>
+      </h1>
 
-            <div class="eyebrow">
-              Porter Empire Network
-            </div>
+      <p class="hero-copy">
+        Porter Empire Network brings ambitious people into the same room —
+        entrepreneurs, professionals, creators, students, builders and people
+        ready for their next move.
+      </p>
 
-            <h1>
-              A New Kind
-              <br>
-              Of <span class="gold-text">Network.</span>
-            </h1>
+      <div class="benefits">
 
-            <p class="hero-copy">
-              People with vision.
-              Connections with purpose.
-              Porter Empire Network brings ambitious people
-              into the same room — entrepreneurs, professionals,
-              creators, students, builders and people ready
-              for their next move.
-            </p>
-
-            <div class="hero-actions">
-
-              <a
-                href="#join"
-                class="button"
-              >
-                Join The Network
-                <span>→</span>
-              </a>
-
-              <a
-                href="#why"
-                class="button button-outline"
-              >
-                See Connect & Rise
-              </a>
-
-            </div>
-
-          </div>
-
-
-          <div class="hero-symbol-wrap reveal">
-
-            <div class="hero-symbol">
-
-              <div class="hero-symbol-inner">
-                PE
-              </div>
-
-            </div>
-
-          </div>
-
+        <div class="benefit">
+          <span>01</span>
+          Discover ambitious people
         </div>
 
-      </div>
-
-      <div class="hero-scroll">
-        Scroll
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         MARQUEE
-         ========================= -->
-
-    <div class="marquee">
-
-      <div class="marquee-track">
-
-        <span>Connect</span>
-        <div class="dot"></div>
-
-        <span>Grow</span>
-        <div class="dot"></div>
-
-        <span>Move Forward</span>
-        <div class="dot"></div>
-
-        <span>Porter Empire Network</span>
-        <div class="dot"></div>
-
-        <span>Connect</span>
-        <div class="dot"></div>
-
-        <span>Grow</span>
-        <div class="dot"></div>
-
-        <span>Move Forward</span>
-        <div class="dot"></div>
-
-        <span>Porter Empire Network</span>
-        <div class="dot"></div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================
-         NETWORK
-         ========================= -->
-
-    <section
-      class="section"
-      id="network"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-label">
-            The Network
-          </div>
-
-          <h2 class="section-title">
-            Different Paths.
-            <span class="gold-text">One Room.</span>
-          </h2>
-
-          <p class="section-copy">
-            PEN is built for people who understand that
-            the right connection can change the direction
-            of an entire future.
-          </p>
-
+        <div class="benefit">
+          <span>02</span>
+          Build meaningful connections
         </div>
 
+        <div class="benefit">
+          <span>03</span>
+          Find opportunities
+        </div>
 
-        <div class="network-grid">
-
-          <div class="network-card reveal">
-            <div class="card-number">01</div>
-
-            <h3>
-              Entrepreneurs
-            </h3>
-
-            <p>
-              Founders and business-minded people building
-              ideas into something real.
-            </p>
-          </div>
-
-
-          <div class="network-card reveal">
-            <div class="card-number">02</div>
-
-            <h3>
-              Professionals
-            </h3>
-
-            <p>
-              Career-driven people expanding their network,
-              opportunities and influence.
-            </p>
-          </div>
-
-
-          <div class="network-card reveal">
-            <div class="card-number">03</div>
-
-            <h3>
-              Creators
-            </h3>
-
-            <p>
-              Artists, designers, storytellers and creators
-              turning imagination into impact.
-            </p>
-          </div>
-
-
-          <div class="network-card reveal">
-            <div class="card-number">04</div>
-
-            <h3>
-              Students
-            </h3>
-
-            <p>
-              Ambitious students building relationships
-              before they need them.
-            </p>
-          </div>
-
-
-          <div class="network-card reveal">
-            <div class="card-number">05</div>
-
-            <h3>
-              Builders
-            </h3>
-
-            <p>
-              People who don't wait for opportunities —
-              they create them.
-            </p>
-          </div>
-
-
-          <div class="network-card reveal">
-            <div class="card-number">06</div>
-
-            <h3>
-              The Next Move
-            </h3>
-
-            <p>
-              For anyone ready to meet better people,
-              discover new possibilities and move forward.
-            </p>
-          </div>
-
+        <div class="benefit">
+          <span>04</span>
+          Grow together
         </div>
 
       </div>
 
     </section>
 
+    <section class="form-area">
 
-    <!-- =========================
-         MANIFESTO
-         ========================= -->
+      <h2 class="form-title">Join the Network</h2>
 
-    <section
-      class="manifesto"
-      id="why"
-    >
+      <p class="form-subtitle">
+        Create your PEN profile and put yourself in the room with people who
+        are building what comes next.
+      </p>
 
-      <div class="container">
+      <form id="joinForm">
 
-        <div class="manifesto-inner reveal">
+        <!-- PHOTO -->
 
-          <div class="manifesto-small">
-            The PEN Philosophy
-          </div>
+        <div class="photo-upload">
 
-          <h2>
-            Your Network
-            <br>
-            Should Move
-            <br>
-            <span>You Forward.</span>
-          </h2>
+          <div class="photo-row">
 
-          <p>
-            PEN is more than meeting people.
-            It's about creating an environment where
-            ambition meets opportunity, where conversations
-            become relationships and relationships become
-            possibilities.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONNECT / RISE
-         ========================= -->
-
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-label">
-            What We Build
-          </div>
-
-          <h2 class="section-title">
-            Connect.
-            <span class="gold-text">Rise.</span>
-          </h2>
-
-        </div>
-
-
-        <div class="feature-grid">
-
-          <div class="feature-panel reveal">
-
-            <div class="feature-number">
-              01 — CONNECT
+            <div class="photo-preview" id="photoPreview">
+              PE
             </div>
 
-            <h3>
-              Meet People
-              <br>
-              With Purpose.
-            </h3>
+            <div class="photo-info">
 
-            <p>
-              Get into rooms with people who are building,
-              creating, learning, leading and looking for
-              meaningful connections.
-            </p>
+              <strong>Add your profile picture</strong>
 
-            <div class="feature-line"></div>
+              <small>
+                Use a clear photo that represents you professionally.
+                JPG, PNG or WEBP recommended.
+              </small>
 
-          </div>
+              <div>
+                <label for="photoInput" class="upload-button">
+                  Choose Photo
+                </label>
 
-
-          <div class="feature-panel reveal">
-
-            <div class="feature-number">
-              02 — RISE
-            </div>
-
-            <h3>
-              Turn
-              <br>
-              Connections
-              <br>
-              Into Momentum.
-            </h3>
-
-            <p>
-              A conversation can become a collaboration.
-              A collaboration can become an opportunity.
-              PEN exists to help those moments happen.
-            </p>
-
-            <div class="feature-line"></div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         VISION
-         ========================= -->
-
-    <section
-      class="section vision"
-      id="vision"
-    >
-
-      <div class="container">
-
-        <div class="vision-grid">
-
-          <div class="vision-symbol reveal">
-            PE
-          </div>
-
-
-          <div class="vision-text reveal">
-
-            <div class="section-label">
-              The Vision
-            </div>
-
-            <h2>
-              Build The
-              <br>
-              <span>Room.</span>
-            </h2>
-
-            <p>
-              The vision behind Porter Empire Network is
-              simple: create a network where ambitious people
-              can find each other, exchange ideas, create
-              opportunities and move forward together.
-            </p>
-
-
-            <div class="vision-points">
-
-              <div class="vision-point">
-
-                <strong>
-                  People
-                </strong>
-
-                <span>
-                  Surround yourself with people
-                  who are going somewhere.
-                </span>
-
-              </div>
-
-
-              <div class="vision-point">
-
-                <strong>
-                  Purpose
-                </strong>
-
-                <span>
-                  Build relationships that have
-                  meaning beyond the introduction.
-                </span>
-
-              </div>
-
-
-              <div class="vision-point">
-
-                <strong>
-                  Opportunity
-                </strong>
-
-                <span>
-                  Create space for ideas,
-                  collaborations and possibilities.
-                </span>
-
-              </div>
-
-
-              <div class="vision-point">
-
-                <strong>
-                  Momentum
-                </strong>
-
-                <span>
-                  Keep moving forward with the
-                  people you meet along the way.
-                </span>
-
+                <button
+                  type="button"
+                  class="remove-photo"
+                  id="removePhoto"
+                >
+                  Remove
+                </button>
               </div>
 
             </div>
 
           </div>
 
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         JOIN / APPLICATION
-         ========================= -->
-
-    <section
-      class="join-section"
-      id="join"
-    >
-
-      <div class="container">
-
-        <div class="join-grid">
-
-          <div class="join-copy reveal">
-
-            <div class="section-label">
-              Join PEN
-            </div>
-
-            <h2>
-              Your Next
-              <br>
-              <span>Connection</span>
-              <br>
-              Starts Here.
-            </h2>
-
-            <p>
-              Tell us a little about yourself,
-              what you're building and what you're
-              looking to connect with.
-            </p>
-
-            <div class="join-note">
-              Applications are reviewed as requests
-              to join the Porter Empire Network.
-            </div>
-
-          </div>
-
-
-          <!-- =========================
-               APPLICATION FORM
-               ========================= -->
-
-          <form
-            id="penApplicationForm"
-            class="application-form reveal"
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/png,image/jpeg,image/webp"
           >
 
-            <div class="form-grid">
-
-
-              <div class="field">
-
-                <label for="penName">
-                  Full Name
-                </label>
-
-                <input
-                  id="penName"
-                  type="text"
-                  name="name"
-                  placeholder="Your full name"
-                  autocomplete="name"
-                  required
-                >
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="penEmail">
-                  Email
-                </label>
-
-                <input
-                  id="penEmail"
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                  autocomplete="email"
-                  required
-                >
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="penPhone">
-                  Phone
-                </label>
-
-                <input
-                  id="penPhone"
-                  type="tel"
-                  name="phone"
-                  placeholder="Your phone number"
-                  autocomplete="tel"
-                >
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="penRole">
-                  What Best Describes You?
-                </label>
-
-                <select
-                  id="penRole"
-                  name="role"
-                  required
-                >
-
-                  <option
-                    value=""
-                    disabled
-                    selected
-                  >
-                    Select one
-                  </option>
-
-                  <option value="Entrepreneur">
-                    Entrepreneur
-                  </option>
-
-                  <option value="Professional">
-                    Professional
-                  </option>
-
-                  <option value="Creator">
-                    Creator
-                  </option>
-
-                  <option value="Student">
-                    Student
-                  </option>
-
-                  <option value="Builder">
-                    Builder
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="penLocation">
-                  Location
-                </label>
-
-                <input
-                  id="penLocation"
-                  type="text"
-                  name="location"
-                  placeholder="City / State"
-                  autocomplete="address-level2"
-                >
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="penInstagram">
-                  Instagram / Social
-                </label>
-
-                <input
-                  id="penInstagram"
-                  type="text"
-                  name="social"
-                  placeholder="@username"
-                >
-
-              </div>
-
-
-              <div class="field full">
-
-                <label for="penWhy">
-                  Why Do You Want To Join PEN?
-                </label>
-
-                <textarea
-                  id="penWhy"
-                  name="why"
-                  rows="5"
-                  placeholder="Tell us about yourself and what you're looking to build, connect, or accomplish."
-                  required
-                ></textarea>
-
-              </div>
-
-
-              <div class="field full">
-
-                <label for="penGoals">
-                  What Are You Looking To Connect With?
-                </label>
-
-                <textarea
-                  id="penGoals"
-                  name="goals"
-                  rows="4"
-                  placeholder="People, opportunities, collaborations, mentorship, business, community..."
-                ></textarea>
-
-              </div>
-
-
-              <div class="agreement">
-
-                <input
-                  id="penAgreement"
-                  type="checkbox"
-                  name="agreement"
-                  value="Agreed"
-                  required
-                >
-
-                <span>
-                  I understand that this is a request to join
-                  Porter Empire Network and that submitting
-                  an application does not guarantee membership
-                  or an invite.
-                </span>
-
-              </div>
-
-
-              <input
-                type="hidden"
-                name="_subject"
-                value="New Porter Empire Network Application"
-              >
-
-
-              <input
-                type="hidden"
-                name="_template"
-                value="table"
-              >
-
-
-              <input
-                type="hidden"
-                name="_captcha"
-                value="true"
-              >
-
-
-              <input
-                type="hidden"
-                name="_replyto"
-                id="penReplyTo"
-              >
-
-
-              <input
-                type="hidden"
-                name="_url"
-                id="penFormURL"
-              >
-
-
-              <button
-                type="submit"
-                class="submit-btn"
-                id="penSubmitButton"
-              >
-
-                <span>
-                  Submit Application
-                </span>
-
-                <span class="submit-arrow">
-                  →
-                </span>
-
-              </button>
-
-
-              <div
-                id="penFormStatus"
-                class="form-status"
-                aria-live="polite"
-              ></div>
-
-
-            </div>
-
-          </form>
+        </div>
+
+        <div class="grid">
+
+          <label>
+            Full Name
+            <input
+              id="fullName"
+              required
+              placeholder="Your full name"
+            >
+          </label>
+
+          <label>
+            Email
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+            >
+          </label>
 
         </div>
 
-      </div>
+        <div class="grid">
+
+          <label>
+            Phone
+            <input
+              id="phone"
+              placeholder="Optional"
+            >
+          </label>
+
+          <label>
+            Location
+            <input
+              id="location"
+              placeholder="City, State"
+            >
+          </label>
+
+        </div>
+
+        <div class="grid">
+
+          <label>
+            Category
+            <select id="category" required>
+              <option value="">Choose one</option>
+              <option>Entrepreneur</option>
+              <option>Professional</option>
+              <option>Creator</option>
+              <option>Artist</option>
+              <option>Model</option>
+              <option>Student</option>
+              <option>Business</option>
+              <option>Builder</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            Profession / Role
+            <input
+              id="profession"
+              required
+              placeholder="Founder, Designer, Artist..."
+            >
+          </label>
+
+        </div>
+
+        <label>
+          Skills
+          <input
+            id="skills"
+            placeholder="Photography, marketing, fashion, coding..."
+          >
+        </label>
+
+        <label>
+          What are you looking for?
+          <input
+            id="looking"
+            placeholder="Collaborations, clients, mentors, opportunities..."
+          >
+        </label>
+
+        <label>
+          Bio
+          <textarea
+            id="bio"
+            placeholder="Tell the network who you are..."
+          ></textarea>
+        </label>
+
+        <label>
+          Socials
+          <input
+            id="socials"
+            placeholder="@username or social link"
+          >
+        </label>
+
+        <label class="agreement">
+          <input id="agree" type="checkbox" required>
+          <span>
+            I agree to be part of the Porter Empire Network and understand
+            that my profile may be visible to other members.
+          </span>
+        </label>
+
+        <button class="submit" type="submit">
+          JOIN THE NETWORK →
+        </button>
+
+        <div class="note">
+          Your profile information is saved in this browser for this prototype.
+        </div>
+
+      </form>
 
     </section>
 
   </main>
 
+</div>
 
-  <!-- =========================
-       FOOTER
-       ========================= -->
+<script>
 
-  <footer>
+  const photoInput = document.getElementById("photoInput");
+  const photoPreview = document.getElementById("photoPreview");
+  const removePhoto = document.getElementById("removePhoto");
 
-    <div class="container">
+  let profilePhoto = "";
 
-      <div class="footer-top">
+  function initials(name) {
 
-        <a
-          href="#top"
-          class="footer-brand"
-        >
+    if (!name) return "PE";
 
-          <div class="logo-mark">
-            PE
-          </div>
+    return name
+      .trim()
+      .split(/\s+/)
+      .slice(0,2)
+      .map(word => word[0])
+      .join("")
+      .toUpperCase();
 
-          <span>
-            Porter Empire Network
-          </span>
+  }
 
-        </a>
+  document.getElementById("fullName").addEventListener("input", function() {
 
+    if (!profilePhoto) {
+      photoPreview.textContent = initials(this.value);
+    }
 
-        <div class="footer-links">
+  });
 
-          <a href="#network">
-            Network
-          </a>
+  photoInput.addEventListener("change", function() {
 
-          <a href="#why">
-            Why PEN
-          </a>
+    const file = this.files[0];
 
-          <a href="#vision">
-            Vision
-          </a>
+    if (!file) return;
 
-          <a href="#join">
-            Join
-          </a>
+    if (!file.type.startsWith("image/")) {
+      alert("Please choose an image file.");
+      return;
+    }
 
-        </div>
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Please choose an image smaller than 5MB.");
+      return;
+    }
 
-      </div>
+    const reader = new FileReader();
 
+    reader.onload = function(event) {
 
-      <div class="footer-bottom">
+      profilePhoto = event.target.result;
 
-        <span>
-          © <span id="currentYear"></span>
-          Porter Empire Network
-        </span>
+      photoPreview.innerHTML =
+        `<img src="${profilePhoto}" alt="Profile preview">`;
 
-        <span>
-          Connect. Grow. Move Forward.
-        </span>
+    };
 
-      </div>
+    reader.readAsDataURL(file);
 
-    </div>
+  });
 
-  </footer>
+  removePhoto.addEventListener("click", function() {
 
+    profilePhoto = "";
+    photoInput.value = "";
 
-  <!-- =========================
-       JAVASCRIPT
-       ========================= -->
+    const name =
+      document.getElementById("fullName").value;
 
-  <script>
+    photoPreview.textContent = initials(name);
 
-    /* =========================
-       MOBILE MENU
-       ========================= */
+  });
 
-    const menuButton =
-      document.getElementById("menuButton");
+  document
+    .getElementById("joinForm")
+    .addEventListener("submit", function(event) {
 
-    const navLinks =
-      document.getElementById("navLinks");
+      event.preventDefault();
 
+      const profile = {
 
-    menuButton.addEventListener("click", function () {
+        id: "me",
 
-      navLinks.classList.toggle("open");
+        name:
+          document.getElementById("fullName").value.trim(),
 
-    });
+        email:
+          document.getElementById("email").value.trim(),
 
+        phone:
+          document.getElementById("phone").value.trim(),
 
-    document
-      .querySelectorAll(".nav-links a")
-      .forEach(function (link) {
+        location:
+          document.getElementById("location").value.trim(),
 
-        link.addEventListener("click", function () {
+        category:
+          document.getElementById("category").value,
 
-          navLinks.classList.remove("open");
-
-        });
-
-      });
-
-
-    /* =========================
-       CURRENT YEAR
-       ========================= */
-
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
-
-
-    /* =========================
-       SCROLL REVEAL
-       ========================= */
-
-    const revealElements =
-      document.querySelectorAll(".reveal");
-
-
-    const revealObserver =
-      new IntersectionObserver(
-
-        function (entries) {
-
-          entries.forEach(function (entry) {
-
-            if (entry.isIntersecting) {
-
-              entry.target.classList.add("visible");
-
-              revealObserver.unobserve(entry.target);
-
-            }
-
-          });
-
-        },
-
-        {
-          threshold: 0.12
-        }
-
-      );
-
-
-    revealElements.forEach(function (element) {
-
-      revealObserver.observe(element);
-
-    });
-
-
-    /* =========================
-       PEN APPLICATION FORM
-       ========================= */
-
-    const form =
-      document.getElementById("penApplicationForm");
-
-    const status =
-      document.getElementById("penFormStatus");
-
-    const button =
-      document.getElementById("penSubmitButton");
-
-    const replyTo =
-      document.getElementById("penReplyTo");
-
-    const formURL =
-      document.getElementById("penFormURL");
-
-
-    form.addEventListener(
-      "submit",
-      async function (event) {
-
-        event.preventDefault();
-
-
-        const email =
-          document
-            .getElementById("penEmail")
-            .value
-            .trim();
-
-
-        replyTo.value = email;
-
-        formURL.value =
-          window.location.href;
-
-
-        button.disabled = true;
-
-
-        status.textContent =
-          "SUBMITTING APPLICATION...";
-
-        status.className =
-          "form-status sending";
-
-
-        const formData =
-          new FormData(form);
-
-
-        const data = {};
-
-
-        formData.forEach(
-          function (value, key) {
-
-            data[key] = value;
-
-          }
-        );
-
-
-        try {
-
-          const response =
-            await fetch(
-              "https://formsubmit.co/ajax/Porterempirenetwork@gmail.com",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json",
-
-                  "Accept":
-                    "application/json"
-                },
-
-                body:
-                  JSON.stringify(data)
-              }
-            );
-
-
-          const result =
-            await response.json();
-
-
-          if (
-            response.ok &&
-            result.success !== false
-          ) {
-
-            status.innerHTML = `
-
-              <div class="success-message">
-
-                <div class="success-mark">
-                  ✓
-                </div>
-
-                <div>
-
-                  <strong>
-                    APPLICATION RECEIVED
-                  </strong>
-
-                  <span>
-                    Thank you for applying to
-                    Porter Empire Network.
-                    Your application has been
-                    successfully received.
-                  </span>
-
-                </div>
-
-              </div>
-
-            `;
-
-
-            status.className =
-              "form-status success";
-
-
-            form.reset();
-
-
-            status.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-
-
-          } else {
-
-            throw new Error(
-              "Submission failed"
-            );
-
-          }
-
-
-        } catch (error) {
-
-          status.innerHTML = `
-
-            <div class="error-message">
-
-              <strong>
-                SOMETHING WENT WRONG
-              </strong>
-
-              <span>
-                We couldn't submit your
-                application right now.
-                Please try again in a moment.
-              </span>
-
-            </div>
-
-          `;
-
-
-          status.className =
-            "form-status error";
-
-        }
-
-
-        button.disabled = false;
-
-      }
-    );
-
-  </script>
-
-</body>
-</html>
+        profession:
+          document.getElementById("profession").value
