@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Create Your PEN Profile</title>
+
+<style>
+
+:root {
+  --black: #050505;
+  --gold: #d4af37;
+  --gold2: #f2d16b;
+  --white: #fff;
+  --muted: #9b9b9b;
+  --border: rgba(255,255,255,.10);
+  --card: rgba(255,255,255,.045);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(212,175,55,.13),
+      transparent 35%
+    ),
+    #050505;
+
+  color: white;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+nav {
+
+  padding: 20px 6%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom:
+    1px solid var(--border);
+
+  background:
+    rgba(0,0,0,.7);
+
+  backdrop-filter:
+    blur(18px);
+
+}
+
+.logo {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+}
+
+.logo-mark {
+
+  width: 42px;
+
+  height: 42px;
+
+  border:
+    1px solid var(--gold);
+
+  border-radius: 12px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: var(--gold);
+
+  font-weight: 900;
+
+}
+
+.logo-text {
+
+  font-weight: 900;
+
+}
+
+.logo-text span {
+
+  display: block;
+
+  color: var(--gold);
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+}
+
+.step {
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+}
+
+main {
+
+  max-width: 950px;
+
+  margin: auto;
+
+  padding: 60px 20px 100px;
+
+}
+
+.header {
+
+  text-align: center;
+
+  margin-bottom: 40px;
+
+}
+
+.eyebrow {
+
+  color: var(--gold);
+
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  font-weight: bold;
+
+  margin-bottom: 15px;
+
+}
+
+h1 {
+
+  font-size:
+    clamp(35px, 6vw, 58px);
+
+  letter-spacing:
+    -2px;
+
+  margin-bottom: 15px;
+
+}
+
+.header p {
+
+  max-width: 600px;
+
+  margin: auto;
+
+  color: var(--muted);
+
+  line-height: 1.7;
+
+}
+
+.card {
+
+  background:
+    var(--card);
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    25px;
+
+  padding:
+    35px;
+
+  margin-bottom:
+    20px;
+
+}
+
+.section-title {
+
+  font-size: 19px;
+
+  font-weight: 900;
+
+  margin-bottom: 25px;
+
+}
+
+.photo-area {
+
+  display: flex;
+
+  gap: 25px;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+}
+
+.avatar {
+
+  width: 110px;
+
+  height: 110px;
+
+  border-radius: 50%;
+
+  border:
+    2px solid var(--gold);
+
+  object-fit: cover;
+
+  background:
+    #111;
+
+}
+
+.photo-text {
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+}
+
+.photo-text label {
+
+  display: inline-block;
+
+  margin-top: 12px;
+
+  padding: 11px 15px;
+
+  border:
+    1px solid rgba(212,175,55,.4);
+
+  border-radius: 10px;
+
+  color: var(--gold);
+
+  cursor: pointer;
+
+}
+
+.photo-text input {
+
+  display: none;
+
+}
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 18px;
+
+}
+
+.form-group {
+
+  margin-bottom: 5px;
+
+}
+
+.full {
+
+  grid-column:
+    1 / -1;
+
+}
+
+label {
+
+  display: block;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  margin-bottom: 8px;
+
+}
+
+input,
+textarea {
+
+  width: 100%;
+
+  padding: 15px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  border-radius: 12px;
+
+  background:
+    rgba(0,0,0,.4);
+
+  color: white;
+
+  outline: none;
+
+  font-size: 14px;
+
+  font-family: inherit;
+
+}
+
+textarea {
+
+  min-height: 130px;
+
+  resize: vertical;
+
+}
+
+input:focus,
+textarea:focus {
+
+  border-color:
+    var(--gold);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(212,175,55,.08);
+
+}
+
+.helper {
+
+  color: #777;
+
+  font-size: 11px;
+
+  margin-top: 7px;
+
+}
+
+.button {
+
+  width: 100%;
+
+  border: 0;
+
+  padding: 18px;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold2),
+      var(--gold)
+    );
+
+  color: #050505;
+
+  font-weight: 900;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+}
+
+.button:hover {
+
+  box-shadow:
+    0 15px 35px
+    rgba(212,175,55,.18);
+
+  transform:
+    translateY(-2px);
+
+}
+
+.required {
+
+  color:
+    var(--gold);
+
+}
+
+.message {
+
+  display: none;
+
+  margin-bottom: 20px;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+}
+
+.error {
+
+  color: #ff9d9d;
+
+  border:
+    1px solid rgba(255,70,70,.3);
+
+  background:
+    rgba(255,70,70,.08);
+
+}
+
+@media(max-width:700px) {
+
+  nav {
+    padding: 17px 20px;
+  }
+
+  .step {
+    display: none;
+  }
+
+  main {
+    padding:
+      40px 15px 70px;
+  }
+
+  .card {
+    padding: 23px;
+    border-radius: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .photo-area {
+    align-items: flex-start;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a class="logo" href="index.html">
+
+<div class="logo-mark">
+PEN
+</div>
+
+<div class="logo-text">
+PORTER EMPIRE
+<span>NETWORK</span>
+</div>
+
+</a>
+
+<div class="step">
+STEP 2 OF 3
+</div>
+
+</nav>
+
+
+<main>
+
+<div class="header">
+
+<div class="eyebrow">
+Your PEN Profile
+</div>
+
+<h1>
+Tell The Network About You.
+</h1>
+
+<p>
+Create the profile other PEN members will see.
+Share what you do, what you bring to the table,
+and what opportunities you're looking for.
+</p>
+
+</div>
+
+
+<div
+  id="errorMessage"
+  class="message error"
+></div>
+
+
+<form id="profileForm">
+
+
+<div class="card">
+
+<div class="section-title">
+Profile Picture
+</div>
+
+<div class="photo-area">
+
+<img
+  id="avatarPreview"
+  class="avatar"
+  src=""
+  alt="Profile preview"
+>
+
+<div class="photo-text">
+
+Upload a professional photo so members
+can recognize you.
+
+<br>
+
+<label for="profilePhoto">
+Upload Photo
+</label>
+
+<input
+  id="profilePhoto"
+  type="file"
+  accept="image/*"
+>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-title">
+Professional Information
+</div>
+
+<div class="grid">
+
+
+<div class="form-group">
+
+<label>
+Display Name <span class="required">*</span>
+</label>
+
+<input
+  id="displayName"
+  type="text"
+  required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Profession / Job Title <span class="required">*</span>
+</label>
+
+<input
+  id="profession"
+  type="text"
+  placeholder="Entrepreneur, Designer, Investor..."
+  required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Company / Organization
+</label>
+
+<input
+  id="company"
+  type="text"
+  placeholder="Your company"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Location
+</label>
+
+<input
+  id="location"
+  type="text"
+  placeholder="City, State"
+>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+Skills & Expertise
+</label>
+
+<input
+  id="skills"
+  type="text"
+  placeholder="Business, Marketing, Real Estate, Music..."
+>
+
+<div class="helper">
+Separate multiple skills with commas.
+</div>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+About Me <span class="required">*</span>
+</label>
+
+<textarea
+  id="bio"
+  placeholder="Tell the network who you are, what you do, and what you're building..."
+  required
+></textarea>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+What I'm Looking For
+</label>
+
+<textarea
+  id="lookingFor"
+  placeholder="Partnerships, clients, investors, mentors, collaborations, opportunities..."
+></textarea>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-title">
+Online Presence
+</div>
+
+<div class="grid">
+
+
+<div class="form-group">
+
+<label>
+Website
+</label>
+
+<input
+  id="website"
+  type="url"
+  placeholder="https://yourwebsite.com"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+LinkedIn
+</label>
+
+<input
+  id="linkedin"
+  type="url"
+  placeholder="https://linkedin.com/in/..."
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Instagram
+</label>
+
+<input
+  id="instagram"
+  type="url"
+  placeholder="https://instagram.com/..."
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Other Social / Portfolio
+</label>
+
+<input
+  id="otherSocial"
+  type="url"
+  placeholder="https://..."
+>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<button
+  class="button"
+  type="submit"
+>
+Save My Profile & Enter PEN →
+</button>
+
+</div>
+
+
+</form>
+
+</main>
+
+
+<script>
+
+
+const account =
+  JSON.parse(
+    localStorage.getItem("penAccount")
+  );
+
+
+if (!account) {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+document.getElementById("displayName").value =
+  account?.fullName || "";
+
+
+let profilePhotoData = "";
+
+
+function showError(message) {
+
+  const box =
+    document.getElementById(
+      "errorMessage"
+    );
+
+  box.textContent = message;
+
+  box.style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+document
+  .getElementById("profilePhoto")
+  .addEventListener(
+    "change",
+    function(event) {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) return;
+
+
+      if (!file.type.startsWith("image/")) {
+
+        showError(
+          "Please select an image file."
+        );
+
+        return;
+
+      }
+
+
+      if (file.size > 5 * 1024 * 1024) {
+
+        showError(
+          "Your profile photo must be under 5MB."
+        );
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload = function(e) {
+
+        profilePhotoData =
+          e.target.result;
+
+        document.getElementById(
+          "avatarPreview"
+        ).src =
+          profilePhotoData;
+
+      };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+
+document
+  .getElementById("profileForm")
+  .addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+
+      const profile = {
+
+        displayName:
+          document.getElementById(
+            "displayName"
+          ).value.trim(),
+
+        profession:
+          document.getElementById(
+            "profession"
+          ).value.trim(),
+
+        company:
+          document.getElementById(
+            "company"
+          ).value.trim(),
+
+        location:
+          document.getElementById(
+            "location"
+          ).value.trim(),
+
+        skills:
+          document.getElementById(
+            "skills"
+          ).value.trim(),
+
+        bio:
+          document.getElementById(
+            "bio"
+          ).value.trim(),
+
+        lookingFor:
+          document.getElementById(
+            "lookingFor"
+          ).value.trim(),
+
+        website:
+          document.getElementById(
+            "website"
+          ).value.trim(),
+
+        linkedin:
+          document.getElementById(
+            "linkedin"
+          ).value.trim(),
+
+        instagram:
+          document.getElementById(
+            "instagram"
+          ).value.trim(),
+
+        otherSocial:
+          document.getElementById(
+            "otherSocial"
+          ).value.trim(),
+
+        photo:
+          profilePhotoData
+
+      };
+
+
+      if (
+        !profile.displayName ||
+        !profile.profession ||
+        !profile.bio
+      ) {
+
+        showError(
+          "Please complete all required profile fields."
+        );
+
+        return;
+
+      }
+
+
+      localStorage.setItem(
+        "penProfile",
+        JSON.stringify(profile)
+      );
+
+
+      window.location.href =
+        "dashboard.html";
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
