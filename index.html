@@ -6,21 +6,24 @@
 
 <title>Porter Empire Network</title>
 
-<meta name="description"
-content="Porter Empire Network — Connect. Build. Grow.">
+<meta
+  name="description"
+  content="Porter Empire Network — Connect. Build. Grow."
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
   --bg:#000;
-  --surface:#0b0b0b;
+  --surface:#080808;
   --surface2:#111;
   --border:#262626;
   --text:#fff;
   --muted:#999;
   --blue:#0095f6;
   --danger:#ff3040;
+  --green:#35c759;
 }
 
 *{
@@ -70,10 +73,6 @@ a{
   color:inherit;
   text-decoration:none;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .topbar{
   position:sticky;
@@ -131,10 +130,6 @@ a{
   background:#171717;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
 .app-main{
   max-width:1100px;
   margin:auto;
@@ -144,13 +139,6 @@ a{
 .feed{
   width:min(620px,100%);
   margin:auto;
-}
-
-.sidebar{
-  position:fixed;
-  right:25px;
-  top:90px;
-  width:280px;
 }
 
 .card{
@@ -170,10 +158,6 @@ a{
   font-size:13px;
 }
 
-/* =========================
-   STORIES
-========================= */
-
 .stories{
   display:flex;
   gap:16px;
@@ -191,6 +175,7 @@ a{
   min-width:67px;
   text-align:center;
   font-size:11px;
+  cursor:pointer;
 }
 
 .story-ring{
@@ -217,10 +202,6 @@ a{
   border:3px solid #000;
 }
 
-/* =========================
-   POSTS
-========================= */
-
 .post{
   margin-bottom:18px;
 }
@@ -238,6 +219,7 @@ a{
   border-radius:50%;
   object-fit:cover;
   background:#222;
+  cursor:pointer;
 }
 
 .avatar-small{
@@ -334,10 +316,6 @@ a{
   font-weight:800;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
 .primary{
   background:#fff;
   color:#000;
@@ -376,10 +354,6 @@ a{
   border:1px solid #333;
 }
 
-/* =========================
-   AUTH
-========================= */
-
 .auth{
   min-height:100vh;
   background:#000;
@@ -407,6 +381,16 @@ a{
   text-align:center;
   color:#888;
   margin-bottom:28px;
+}
+
+.auth-section{
+  display:grid;
+  gap:10px;
+}
+
+.auth-section h2{
+  margin:0 0 3px;
+  font-size:18px;
 }
 
 .form{
@@ -440,11 +424,16 @@ a{
   color:#aaa;
   font-size:13px;
   line-height:1.5;
+  min-height:20px;
 }
 
-/* =========================
-   PROFILE
-========================= */
+.success{
+  color:var(--green);
+}
+
+.error{
+  color:var(--danger);
+}
 
 .profile{
   width:min(900px,100%);
@@ -499,6 +488,7 @@ a{
 .profile-bio{
   line-height:1.5;
   color:#ddd;
+  white-space:pre-wrap;
 }
 
 .profile-grid{
@@ -514,10 +504,6 @@ a{
   background:#111;
 }
 
-/* =========================
-   EXPLORE
-========================= */
-
 .member{
   display:flex;
   align-items:center;
@@ -532,11 +518,8 @@ a{
 
 .member-info{
   flex:1;
+  min-width:0;
 }
-
-/* =========================
-   MESSAGES
-========================= */
 
 .messages-page{
   width:min(850px,100%);
@@ -561,6 +544,7 @@ a{
 
 .message-user-info{
   flex:1;
+  min-width:0;
 }
 
 .chat{
@@ -617,10 +601,6 @@ a{
   outline:0;
 }
 
-/* =========================
-   MODAL
-========================= */
-
 .modal{
   position:fixed;
   inset:0;
@@ -649,10 +629,6 @@ a{
   font-size:28px;
 }
 
-/* =========================
-   TOAST
-========================= */
-
 .toast{
   position:fixed;
   z-index:999;
@@ -664,11 +640,9 @@ a{
   padding:11px 18px;
   border-radius:10px;
   font-weight:700;
+  max-width:90%;
+  text-align:center;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 .mobile-nav{
   display:none;
@@ -762,6 +736,10 @@ a{
   .profile-grid{
     gap:2px;
   }
+
+  .chat{
+    height:75vh;
+  }
 }
 </style>
 </head>
@@ -821,11 +799,40 @@ function escapeHTML(value){
 }
 
 
+function safeURL(value){
+
+  const url =
+    String(value || "").trim();
+
+  if(!url)
+    return "";
+
+  try{
+
+    const parsed =
+      new URL(url,window.location.href);
+
+    if(
+      parsed.protocol === "http:" ||
+      parsed.protocol === "https:"
+    ){
+
+      return escapeHTML(
+        parsed.href
+      );
+
+    }
+
+  }catch(e){}
+
+  return "";
+}
+
+
 function nameOf(p){
 
-  if(!p){
+  if(!p)
     return "PEN Member";
-  }
 
   return [
     p.first_name,
@@ -838,17 +845,28 @@ function nameOf(p){
 
 function avatarOf(p){
 
-  return p?.avatar_url ||
+  const url =
+    p?.avatar_url;
+
+  return safeURL(url) ||
     "https://i.pravatar.cc/300";
 }
 
 
 function timeAgo(date){
 
+  if(!date)
+    return "";
+
   const seconds =
-    Math.floor(
-      (Date.now() -
-      new Date(date).getTime()) / 1000
+    Math.max(
+      0,
+      Math.floor(
+        (
+          Date.now() -
+          new Date(date).getTime()
+        ) / 1000
+      )
     );
 
   if(seconds < 60)
@@ -901,6 +919,67 @@ function closeModal(){
   document.getElementById(
     "modal"
   ).classList.add("hidden");
+
+  activeChat = null;
+}
+
+
+/* =========================================================
+   AUTH EMAIL NOTIFICATION
+========================================================= */
+
+async function sendAuthEmail(event){
+
+  try{
+
+    const {
+      data:{
+        session
+      }
+    } =
+      await db.auth.getSession();
+
+
+    if(!session?.access_token){
+
+      console.warn(
+        "PEN auth email skipped: no active session."
+      );
+
+      return;
+    }
+
+
+    const {
+      error
+    } =
+      await db.functions.invoke(
+        "pen-auth-email",
+        {
+          body:{
+            event:event
+          }
+        }
+      );
+
+
+    if(error){
+
+      console.error(
+        "PEN auth email error:",
+        error
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "PEN auth email exception:",
+      error
+    );
+
+  }
 }
 
 
@@ -982,7 +1061,7 @@ function mobileNav(){
 
 
 /* =========================================================
-   AUTH
+   PAGE 1 — AUTH
 ========================================================= */
 
 function showAuth(){
@@ -1001,61 +1080,100 @@ function showAuth(){
           Connect. Build. Grow.
         </div>
 
-        <div class="form">
+        <div class="auth-section">
 
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-          >
+          <h2>Create your PEN account</h2>
 
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-          >
-
-          <div id="signupFields">
+          <div class="form">
 
             <input
               id="first"
               placeholder="First name"
+              autocomplete="given-name"
             >
 
             <input
               id="last"
               placeholder="Last name"
+              autocomplete="family-name"
             >
+
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+            >
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              autocomplete="new-password"
+            >
+
+            <button
+              class="primary blue"
+              onclick="signup()"
+            >
+              Create Account
+            </button>
 
           </div>
 
-          <button
-            class="primary blue"
-            onclick="signup()"
-          >
-            Create Account
-          </button>
+        </div>
 
-          <button
-            class="outline"
-            onclick="login()"
-          >
-            Log In
-          </button>
+        <div
+          style="
+            height:1px;
+            background:#222;
+            margin:24px 0;
+          "
+        ></div>
 
-          <button
-            class="outline"
-            onclick="resetPassword()"
-          >
-            Forgot Password?
-          </button>
+        <div class="auth-section">
 
-          <div
-            id="authMessage"
-            class="auth-message"
-          ></div>
+          <h2>Already have an account?</h2>
+
+          <div class="form">
+
+            <input
+              id="loginEmail"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+            >
+
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+            >
+
+            <button
+              class="outline"
+              onclick="login()"
+            >
+              Log In
+            </button>
+
+            <button
+              class="outline"
+              onclick="resetPassword()"
+            >
+              Forgot Password?
+            </button>
+
+          </div>
 
         </div>
+
+        <div
+          id="authMessage"
+          class="auth-message"
+          style="margin-top:18px"
+        ></div>
 
       </div>
 
@@ -1067,14 +1185,6 @@ function showAuth(){
 
 async function signup(){
 
-  const email =
-    document.getElementById("email")
-      .value.trim();
-
-  const password =
-    document.getElementById("password")
-      .value;
-
   const first =
     document.getElementById("first")
       .value.trim();
@@ -1083,8 +1193,40 @@ async function signup(){
     document.getElementById("last")
       .value.trim();
 
+  const email =
+    document.getElementById("email")
+      .value.trim();
+
+  const password =
+    document.getElementById("password")
+      .value;
+
   const msg =
-    document.getElementById("authMessage");
+    document.getElementById(
+      "authMessage"
+    );
+
+
+  msg.className =
+    "auth-message";
+
+
+  if(!first){
+
+    msg.textContent =
+      "Enter your first name.";
+
+    return;
+  }
+
+
+  if(!last){
+
+    msg.textContent =
+      "Enter your last name.";
+
+    return;
+  }
 
 
   if(!email){
@@ -1105,7 +1247,14 @@ async function signup(){
   }
 
 
-  const {data,error} =
+  msg.textContent =
+    "Creating your PEN account...";
+
+
+  const {
+    data,
+    error
+  } =
     await db.auth.signUp({
 
       email,
@@ -1128,6 +1277,9 @@ async function signup(){
 
   if(error){
 
+    msg.className =
+      "auth-message error";
+
     msg.textContent =
       error.message;
 
@@ -1135,16 +1287,46 @@ async function signup(){
   }
 
 
-  if(data.session){
+  if(data?.session){
 
-    await ensureProfile(
-      data.user
-    );
+    try{
 
-    msg.textContent =
-      "Account created.";
+      await ensureProfile(
+        data.user
+      );
+
+      await sendAuthEmail(
+        "signup"
+      );
+
+      msg.className =
+        "auth-message success";
+
+      msg.textContent =
+        "Account created. Welcome to PEN!";
+
+
+      setTimeout(
+        () => home(),
+        700
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      msg.className =
+        "auth-message error";
+
+      msg.textContent =
+        "Account was created, but your profile could not be loaded.";
+
+    }
 
   }else{
+
+    msg.className =
+      "auth-message success";
 
     msg.textContent =
       "Account created. Check your email to verify your account, then log in.";
@@ -1155,18 +1337,53 @@ async function signup(){
 async function login(){
 
   const email =
-    document.getElementById("email")
-      .value.trim();
+    (
+      document.getElementById(
+        "loginEmail"
+      )?.value || ""
+    ).trim();
 
   const password =
-    document.getElementById("password")
-      .value;
+    document.getElementById(
+      "loginPassword"
+    )?.value || "";
 
   const msg =
-    document.getElementById("authMessage");
+    document.getElementById(
+      "authMessage"
+    );
 
 
-  const {error} =
+  msg.className =
+    "auth-message";
+
+
+  if(!email){
+
+    msg.textContent =
+      "Enter your email.";
+
+    return;
+  }
+
+
+  if(!password){
+
+    msg.textContent =
+      "Enter your password.";
+
+    return;
+  }
+
+
+  msg.textContent =
+    "Logging in...";
+
+
+  const {
+    data,
+    error
+  } =
     await db.auth.signInWithPassword({
 
       email,
@@ -1178,8 +1395,49 @@ async function login(){
 
   if(error){
 
+    msg.className =
+      "auth-message error";
+
     msg.textContent =
       error.message;
+
+    return;
+  }
+
+
+  if(data?.session){
+
+    try{
+
+      await ensureProfile(
+        data.user
+      );
+
+      await sendAuthEmail(
+        "login"
+      );
+
+      msg.className =
+        "auth-message success";
+
+      msg.textContent =
+        "Logged in successfully.";
+
+      setTimeout(
+        () => home(),
+        400
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      msg.className =
+        "auth-message error";
+
+      msg.textContent =
+        "Logged in, but your profile could not be loaded.";
+    }
   }
 }
 
@@ -1187,19 +1445,30 @@ async function login(){
 async function resetPassword(){
 
   const email =
-    document.getElementById("email")
-      .value.trim();
+    (
+      document.getElementById(
+        "loginEmail"
+      )?.value ||
+      document.getElementById(
+        "email"
+      )?.value ||
+      ""
+    ).trim();
 
 
   if(!email){
 
-    toast("Enter your email first.");
+    toast(
+      "Enter your email first."
+    );
 
     return;
   }
 
 
-  const {error} =
+  const {
+    error
+  } =
     await db.auth.resetPasswordForEmail(
       email,
       {
@@ -1212,7 +1481,9 @@ async function resetPassword(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -1227,6 +1498,7 @@ async function resetPassword(){
 async function logout(){
 
   await db.auth.signOut();
+
 }
 
 
@@ -1236,7 +1508,10 @@ async function logout(){
 
 async function ensureProfile(authUser){
 
-  let {data,error} =
+  let {
+    data,
+    error
+  } =
     await db
       .from("profiles")
       .select("*")
@@ -1244,10 +1519,8 @@ async function ensureProfile(authUser){
       .maybeSingle();
 
 
-  if(error){
-
+  if(error)
     throw error;
-  }
 
 
   if(!data){
@@ -1272,6 +1545,8 @@ async function ensureProfile(authUser){
           last_name:
             meta.last_name || ""
 
+        },{
+          onConflict:"id"
         });
 
 
@@ -1287,12 +1562,17 @@ async function ensureProfile(authUser){
         .single();
 
 
+    if(loaded.error)
+      throw loaded.error;
+
+
     data =
       loaded.data;
   }
 
 
-  profile = data;
+  profile =
+    data;
 
   return data;
 }
@@ -1309,6 +1589,7 @@ async function loadSession(){
   if(!data.session){
 
     user = null;
+
     profile = null;
 
     showAuth();
@@ -1323,7 +1604,13 @@ async function loadSession(){
 
   try{
 
-    await ensureProfile(user);
+    await ensureProfile(
+      user
+    );
+
+    await loadFollowing();
+
+    return true;
 
   }catch(error){
 
@@ -1335,11 +1622,6 @@ async function loadSession(){
 
     return false;
   }
-
-
-  await loadFollowing();
-
-  return true;
 }
 
 
@@ -1358,7 +1640,10 @@ async function loadFollowing(){
   }
 
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("follows")
       .select("following_id")
@@ -1379,7 +1664,9 @@ async function loadFollowing(){
   following =
     new Set(
       (data || [])
-        .map(x => x.following_id)
+        .map(
+          x => x.following_id
+        )
     );
 }
 
@@ -1400,7 +1687,9 @@ async function toggleFollow(id){
 
   if(following.has(id)){
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("follows")
         .delete()
@@ -1416,7 +1705,9 @@ async function toggleFollow(id){
 
     if(error){
 
-      toast(error.message);
+      toast(
+        error.message
+      );
 
       return;
     }
@@ -1426,7 +1717,9 @@ async function toggleFollow(id){
 
   }else{
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("follows")
         .insert({
@@ -1440,7 +1733,9 @@ async function toggleFollow(id){
 
     if(error){
 
-      toast(error.message);
+      toast(
+        error.message
+      );
 
       return;
     }
@@ -1450,24 +1745,28 @@ async function toggleFollow(id){
   }
 
 
-  const btn =
-    document.querySelector(
+  const buttons =
+    document.querySelectorAll(
       `[data-follow="${id}"]`
     );
 
 
-  if(btn){
+  buttons.forEach(btn => {
+
+    const isFollowing =
+      following.has(id);
 
     btn.textContent =
-      following.has(id)
+      isFollowing
         ? "Following"
         : "Follow";
 
     btn.classList.toggle(
       "following",
-      following.has(id)
+      isFollowing
     );
-  }
+
+  });
 }
 
 
@@ -1478,16 +1777,22 @@ async function toggleFollow(id){
 async function getProfiles(ids){
 
   const clean =
-    [...new Set(
-      ids.filter(Boolean)
-    )];
+    [
+      ...new Set(
+        (ids || [])
+          .filter(Boolean)
+      )
+    ];
 
 
   if(!clean.length)
     return [];
 
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("profiles")
       .select("*")
@@ -1508,8 +1813,13 @@ async function getProfiles(ids){
 
 async function profilePage(id){
 
+  if(!user)
+    return showAuth();
+
+
   const profiles =
     await getProfiles([id]);
+
 
   const p =
     profiles[0];
@@ -1517,17 +1827,24 @@ async function profilePage(id){
 
   if(!p){
 
-    toast("Profile not found.");
+    toast(
+      "Profile not found."
+    );
 
     return;
   }
 
 
-  const {data:posts} =
+  const {
+    data:posts
+  } =
     await db
       .from("posts")
       .select("*")
-      .eq("user_id",id)
+      .eq(
+        "user_id",
+        id
+      )
       .order(
         "created_at",
         {
@@ -1581,6 +1898,7 @@ async function profilePage(id){
           <img
             class="profile-avatar"
             src="${avatarOf(p)}"
+            alt="Profile photo"
           >
 
           <div class="profile-info">
@@ -1588,7 +1906,9 @@ async function profilePage(id){
             <div class="profile-name">
 
               <h1>
-                ${escapeHTML(nameOf(p))}
+                ${escapeHTML(
+                  nameOf(p)
+                )}
               </h1>
 
               ${
@@ -1616,8 +1936,8 @@ async function profilePage(id){
                         ? "following"
                         : ""
                     }"
-                    data-follow="${id}"
-                    onclick="toggleFollow('${id}')"
+                    data-follow="${escapeHTML(id)}"
+                    onclick="toggleFollow('${escapeHTML(id)}')"
                   >
                     ${
                       following.has(id)
@@ -1628,7 +1948,7 @@ async function profilePage(id){
 
                   <button
                     class="outline"
-                    onclick="openChat('${id}')"
+                    onclick="openChat('${escapeHTML(id)}')"
                   >
                     Message
                   </button>
@@ -1643,21 +1963,27 @@ async function profilePage(id){
                 <strong>
                   ${(posts || []).length}
                 </strong>
-                <span class="muted">posts</span>
+                <span class="muted">
+                  posts
+                </span>
               </div>
 
               <div class="stat">
                 <strong>
                   ${followerResult.count || 0}
                 </strong>
-                <span class="muted">followers</span>
+                <span class="muted">
+                  followers
+                </span>
               </div>
 
               <div class="stat">
                 <strong>
                   ${followingResult.count || 0}
                 </strong>
-                <span class="muted">following</span>
+                <span class="muted">
+                  following
+                </span>
               </div>
 
             </div>
@@ -1678,7 +2004,9 @@ async function profilePage(id){
               p.industry
               ? `
                 <div class="muted">
-                  ${escapeHTML(p.industry)}
+                  ${escapeHTML(
+                    p.industry
+                  )}
                 </div>
               `
               : ""
@@ -1688,7 +2016,9 @@ async function profilePage(id){
               p.bio
               ? `
                 <div class="profile-bio">
-                  ${escapeHTML(p.bio)}
+                  ${escapeHTML(
+                    p.bio
+                  )}
                 </div>
               `
               : ""
@@ -1698,7 +2028,9 @@ async function profilePage(id){
               p.location
               ? `
                 <div class="muted">
-                  📍 ${escapeHTML(p.location)}
+                  📍 ${escapeHTML(
+                    p.location
+                  )}
                 </div>
               `
               : ""
@@ -1715,13 +2047,17 @@ async function profilePage(id){
               .map(post => `
 
                 ${
-                  post.image_url
+                  safeURL(
+                    post.image_url
+                  )
                   ?
                   `
                     <img
-                      src="${post.image_url}"
+                      src="${safeURL(
+                        post.image_url
+                      )}"
                       alt=""
-                      onclick="viewPost('${post.id}')"
+                      onclick="viewPost('${escapeHTML(post.id)}')"
                     >
                   `
                   :
@@ -1737,7 +2073,7 @@ async function profilePage(id){
                         text-align:center;
                         cursor:pointer
                       "
-                      onclick="viewPost('${post.id}')"
+                      onclick="viewPost('${escapeHTML(post.id)}')"
                     >
                       ${escapeHTML(
                         post.content
@@ -1763,7 +2099,7 @@ async function profilePage(id){
 
 
 /* =========================================================
-   HOME
+   PAGE 2 — HOME
 ========================================================= */
 
 async function home(){
@@ -1786,7 +2122,10 @@ async function home(){
     ];
 
 
-  const {data:posts,error} =
+  const {
+    data:posts,
+    error
+  } =
     await db
       .from("posts")
       .select("*")
@@ -1805,7 +2144,9 @@ async function home(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -1814,14 +2155,19 @@ async function home(){
   const profiles =
     await getProfiles(
       (posts || [])
-        .map(p => p.user_id)
+        .map(
+          p => p.user_id
+        )
     );
 
 
   const map =
     new Map(
       profiles.map(
-        p => [p.id,p]
+        p => [
+          p.id,
+          p
+        ]
       )
     );
 
@@ -1838,36 +2184,44 @@ async function home(){
 
         <div class="card stories">
 
-          <div class="story">
+          <div
+            class="story"
+            onclick="profilePage('${escapeHTML(user.id)}')"
+          >
 
             <div class="story-ring">
 
               <img
                 src="${avatarOf(profile)}"
+                alt=""
               >
 
             </div>
 
             <div>
-              Your Story
+              Your Profile
             </div>
 
           </div>
 
           ${
             profiles
+              .filter(
+                p => p.id !== user.id
+              )
               .slice(0,12)
               .map(p => `
 
                 <div
                   class="story"
-                  onclick="profilePage('${p.id}')"
+                  onclick="profilePage('${escapeHTML(p.id)}')"
                 >
 
                   <div class="story-ring">
 
                     <img
                       src="${avatarOf(p)}"
+                      alt=""
                     >
 
                   </div>
@@ -1889,16 +2243,20 @@ async function home(){
         ${
           (posts || []).length
           ?
-          (await Promise.all(
-            (posts || [])
-              .map(
-                post =>
-                  renderPost(
-                    post,
-                    map.get(post.user_id)
-                  )
-              )
-          )).join("")
+          (
+            await Promise.all(
+              (posts || [])
+                .map(
+                  post =>
+                    renderPost(
+                      post,
+                      map.get(
+                        post.user_id
+                      )
+                    )
+                )
+            )
+          ).join("")
           :
           `
 
@@ -1915,7 +2273,9 @@ async function home(){
               </h2>
 
               <p class="muted">
-                Follow members or create your first post.
+                Your network starts here.
+                Find members, connect with people,
+                or create your first post.
               </p>
 
               <button
@@ -1941,12 +2301,14 @@ async function home(){
 
 
 /* =========================================================
-   POST RENDERING
+   POSTS
 ========================================================= */
 
 async function renderPost(post,p){
 
-  const {count:likeCount} =
+  const {
+    count:likeCount
+  } =
     await db
       .from("likes")
       .select("id",{
@@ -1959,7 +2321,9 @@ async function renderPost(post,p){
       );
 
 
-  const {data:myLike} =
+  const {
+    data:myLike
+  } =
     await db
       .from("likes")
       .select("id")
@@ -1974,7 +2338,9 @@ async function renderPost(post,p){
       .maybeSingle();
 
 
-  const {data:comments} =
+  const {
+    data:comments
+  } =
     await db
       .from("comments")
       .select("*")
@@ -1994,14 +2360,19 @@ async function renderPost(post,p){
   const commentProfiles =
     await getProfiles(
       (comments || [])
-        .map(c => c.user_id)
+        .map(
+          c => c.user_id
+        )
     );
 
 
   const commentMap =
     new Map(
       commentProfiles.map(
-        x => [x.id,x]
+        x => [
+          x.id,
+          x
+        ]
       )
     );
 
@@ -2010,7 +2381,7 @@ async function renderPost(post,p){
 
     <article
       class="card post"
-      id="post-${post.id}"
+      id="post-${escapeHTML(post.id)}"
     >
 
       <div class="post-head">
@@ -2018,16 +2389,19 @@ async function renderPost(post,p){
         <img
           class="avatar"
           src="${avatarOf(p)}"
-          onclick="profilePage('${post.user_id}')"
+          onclick="profilePage('${escapeHTML(post.user_id)}')"
+          alt=""
         >
 
         <div
           style="cursor:pointer"
-          onclick="profilePage('${post.user_id}')"
+          onclick="profilePage('${escapeHTML(post.user_id)}')"
         >
 
           <div class="post-head-name">
-            ${escapeHTML(nameOf(p))}
+            ${escapeHTML(
+              nameOf(p)
+            )}
           </div>
 
           <div class="post-head-title">
@@ -2040,6 +2414,7 @@ async function renderPost(post,p){
 
         <button
           class="post-menu"
+          aria-label="Post menu"
         >
           ···
         </button>
@@ -2047,12 +2422,12 @@ async function renderPost(post,p){
       </div>
 
       ${
-        post.image_url
+        safeURL(post.image_url)
         ?
         `
           <img
             class="post-image"
-            src="${escapeHTML(post.image_url)}"
+            src="${safeURL(post.image_url)}"
             alt=""
           >
         `
@@ -2068,8 +2443,8 @@ async function renderPost(post,p){
               ? "liked"
               : ""
           }"
-          onclick="toggleLike('${post.id}')"
-          data-like="${post.id}"
+          onclick="toggleLike('${escapeHTML(post.id)}')"
+          data-like="${escapeHTML(post.id)}"
         >
           ${
             myLike
@@ -2079,16 +2454,24 @@ async function renderPost(post,p){
         </button>
 
         <button
-          onclick="focusComment('${post.id}')"
+          onclick="focusComment('${escapeHTML(post.id)}')"
         >
           ♡
         </button>
 
-        <button
-          onclick="openChatFromPost('${post.user_id}')"
-        >
-          ➤
-        </button>
+        ${
+          post.user_id !== user.id
+          ?
+          `
+            <button
+              onclick="openChatFromPost('${escapeHTML(post.user_id)}')"
+            >
+              ➤
+            </button>
+          `
+          :
+          ""
+        }
 
       </div>
 
@@ -2096,7 +2479,7 @@ async function renderPost(post,p){
 
         <div
           class="likes"
-          data-likes="${post.id}"
+          data-likes="${escapeHTML(post.id)}"
         >
           ${likeCount || 0} likes
         </div>
@@ -2136,7 +2519,9 @@ async function renderPost(post,p){
                   )}
                 </strong>
 
-                ${escapeHTML(c.body)}
+                ${escapeHTML(
+                  c.body
+                )}
 
               </div>
 
@@ -2144,27 +2529,29 @@ async function renderPost(post,p){
             .join("")
         }
 
-        <div class="muted"
-             style="margin-top:9px">
-
-          ${timeAgo(post.created_at)}
-
+        <div
+          class="muted"
+          style="margin-top:9px"
+        >
+          ${timeAgo(
+            post.created_at
+          )}
         </div>
 
         <div class="comment-input">
 
           <input
-            id="comment-${post.id}"
+            id="comment-${escapeHTML(post.id)}"
             placeholder="Add a comment..."
             onkeydown="
               if(event.key==='Enter'){
-                addComment('${post.id}')
+                addComment('${escapeHTML(post.id)}')
               }
             "
           >
 
           <button
-            onclick="addComment('${post.id}')"
+            onclick="addComment('${escapeHTML(post.id)}')"
           >
             Post
           </button>
@@ -2179,13 +2566,11 @@ async function renderPost(post,p){
 }
 
 
-/* =========================================================
-   LIKE
-========================================================= */
-
 async function toggleLike(postId){
 
-  const {data:existing} =
+  const {
+    data:existing
+  } =
     await db
       .from("likes")
       .select("id")
@@ -2202,7 +2587,9 @@ async function toggleLike(postId){
 
   if(existing){
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("likes")
         .delete()
@@ -2214,14 +2601,18 @@ async function toggleLike(postId){
 
     if(error){
 
-      toast(error.message);
+      toast(
+        error.message
+      );
 
       return;
     }
 
   }else{
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("likes")
         .insert({
@@ -2235,14 +2626,18 @@ async function toggleLike(postId){
 
     if(error){
 
-      toast(error.message);
+      toast(
+        error.message
+      );
 
       return;
     }
   }
 
 
-  const {count} =
+  const {
+    count
+  } =
     await db
       .from("likes")
       .select("id",{
@@ -2292,16 +2687,16 @@ async function toggleLike(postId){
 }
 
 
-/* =========================================================
-   COMMENTS
-========================================================= */
-
 async function addComment(postId){
 
   const input =
     document.getElementById(
       `comment-${postId}`
     );
+
+
+  if(!input)
+    return;
 
 
   const body =
@@ -2312,7 +2707,9 @@ async function addComment(postId){
     return;
 
 
-  const {error} =
+  const {
+    error
+  } =
     await db
       .from("comments")
       .insert({
@@ -2328,7 +2725,9 @@ async function addComment(postId){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2336,7 +2735,9 @@ async function addComment(postId){
 
   input.value = "";
 
-  toast("Comment posted.");
+  toast(
+    "Comment posted."
+  );
 
   await home();
 }
@@ -2358,6 +2759,7 @@ function focusComment(postId){
       behavior:"smooth",
       block:"center"
     });
+
   }
 }
 
@@ -2367,6 +2769,14 @@ function focusComment(postId){
 ========================================================= */
 
 function createPost(){
+
+  if(!user){
+
+    showAuth();
+
+    return;
+  }
+
 
   openModal(`
 
@@ -2421,23 +2831,59 @@ async function submitPost(){
   }
 
 
-  const {error} =
+  if(image){
+
+    try{
+
+      const parsed =
+        new URL(image);
+
+      if(
+        parsed.protocol !== "http:" &&
+        parsed.protocol !== "https:"
+      ){
+
+        toast(
+          "Please use a valid image URL."
+        );
+
+        return;
+      }
+
+    }catch(e){
+
+      toast(
+        "Please enter a valid image URL."
+      );
+
+      return;
+    }
+  }
+
+
+  const {
+    error
+  } =
     await db
       .from("posts")
       .insert({
 
         user_id:user.id,
 
-        content:content || null,
+        content:
+          content || null,
 
-        image_url:image || null
+        image_url:
+          image || null
 
       });
 
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2445,19 +2891,32 @@ async function submitPost(){
 
   closeModal();
 
-  toast("Posted.");
+  toast(
+    "Posted."
+  );
 
   await home();
 }
 
 
 /* =========================================================
-   EXPLORE
+   EXPLORE / SEARCH
 ========================================================= */
 
 async function explore(){
 
-  const {data,error} =
+  if(!user){
+
+    showAuth();
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
     await db
       .from("profiles")
       .select("*")
@@ -2476,7 +2935,9 @@ async function explore(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2504,10 +2965,23 @@ async function searchUsers(query){
 
 
   const safe =
-    query.replace(/[%_]/g,"");
+    query
+      .replace(/[%_,]/g,"")
+      .trim();
 
 
-  const {data,error} =
+  if(!safe){
+
+    await explore();
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
     await db
       .from("profiles")
       .select("*")
@@ -2519,7 +2993,9 @@ async function searchUsers(query){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2556,61 +3032,64 @@ function renderMembers(
           ${
             members.length
             ?
-            members.map(p => `
+            members
+              .map(p => `
 
-              <div class="member">
+                <div class="member">
 
-                <img
-                  class="avatar"
-                  src="${avatarOf(p)}"
-                  onclick="profilePage('${p.id}')"
-                >
+                  <img
+                    class="avatar"
+                    src="${avatarOf(p)}"
+                    onclick="profilePage('${escapeHTML(p.id)}')"
+                    alt=""
+                  >
 
-                <div
-                  class="member-info"
-                  onclick="profilePage('${p.id}')"
-                  style="cursor:pointer"
-                >
+                  <div
+                    class="member-info"
+                    onclick="profilePage('${escapeHTML(p.id)}')"
+                    style="cursor:pointer"
+                  >
 
-                  <strong>
-                    ${escapeHTML(
-                      nameOf(p)
-                    )}
-                  </strong>
+                    <strong>
+                      ${escapeHTML(
+                        nameOf(p)
+                      )}
+                    </strong>
 
-                  <div class="muted">
-                    ${escapeHTML(
-                      p.professional_title || ""
-                    )}
+                    <div class="muted">
+                      ${escapeHTML(
+                        p.professional_title || ""
+                      )}
+                    </div>
+
+                    <div class="muted">
+                      ${escapeHTML(
+                        p.industry || ""
+                      )}
+                    </div>
+
                   </div>
 
-                  <div class="muted">
-                    ${escapeHTML(
-                      p.industry || ""
-                    )}
-                  </div>
+                  <button
+                    class="follow ${
+                      following.has(p.id)
+                        ? "following"
+                        : ""
+                    }"
+                    data-follow="${escapeHTML(p.id)}"
+                    onclick="toggleFollow('${escapeHTML(p.id)}')"
+                  >
+                    ${
+                      following.has(p.id)
+                        ? "Following"
+                        : "Follow"
+                    }
+                  </button>
 
                 </div>
 
-                <button
-                  class="follow ${
-                    following.has(p.id)
-                      ? "following"
-                      : ""
-                  }"
-                  data-follow="${p.id}"
-                  onclick="toggleFollow('${p.id}')"
-                >
-                  ${
-                    following.has(p.id)
-                      ? "Following"
-                      : "Follow"
-                  }
-                </button>
-
-              </div>
-
-            `).join("")
+              `)
+              .join("")
             :
             `
               <div style="padding:30px">
@@ -2637,7 +3116,18 @@ function renderMembers(
 
 async function messages(){
 
-  const {data,error} =
+  if(!user){
+
+    showAuth();
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
     await db
       .from("profiles")
       .select("*")
@@ -2650,7 +3140,9 @@ async function messages(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2681,6 +3173,8 @@ async function messages(){
                   <img
                     class="avatar"
                     src="${avatarOf(p)}"
+                    onclick="profilePage('${escapeHTML(p.id)}')"
+                    alt=""
                   >
 
                   <div class="message-user-info">
@@ -2701,7 +3195,7 @@ async function messages(){
 
                   <button
                     class="primary blue"
-                    onclick="openChat('${p.id}')"
+                    onclick="openChat('${escapeHTML(p.id)}')"
                   >
                     Message
                   </button>
@@ -2726,10 +3220,8 @@ async function messages(){
 
 async function openChatFromPost(id){
 
-  if(id === user.id){
-
+  if(id === user.id)
     return;
-  }
 
   await openChat(id);
 }
@@ -2737,7 +3229,16 @@ async function openChatFromPost(id){
 
 async function openChat(id){
 
-  activeChat = id;
+  if(!user){
+
+    showAuth();
+
+    return;
+  }
+
+
+  activeChat =
+    id;
 
 
   const profiles =
@@ -2750,19 +3251,26 @@ async function openChat(id){
 
   if(!other){
 
-    toast("Member not found.");
+    toast(
+      "Member not found."
+    );
 
     return;
   }
 
 
-  await renderChat(other);
+  await renderChat(
+    other
+  );
 }
 
 
 async function renderChat(other){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("messages")
       .select("*")
@@ -2779,7 +3287,9 @@ async function renderChat(other){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2794,6 +3304,7 @@ async function renderChat(other){
         <img
           class="avatar-small avatar"
           src="${avatarOf(other)}"
+          alt=""
         >
 
         <strong>
@@ -2820,7 +3331,9 @@ async function renderChat(other){
                     : ""
                 }"
               >
-                ${escapeHTML(m.body)}
+                ${escapeHTML(
+                  m.body
+                )}
               </div>
 
             `)
@@ -2834,6 +3347,7 @@ async function renderChat(other){
         <input
           id="chatInput"
           placeholder="Message..."
+          autocomplete="off"
           onkeydown="
             if(event.key==='Enter'){
               sendMessage()
@@ -2862,9 +3376,11 @@ async function renderChat(other){
         "chatMessages"
       );
 
-    if(box)
+    if(box){
+
       box.scrollTop =
         box.scrollHeight;
+    }
 
   },50);
 }
@@ -2890,7 +3406,9 @@ async function sendMessage(){
     return;
 
 
-  const {error} =
+  const {
+    error
+  } =
     await db
       .from("messages")
       .insert({
@@ -2906,7 +3424,9 @@ async function sendMessage(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2916,12 +3436,16 @@ async function sendMessage(){
 
 
   const other =
-    (await getProfiles([
-      activeChat
-    ]))[0];
+    (
+      await getProfiles([
+        activeChat
+      ])
+    )[0];
 
 
-  await renderChat(other);
+  await renderChat(
+    other
+  );
 }
 
 
@@ -2931,10 +3455,25 @@ async function sendMessage(){
 
 async function notifications(){
 
-  const {data,error} =
+  if(!user){
+
+    showAuth();
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
     await db
       .from("notifications")
       .select("*")
+      .eq(
+        "user_id",
+        user.id
+      )
       .order(
         "created_at",
         {
@@ -2946,7 +3485,9 @@ async function notifications(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
@@ -2955,14 +3496,19 @@ async function notifications(){
   const actors =
     await getProfiles(
       (data || [])
-        .map(n => n.actor_id)
+        .map(
+          n => n.actor_id
+        )
     );
 
 
   const map =
     new Map(
       actors.map(
-        x => [x.id,x]
+        x => [
+          x.id,
+          x
+        ]
       )
     );
 
@@ -2986,55 +3532,68 @@ async function notifications(){
           ${
             (data || []).length
             ?
-            data.map(n => {
+            data
+              .map(n => {
 
-              const actor =
-                map.get(n.actor_id);
+                const actor =
+                  map.get(
+                    n.actor_id
+                  );
 
-              let text = "";
+                let text =
+                  "You have new activity.";
 
-              if(n.type === "follow")
-                text =
-                  `${nameOf(actor)} followed you.`;
 
-              if(n.type === "like")
-                text =
-                  `${nameOf(actor)} liked your post.`;
+                if(n.type === "follow")
+                  text =
+                    `${nameOf(actor)} followed you.`;
 
-              if(n.type === "comment")
-                text =
-                  `${nameOf(actor)} commented on your post.`;
 
-              if(n.type === "message")
-                text =
-                  `${nameOf(actor)} sent you a message.`;
+                if(n.type === "like")
+                  text =
+                    `${nameOf(actor)} liked your post.`;
 
-              return `
 
-                <div class="member">
+                if(n.type === "comment")
+                  text =
+                    `${nameOf(actor)} commented on your post.`;
 
-                  <img
-                    class="avatar"
-                    src="${avatarOf(actor)}"
-                  >
 
-                  <div class="member-info">
+                if(n.type === "message")
+                  text =
+                    `${nameOf(actor)} sent you a message.`;
 
-                    <div>
-                      ${escapeHTML(text)}
-                    </div>
 
-                    <div class="muted">
-                      ${timeAgo(n.created_at)}
+                return `
+
+                  <div class="member">
+
+                    <img
+                      class="avatar"
+                      src="${avatarOf(actor)}"
+                      alt=""
+                    >
+
+                    <div class="member-info">
+
+                      <div>
+                        ${escapeHTML(text)}
+                      </div>
+
+                      <div class="muted">
+                        ${timeAgo(
+                          n.created_at
+                        )}
+                      </div>
+
                     </div>
 
                   </div>
 
-                </div>
+                `;
 
-              `;
-
-            }).join("")
+              })
+              .join("")
             :
             `
               <div style="padding:30px">
@@ -3076,6 +3635,10 @@ async function notifications(){
 ========================================================= */
 
 function editProfile(){
+
+  if(!profile)
+    return;
+
 
   openModal(`
 
@@ -3209,7 +3772,9 @@ async function saveProfile(){
   };
 
 
-  const {error} =
+  const {
+    error
+  } =
     await db
       .from("profiles")
       .update(values)
@@ -3221,20 +3786,29 @@ async function saveProfile(){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
 
 
   profile =
-    await ensureProfile(user);
+    await ensureProfile(
+      user
+    );
+
 
   closeModal();
 
-  toast("Profile updated.");
+  toast(
+    "Profile updated."
+  );
 
-  await profilePage(user.id);
+  await profilePage(
+    user.id
+  );
 }
 
 
@@ -3244,7 +3818,10 @@ async function saveProfile(){
 
 async function viewPost(id){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("posts")
       .select("*")
@@ -3257,16 +3834,20 @@ async function viewPost(id){
 
   if(error){
 
-    toast(error.message);
+    toast(
+      error.message
+    );
 
     return;
   }
 
 
   const p =
-    (await getProfiles([
-      data.user_id
-    ]))[0];
+    (
+      await getProfiles([
+        data.user_id
+      ])
+    )[0];
 
 
   openModal(
@@ -3293,8 +3874,11 @@ db
     },
     async () => {
 
-      if(user)
+      if(user){
+
         await loadFollowing();
+
+      }
 
     }
   )
@@ -3319,15 +3903,26 @@ db.auth
 
         try{
 
-          await ensureProfile(user);
+          await ensureProfile(
+            user
+          );
 
           await loadFollowing();
+
+          /*
+            Do not send another login email here.
+            login() already sends it.
+            This listener can also fire on refresh,
+            so sending here would create duplicate emails.
+          */
 
           await home();
 
         }catch(error){
 
-          console.error(error);
+          console.error(
+            error
+          );
 
           toast(
             "Unable to load your account."
@@ -3352,7 +3947,7 @@ db.auth
 
 
 /* =========================================================
-   START
+   START APPLICATION
 ========================================================= */
 
 (async function(){
