@@ -1,618 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Porter Empire Network</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
 
-<meta name="description"
-content="Porter Empire Network — connect with people, build relationships, and move forward.">
+<title>PEN Network</title>
 
 <style>
+
 :root{
   --bg:#050505;
-  --panel:#0d0d0f;
-  --gold:#d7b34a;
-  --gold2:#ffe49a;
-  --text:#f7f4ea;
-  --muted:#96928a;
-  --line:#252525;
+  --card:#0d0d0d;
+  --gold:#d4af37;
+  --gold2:#f4d77a;
+  --text:#f5f2e9;
+  --muted:#98948a;
+  --border:rgba(212,175,55,.18);
 }
 
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
-  margin:0;
-  background:var(--bg);
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(212,175,55,.1),
+      transparent 35%
+    ),
+    var(--bg);
+
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-button,input,textarea,select{
+button{
   font:inherit;
+  cursor:pointer;
 }
 
-.wrap{
-  width:min(1160px,calc(100% - 32px));
-  margin:auto;
-}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
 
-/* NAV */
+  height:70px;
 
-.nav{
-  height:74px;
-  position:fixed;
-  inset:0 0 auto;
-  z-index:10;
-  background:#050505dd;
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid #ffffff10;
-}
-
-.navin{
-  height:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  padding:0 5%;
+
+  background:rgba(5,5,5,.82);
+
+  backdrop-filter:blur(20px);
+
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:10px;
+
+  color:var(--gold2);
+
   font-size:11px;
-  font-weight:800;
-  letter-spacing:.18em;
+  font-weight:900;
+  letter-spacing:.16em;
 }
 
 .mark{
-  width:38px;
-  height:38px;
+  width:36px;
+  height:36px;
+
   display:grid;
   place-items:center;
-  border:1px solid #d7b34a88;
-  color:var(--gold2);
+
+  border:1px solid var(--gold);
+
+  font-size:10px;
 }
 
-.navlinks{
-  display:flex;
-  gap:26px;
-  align-items:center;
-  font-size:11px;
+.logout{
+  padding:9px 14px;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  background:transparent;
+
   color:#aaa;
-  letter-spacing:.12em;
+
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.14em;
   text-transform:uppercase;
 }
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+.app{
+  width:min(1100px,92%);
+  margin:0 auto;
 
-  min-height:48px;
-  padding:0 20px;
+  padding:40px 0 100px;
+}
 
-  border:1px solid #d7b34a77;
+.welcome{
+  padding:30px;
+
+  border:1px solid var(--border);
 
   background:
     linear-gradient(
       135deg,
-      #a77f20,
-      #f1cf65,
-      #aa8122
+      rgba(212,175,55,.08),
+      rgba(255,255,255,.015)
     );
 
-  color:#090909;
-
-  font-weight:850;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-
-  cursor:pointer;
-
-  transition:.25s ease;
+  border-radius:20px;
 }
 
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 35px #d7b34a20;
-}
-
-.btn.alt{
-  background:transparent;
+.welcome-label{
   color:var(--gold2);
-}
 
-/* HERO */
-
-.hero{
-  min-height:100vh;
-
-  display:grid;
-  place-items:center;
-
-  padding:130px 0 80px;
-
-  background:
-    radial-gradient(
-      circle at 75% 35%,
-      #d7b34a16,
-      transparent 35%
-    );
-}
-
-.heroGrid{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:60px;
-  align-items:center;
-}
-
-.eyebrow{
-  color:var(--gold2);
-  font-size:11px;
-  letter-spacing:.24em;
-  text-transform:uppercase;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:clamp(54px,8vw,104px);
-  line-height:.88;
-  letter-spacing:-.07em;
-  margin:0;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.2em;
   text-transform:uppercase;
 }
 
-.gold{
-  color:var(--gold);
+.welcome h1{
+  margin-top:12px;
+
+  font-size:clamp(34px,6vw,62px);
+
+  line-height:.95;
+
+  letter-spacing:-.05em;
+
+  text-transform:uppercase;
 }
 
-.copy{
-  max-width:620px;
+.welcome p{
+  margin-top:14px;
 
   color:var(--muted);
 
-  font-size:17px;
-  line-height:1.8;
-
-  margin:28px 0;
+  font-size:14px;
 }
 
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
+.username{
+  color:var(--gold);
 }
-
-.orb{
-  width:min(430px,80vw);
-  aspect-ratio:1;
-
-  border:1px solid #d7b34a44;
-
-  transform:rotate(45deg);
-
-  display:grid;
-  place-items:center;
-
-  box-shadow:
-    0 0 100px #d7b34a0b,
-    inset 0 0 80px #d7b34a08;
-}
-
-.orb div{
-  width:55%;
-  aspect-ratio:1;
-
-  border:1px solid #d7b34a77;
-
-  display:grid;
-  place-items:center;
-
-  transform:rotate(-45deg);
-
-  font-size:65px;
-  font-weight:900;
-
-  color:var(--gold2);
-}
-
-/* SECTIONS */
-
-section{
-  padding:110px 0;
-}
-
-.label{
-  color:var(--gold2);
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  margin-bottom:14px;
-}
-
-.title{
-  font-size:clamp(38px,5vw,68px);
-  line-height:.95;
-  letter-spacing:-.05em;
-  margin:0;
-  text-transform:uppercase;
-}
-
-/* NETWORK */
 
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:1px;
+  gap:18px;
 
-  background:#ffffff10;
-
-  margin-top:50px;
+  margin-top:22px;
 }
 
 .card{
-  padding:30px;
-  background:#090909;
-  min-height:210px;
+  min-height:220px;
 
-  transition:.3s ease;
+  padding:25px;
+
+  border:1px solid rgba(255,255,255,.07);
+
+  background:var(--card);
+
+  border-radius:18px;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease;
 }
 
 .card:hover{
-  background:#101010;
-  transform:translateY(-3px);
+  transform:translateY(-4px);
+
+  border-color:var(--border);
 }
 
-.num{
-  color:#8f6d1d;
-  font-size:10px;
-  letter-spacing:.18em;
+.icon{
+  width:45px;
+  height:45px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:13px;
+
+  background:rgba(212,175,55,.08);
+
+  border:1px solid var(--border);
+
+  color:var(--gold2);
+
+  font-size:20px;
 }
 
-.card h3{
-  margin:55px 0 10px;
-  font-size:22px;
+.card h2{
+  margin-top:25px;
+
+  font-size:21px;
+
   text-transform:uppercase;
 }
 
 .card p{
-  color:#858179;
-  line-height:1.7;
+  margin-top:10px;
+
+  color:var(--muted);
+
   font-size:13px;
+  line-height:1.65;
 }
 
-/* CTA */
+.card button{
+  margin-top:22px;
 
-.cta{
-  border-top:1px solid #ffffff0c;
+  padding:11px 15px;
 
-  background:
-    radial-gradient(
-      circle at 80% 20%,
-      #d7b34a12,
-      transparent 35%
-    );
+  border:1px solid var(--gold);
+
+  background:rgba(212,175,55,.08);
+
+  color:var(--gold2);
+
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
 }
 
-.ctaBox{
+.profile{
+  margin-top:22px;
+
+  padding:30px;
+
+  border:1px solid rgba(255,255,255,.07);
+
+  border-radius:18px;
+
+  background:#090909;
+}
+
+.profile-top{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-
-  gap:30px;
-
-  padding:50px;
-
-  border:1px solid #ffffff12;
-
-  background:#0b0b0b;
+  gap:20px;
 }
 
-.ctaBox p{
-  color:#8e8a82;
-  max-width:600px;
+.avatar{
+  width:75px;
+  height:75px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  border:1px solid var(--gold);
+
+  background:#111;
+
+  color:var(--gold2);
+
+  font-size:25px;
+  font-weight:900;
 }
 
-/* FOOTER */
-
-footer{
-  padding:35px 0;
-
-  border-top:1px solid #ffffff0d;
-
-  color:#666;
-  font-size:11px;
+.profile h2{
+  font-size:24px;
 }
 
-.footer{
-  display:flex;
-  justify-content:space-between;
+.profile-email{
+  margin-top:4px;
+
+  color:#77736b;
+
+  font-size:12px;
 }
 
-/* MOBILE */
+.status{
+  margin-top:22px;
 
-.mobile{
-  display:none;
+  padding:15px;
+
+  border:1px solid rgba(212,175,55,.12);
+
+  color:#aaa59b;
+
+  font-size:12px;
 }
 
 @media(max-width:800px){
-
-  .navlinks{
-    display:none;
-  }
-
-  .mobile{
-    display:block;
-  }
-
-  .heroGrid{
-    grid-template-columns:1fr;
-  }
-
-  .orb{
-    margin:20px auto;
-    width:260px;
-  }
 
   .grid{
     grid-template-columns:1fr;
   }
 
-  .ctaBox{
-    padding:28px;
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .footer{
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .hero{
-    padding-top:120px;
+  .app{
+    width:min(94%,600px);
   }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<header class="nav">
+<header class="topbar">
 
-  <div class="wrap navin">
+  <div class="brand">
 
-    <a class="brand" href="index.html">
-      <span class="mark">PE</span>
-      PORTER EMPIRE NETWORK
-    </a>
+    <div class="mark">
+      PE
+    </div>
 
-    <nav class="navlinks">
-
-      <a href="#network">
-        Network
-      </a>
-
-      <a href="#vision">
-        Vision
-      </a>
-
-      <a href="app.html" class="btn alt"
-         style="min-height:40px">
-        Enter PEN →
-      </a>
-
-    </nav>
-
-    <a
-      class="mobile btn alt"
-      href="app.html"
-      style="min-height:40px;padding:0 13px"
-    >
-      Enter
-    </a>
+    PEN NETWORK
 
   </div>
+
+  <button
+    class="logout"
+    id="logout"
+  >
+    Log Out
+  </button>
 
 </header>
 
-<main>
 
-<section class="hero">
+<main class="app">
 
-  <div class="wrap heroGrid">
+
+<section class="welcome">
+
+  <div class="welcome-label">
+    Member Dashboard
+  </div>
+
+  <h1>
+    Welcome,
+    <span
+      class="username"
+      id="username"
+    >
+    </span>
+  </h1>
+
+  <p>
+    You're now inside Porter Empire Network.
+    This is where your network starts.
+  </p>
+
+</section>
+
+
+<section class="grid">
+
+
+<div class="card">
+
+  <div class="icon">
+    ◎
+  </div>
+
+  <h2>
+    Discover
+  </h2>
+
+  <p>
+    Find people, entrepreneurs, professionals,
+    creators and builders inside PEN.
+  </p>
+
+  <button onclick="comingSoon()">
+    Explore People
+  </button>
+
+</div>
+
+
+<div class="card">
+
+  <div class="icon">
+    +
+  </div>
+
+  <h2>
+    Connections
+  </h2>
+
+  <p>
+    Connect with people you meet and build
+    your professional network.
+  </p>
+
+  <button onclick="comingSoon()">
+    View Connections
+  </button>
+
+</div>
+
+
+<div class="card">
+
+  <div class="icon">
+    ✦
+  </div>
+
+  <h2>
+    Your Profile
+  </h2>
+
+  <p>
+    Build your PEN identity with your profession,
+    skills, bio and what you're looking for.
+  </p>
+
+  <button onclick="comingSoon()">
+    Edit Profile
+  </button>
+
+</div>
+
+
+</section>
+
+
+<section class="profile">
+
+  <div class="profile-top">
+
+    <div
+      class="avatar"
+      id="avatar"
+    >
+      PE
+    </div>
 
     <div>
 
-      <div class="eyebrow">
-        Porter Empire Network
-      </div>
+      <h2 id="profileName">
+        Member
+      </h2>
 
-      <h1>
-        A New Kind
-        <br>
-        Of <span class="gold">Network.</span>
-      </h1>
-
-      <p class="copy">
-        Meet people. Follow people. Build relationships.
-        Share what you're working on.
-        PEN is a social network designed around meaningful
-        connections.
-      </p>
-
-      <div class="actions">
-
-        <a class="btn" href="app.html">
-          Join The Network →
-        </a>
-
-        <a class="btn alt" href="#network">
-          Explore PEN
-        </a>
-
-      </div>
-
-    </div>
-
-    <div>
-
-      <div class="orb">
-        <div>PE</div>
+      <div
+        class="profile-email"
+        id="profileEmail"
+      >
       </div>
 
     </div>
 
   </div>
 
-</section>
 
-<section id="network">
+  <div class="status">
 
-  <div class="wrap">
+    <strong>
+      PEN PROFILE
+    </strong>
 
-    <div class="label">
-      The Network
-    </div>
+    <br><br>
 
-    <h2 class="title">
-      Different paths.
-      <br>
-      <span class="gold">One room.</span>
-    </h2>
-
-    <div class="grid">
-
-      <article class="card">
-        <div class="num">01</div>
-        <h3>Connect</h3>
-        <p>
-          Find people whose skills, work and goals
-          match where you want to go.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="num">02</div>
-        <h3>Follow</h3>
-        <p>
-          Follow people you want to keep up with
-          and build your own network.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="num">03</div>
-        <h3>Share</h3>
-        <p>
-          Post ideas, progress, opportunities
-          and updates to your network.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="num">04</div>
-        <h3>Discover</h3>
-        <p>
-          Explore members by username,
-          profession and location.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="num">05</div>
-        <h3>Message</h3>
-        <p>
-          Start one-to-one conversations
-          with people in your network.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="num">06</div>
-        <h3>Grow</h3>
-        <p>
-          Turn introductions into ongoing
-          relationships and opportunities.
-        </p>
-      </article>
-
-    </div>
+    Your account is active on this device.
+    The next stage is connecting your profile,
+    posts, follows, likes, messages and
+    notifications to your PEN database.
 
   </div>
 
 </section>
 
-<section id="vision" class="cta">
-
-  <div class="wrap">
-
-    <div class="ctaBox">
-
-      <div>
-
-        <div class="label">
-          The Vision
-        </div>
-
-        <h2 class="title">
-          Build the
-          <span class="gold">room.</span>
-        </h2>
-
-        <p>
-          Join a network where people can discover
-          each other, follow their interests, share
-          their work and create real connections.
-        </p>
-
-      </div>
-
-      <a class="btn" href="app.html">
-        Create Your PEN Account →
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
 
 </main>
 
-<footer>
-
-  <div class="wrap footer">
-
-    <span>
-      © <span id="year"></span>
-      Porter Empire Network
-    </span>
-
-    <span>
-      Connect. Grow. Move Forward.
-    </span>
-
-  </div>
-
-</footer>
 
 <script>
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+
+const account =
+  JSON.parse(
+    localStorage.getItem("penAccount")
+  );
+
+
+if(!account){
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+if(account){
+
+  const name =
+    account.username || "Member";
+
+  document.getElementById(
+    "username"
+  ).textContent =
+    "@" + name;
+
+  document.getElementById(
+    "profileName"
+  ).textContent =
+    "@" + name;
+
+  document.getElementById(
+    "profileEmail"
+  ).textContent =
+    account.email;
+
+  const firstLetter =
+    name.charAt(0).toUpperCase();
+
+  document.getElementById(
+    "avatar"
+  ).textContent =
+    firstLetter;
+
+}
+
+
+document.getElementById(
+  "logout"
+).addEventListener(
+  "click",
+  function(){
+
+    localStorage.removeItem(
+      "penAccount"
+    );
+
+    window.location.href =
+      "index.html";
+
+  }
+);
+
+
+function comingSoon(){
+
+  alert(
+    "This PEN feature is ready for the next build."
+  );
+
+}
+
 </script>
 
 </body>
