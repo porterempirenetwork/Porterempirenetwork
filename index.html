@@ -1,1167 +1,1388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Porter Empire Network</title>
-
-  <meta
-    name="description"
-    content="Porter Empire Network — A new kind of network. People with vision. Connections with purpose."
-  />
-
-  <meta name="theme-color" content="#050505" />
-
-  <style>
-    :root {
-      --black: #050505;
-      --black-2: #0a0a0a;
-      --panel: #101010;
-      --panel-2: #151515;
-      --gold: #c8a45a;
-      --gold-light: #e6c878;
-      --cream: #f4efe3;
-      --muted: #a9a49a;
-      --line: rgba(255,255,255,.09);
-      --success: #72d49a;
-      --danger: #ef7474;
-      --shadow: 0 25px 80px rgba(0,0,0,.45);
-      --radius: 22px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      background: var(--black);
-      color: var(--cream);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .noise {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .035;
-      z-index: 1000;
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-    }
-
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5%;
-      z-index: 100;
-      background: rgba(5,5,5,.72);
-      backdrop-filter: blur(22px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      font-weight: 800;
-      letter-spacing: .08em;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(200,164,90,.55);
-      display: grid;
-      place-items: center;
-      color: var(--gold-light);
-      font-size: 15px;
-      letter-spacing: -.03em;
-      box-shadow: 0 0 30px rgba(200,164,90,.08);
-    }
-
-    .brand span {
-      font-size: 12px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      color: #c9c5bc;
-      font-size: 13px;
-    }
-
-    .nav-links a {
-      transition: .25s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .nav-cta {
-      padding: 12px 19px;
-      border: 1px solid rgba(200,164,90,.55);
-      color: var(--gold-light);
-    }
-
-    .menu {
-      display: none;
-      background: none;
-      border: 0;
-      color: white;
-      font-size: 27px;
-      cursor: pointer;
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      position: relative;
-      padding: 150px 6% 100px;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 650px;
-      height: 650px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle,
-        rgba(200,164,90,.14),
-        transparent 68%
-      );
-      top: 5%;
-      right: -15%;
-      filter: blur(10px);
-    }
-
-    .hero-content {
-      max-width: 1120px;
-      width: 100%;
-      position: relative;
-      z-index: 2;
-    }
-
-    .eyebrow {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: .24em;
-      font-size: 11px;
-      margin-bottom: 25px;
-    }
-
-    .hero h1 {
-      max-width: 1000px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(54px, 9vw, 118px);
-      line-height: .94;
-      font-weight: 400;
-      letter-spacing: -.055em;
-    }
-
-    .hero h1 span {
-      color: var(--gold-light);
-      font-style: italic;
-    }
-
-    .hero-copy {
-      max-width: 680px;
-      margin-top: 35px;
-      color: #b9b4aa;
-      font-size: clamp(16px, 2vw, 20px);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin-top: 40px;
-    }
-
-    .btn {
-      border: 1px solid transparent;
-      padding: 15px 23px;
-      cursor: pointer;
-      transition: .25s ease;
-      font-weight: 700;
-      letter-spacing: .01em;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: #080808;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 15px 40px rgba(200,164,90,.18);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border-color: var(--line);
-      color: var(--cream);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(200,164,90,.5);
-      color: var(--gold-light);
-      transform: translateY(-2px);
-    }
-
-    section {
-      padding: 115px 6%;
-      position: relative;
-    }
-
-    .section-inner {
-      max-width: 1180px;
-      margin: auto;
-    }
-
-    .section-label {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: .2em;
-      font-size: 11px;
-      margin-bottom: 15px;
-    }
-
-    .section-title {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 6vw, 70px);
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -.04em;
-    }
-
-    .section-text {
-      max-width: 650px;
-      color: var(--muted);
-      margin-top: 22px;
-      font-size: 17px;
-    }
-
-    .network-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 1px;
-      margin-top: 65px;
-      border: 1px solid var(--line);
-      background: var(--line);
-    }
-
-    .network-card {
-      background: #080808;
-      padding: 34px;
-      min-height: 240px;
-      transition: .3s ease;
-    }
-
-    .network-card:hover {
-      background: #111;
-      transform: translateY(-4px);
-    }
-
-    .network-number {
-      color: var(--gold);
-      font-size: 11px;
-      letter-spacing: .18em;
-    }
-
-    .network-card h3 {
-      margin-top: 45px;
-      font-family: Georgia, serif;
-      font-size: 28px;
-      font-weight: 400;
-    }
-
-    .network-card p {
-      margin-top: 12px;
-      color: #9e998f;
-      font-size: 14px;
-    }
-
-    .invite {
-      background:
-        radial-gradient(circle at 85% 15%, rgba(200,164,90,.12), transparent 30%),
-        #0a0a0a;
-    }
-
-    .invite-box {
-      border: 1px solid rgba(200,164,90,.2);
-      padding: clamp(30px, 7vw, 75px);
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.025),
-        rgba(200,164,90,.025)
-      );
-      box-shadow: var(--shadow);
-    }
-
-    .join-section {
-      background: #080808;
-    }
-
-    .join-grid {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 70px;
-      align-items: start;
-    }
-
-    .form-box {
-      background: #0d0d0d;
-      border: 1px solid var(--line);
-      padding: 34px;
-      box-shadow: var(--shadow);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .field {
-      margin-bottom: 17px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      color: #aaa49a;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.09);
-      background: #070707;
-      color: var(--cream);
-      padding: 14px 15px;
-      outline: none;
-      border-radius: 0;
-      transition: .2s ease;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: rgba(200,164,90,.65);
-      box-shadow: 0 0 0 3px rgba(200,164,90,.06);
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .photo-upload {
-      border: 1px dashed rgba(200,164,90,.38);
-      padding: 22px;
-      text-align: center;
-      background: rgba(200,164,90,.025);
-    }
-
-    .photo-preview {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      overflow: hidden;
-      border: 2px solid rgba(200,164,90,.55);
-      background: #171717;
-      display: grid;
-      place-items: center;
-      color: var(--gold-light);
-      font-size: 30px;
-      font-weight: 800;
-    }
-
-    .photo-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .photo-help {
-      color: #77736b;
-      font-size: 12px;
-      margin-top: 7px;
-    }
-
-    .check {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      margin: 15px 0 22px;
-    }
-
-    .check input {
-      width: auto;
-      margin-top: 4px;
-      accent-color: var(--gold);
-    }
-
-    .check span {
-      color: #858078;
-      font-size: 12px;
-    }
-
-    .success,
-    .error {
-      padding: 14px 15px;
-      margin-bottom: 18px;
-      display: none;
-      font-size: 13px;
-    }
-
-    .success {
-      background: rgba(114,212,154,.08);
-      border: 1px solid rgba(114,212,154,.2);
-      color: var(--success);
-    }
-
-    .error {
-      background: rgba(239,116,116,.08);
-      border: 1px solid rgba(239,116,116,.2);
-      color: var(--danger);
-    }
-
-    .founder-card {
-      margin-top: 55px;
-      border-top: 1px solid var(--line);
-      padding-top: 35px;
-    }
-
-    .founder-card h3 {
-      font-family: Georgia, serif;
-      font-size: 30px;
-      font-weight: 400;
-    }
-
-    .founder-card p {
-      color: #88837a;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-
-    footer {
-      padding: 45px 6%;
-      border-top: 1px solid var(--line);
-      color: #77736c;
-      font-size: 12px;
-    }
-
-    .footer-inner {
-      max-width: 1180px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media(max-width: 850px) {
-      .nav-links {
-        display: none;
-      }
-
-      .menu {
-        display: block;
-      }
-
-      .nav.open .nav-links {
-        display: flex;
-        position: absolute;
-        top: 82px;
-        left: 0;
-        right: 0;
-        padding: 25px;
-        background: #080808;
-        border-bottom: 1px solid var(--line);
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .network-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .join-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media(max-width: 560px) {
-      .hero {
-        padding-top: 130px;
-      }
-
-      .hero h1 {
-        font-size: 54px;
-      }
-
-      .network-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-
-      .form-box {
-        padding: 22px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Porter Empire Network — Connect. Grow. Move.</title>
+
+<meta name="description"
+content="Porter Empire Network — connect with ambitious people, discover opportunities, and build meaningful relationships.">
+
+<meta name="theme-color" content="#050505">
+
+<style>
+:root{
+  --black:#040404;
+  --black2:#080808;
+  --panel:#0d0d0d;
+  --panel2:#111;
+  --gold:#c9a55b;
+  --gold2:#f0d487;
+  --cream:#f4efe5;
+  --muted:#9b968c;
+  --line:rgba(255,255,255,.09);
+  --lineGold:rgba(201,165,91,.28);
+  --green:#71d49b;
+  --red:#e97676;
+  --max:1240px;
+  --shadow:0 35px 100px rgba(0,0,0,.55);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at 80% -10%,rgba(201,165,91,.10),transparent 30%),
+    var(--black);
+  color:var(--cream);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+/* NAV */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:78px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  background:rgba(4,4,4,.72);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  letter-spacing:.12em;
+  font-size:11px;
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--lineGold);
+  color:var(--gold2);
+  font-family:Georgia,serif;
+  font-size:15px;
+  box-shadow:0 0 35px rgba(201,165,91,.08);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  color:#bcb7ad;
+  font-size:13px;
+}
+
+.nav-links a{
+  transition:.25s;
+}
+
+.nav-links a:hover{
+  color:var(--gold2);
+}
+
+.nav-apply{
+  padding:11px 18px;
+  border:1px solid var(--lineGold);
+  color:var(--gold2);
+}
+
+.menu{
+  display:none;
+  border:0;
+  background:none;
+  color:white;
+  font-size:27px;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  padding:150px 6% 100px;
+  overflow:hidden;
+}
+
+.hero-orb{
+  position:absolute;
+  width:700px;
+  height:700px;
+  right:-250px;
+  top:-150px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,165,91,.18),transparent 68%);
+  filter:blur(15px);
+}
+
+.hero-inner{
+  width:100%;
+  max-width:var(--max);
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+.eyebrow{
+  color:var(--gold2);
+  text-transform:uppercase;
+  letter-spacing:.27em;
+  font-size:10px;
+  margin-bottom:24px;
+}
+
+.hero h1{
+  max-width:1050px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(58px,9vw,122px);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-.065em;
+}
+
+.hero h1 em{
+  color:var(--gold2);
+  font-style:italic;
+}
+
+.hero-description{
+  max-width:680px;
+  margin-top:35px;
+  color:#aaa59b;
+  font-size:18px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:38px;
+}
+
+.btn{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  padding:15px 23px;
+  border:1px solid transparent;
+  font-weight:750;
+  transition:.25s;
+}
+
+.primary{
+  background:var(--gold);
+  color:#050505;
+}
+
+.primary:hover{
+  background:var(--gold2);
+  transform:translateY(-3px);
+  box-shadow:0 18px 50px rgba(201,165,91,.18);
+}
+
+.secondary{
+  border-color:var(--line);
+  color:var(--cream);
+}
+
+.secondary:hover{
+  border-color:var(--lineGold);
+  color:var(--gold2);
+  transform:translateY(-3px);
+}
+
+.hero-stats{
+  display:flex;
+  gap:55px;
+  margin-top:75px;
+  border-top:1px solid var(--line);
+  padding-top:25px;
+  max-width:680px;
+}
+
+.stat strong{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:28px;
+  font-weight:400;
+}
+
+.stat span{
+  color:#77736b;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+/* GENERAL */
+
+section{
+  padding:120px 6%;
+}
+
+.container{
+  max-width:var(--max);
+  margin:auto;
+}
+
+.section-label{
+  color:var(--gold2);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:10px;
+  margin-bottom:15px;
+}
+
+.section-title{
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:clamp(42px,6vw,76px);
+  line-height:.98;
+  letter-spacing:-.05em;
+}
+
+.section-copy{
+  max-width:680px;
+  margin-top:22px;
+  color:var(--muted);
+  font-size:16px;
+}
+
+/* NETWORK */
+
+.network{
+  background:#070707;
+}
+
+.network-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  margin-top:65px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+
+.network-card{
+  min-height:270px;
+  padding:32px;
+  background:#090909;
+  transition:.3s;
+}
+
+.network-card:hover{
+  background:#111;
+  transform:translateY(-5px);
+}
+
+.number{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.2em;
+}
+
+.network-card h3{
+  margin-top:60px;
+  font-family:Georgia,serif;
+  font-size:27px;
+  font-weight:400;
+}
+
+.network-card p{
+  margin-top:12px;
+  color:#858078;
+  font-size:13px;
+}
+
+/* FEATURE */
+
+.feature{
+  background:
+    radial-gradient(circle at 90% 20%,rgba(201,165,91,.10),transparent 30%),
+    #090909;
+}
+
+.feature-box{
+  border:1px solid var(--lineGold);
+  padding:clamp(35px,7vw,85px);
+  background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(201,165,91,.025));
+  box-shadow:var(--shadow);
+}
+
+.feature-points{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:55px;
+}
+
+.feature-point{
+  border-top:1px solid var(--line);
+  padding-top:20px;
+}
+
+.feature-point strong{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:21px;
+  font-weight:400;
+}
+
+.feature-point span{
+  display:block;
+  margin-top:7px;
+  color:#77736b;
+  font-size:13px;
+}
+
+/* JOIN */
+
+.join{
+  background:#060606;
+}
+
+.join-grid{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:80px;
+  align-items:start;
+}
+
+.form-box{
+  padding:35px;
+  background:#0c0c0c;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.form-top{
+  margin-bottom:30px;
+}
+
+.form-top h3{
+  font-family:Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+}
+
+.form-top p{
+  color:#77736b;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  margin-bottom:16px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+label{
+  display:block;
+  color:#9d988e;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  margin-bottom:7px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:14px;
+  background:#060606;
+  border:1px solid rgba(255,255,255,.09);
+  color:var(--cream);
+  outline:none;
+  border-radius:0;
+  transition:.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:rgba(201,165,91,.65);
+  box-shadow:0 0 0 3px rgba(201,165,91,.06);
+}
+
+textarea{
+  min-height:125px;
+  resize:vertical;
+}
+
+.photo-box{
+  padding:25px;
+  border:1px dashed var(--lineGold);
+  text-align:center;
+  background:rgba(201,165,91,.025);
+  margin-bottom:18px;
+}
+
+.avatar-preview{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  margin:0 auto 15px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:2px solid rgba(201,165,91,.5);
+  background:#151515;
+  color:var(--gold2);
+  font-family:Georgia,serif;
+  font-size:28px;
+}
+
+.avatar-preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.photo-box input{
+  border:0;
+  background:none;
+  padding:5px;
+}
+
+.help{
+  color:#69655e;
+  font-size:11px;
+  margin-top:6px;
+}
+
+.checkbox{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:18px 0 22px;
+}
+
+.checkbox input{
+  width:auto;
+  margin-top:4px;
+  accent-color:var(--gold);
+}
+
+.checkbox span{
+  color:#77736b;
+  font-size:11px;
+}
+
+.message{
+  display:none;
+  padding:13px;
+  margin-bottom:18px;
+  font-size:12px;
+}
+
+.success{
+  color:var(--green);
+  background:rgba(113,212,155,.08);
+  border:1px solid rgba(113,212,155,.2);
+}
+
+.error{
+  color:var(--red);
+  background:rgba(233,118,118,.08);
+  border:1px solid rgba(233,118,118,.2);
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:35px 6%;
+  color:#67635d;
+  font-size:11px;
+}
+
+.footer-inner{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .nav.open .nav-links{
+    display:flex;
+    position:absolute;
+    top:78px;
+    left:0;
+    right:0;
+    padding:25px;
+    flex-direction:column;
+    align-items:flex-start;
+    background:#080808;
+    border-bottom:1px solid var(--line);
+  }
+
+  .network-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .join-grid{
+    grid-template-columns:1fr;
+  }
+
+  .feature-points{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .hero{
+    padding-top:125px;
+  }
+
+  .hero h1{
+    font-size:55px;
+  }
+
+  .hero-description{
+    font-size:16px;
+  }
+
+  .hero-stats{
+    gap:25px;
+  }
+
+  .stat strong{
+    font-size:23px;
+  }
+
+  .network-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .form-box{
+    padding:22px;
+  }
+
+  section{
+    padding:85px 6%;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="noise"></div>
-
 <header class="nav" id="nav">
+
   <a href="#top" class="brand">
-    <div class="brand-mark">PE</div>
+    <div class="logo">PE</div>
     <span>PORTER EMPIRE NETWORK</span>
   </a>
 
   <nav class="nav-links">
     <a href="#network">Network</a>
-    <a href="#connect">Connect</a>
-    <a href="#inspire">Inspire</a>
+    <a href="#how">How It Works</a>
     <a href="#join">Join</a>
-    <a href="#join" class="nav-cta">Apply</a>
+    <a href="#join" class="nav-apply">Apply →</a>
   </nav>
 
-  <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+  <button class="menu" id="menuBtn">☰</button>
+
 </header>
 
 <main id="top">
 
-  <section class="hero">
-    <div class="hero-content">
+<!-- HERO -->
 
-      <div class="eyebrow">Porter Empire Network</div>
+<section class="hero">
 
-      <h1>
-        The right people can
-        <span>change your trajectory.</span>
-      </h1>
+  <div class="hero-orb"></div>
 
-      <p class="hero-copy">
-        Porter Empire Network brings ambitious people into the same room —
-        entrepreneurs, professionals, creators, students, builders and people
-        ready for their next move.
+  <div class="hero-inner">
+
+    <div class="eyebrow">
+      PORTER EMPIRE NETWORK
+    </div>
+
+    <h1>
+      Your network can
+      <em>change your trajectory.</em>
+    </h1>
+
+    <p class="hero-description">
+      A private-minded network for entrepreneurs, professionals,
+      creators, students, builders and ambitious people who believe
+      the right connection can open the next door.
+    </p>
+
+    <div class="hero-actions">
+
+      <a href="#join" class="btn primary">
+        Join The Network →
+      </a>
+
+      <a href="#network" class="btn secondary">
+        Explore PEN
+      </a>
+
+    </div>
+
+    <div class="hero-stats">
+
+      <div class="stat">
+        <strong>01</strong>
+        <span>Profile</span>
+      </div>
+
+      <div class="stat">
+        <strong>02</strong>
+        <span>Connect</span>
+      </div>
+
+      <div class="stat">
+        <strong>03</strong>
+        <span>Grow</span>
+      </div>
+
+      <div class="stat">
+        <strong>04</strong>
+        <span>Move</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NETWORK -->
+
+<section class="network" id="network">
+
+  <div class="container">
+
+    <div class="section-label">
+      THE NETWORK
+    </div>
+
+    <h2 class="section-title">
+      PEOPLE WITH VISION.<br>
+      CONNECTIONS WITH PURPOSE.
+    </h2>
+
+    <p class="section-copy">
+      PEN is designed around people rather than transactions.
+      Create your presence, discover other members and make
+      relationships that can lead somewhere.
+    </p>
+
+    <div class="network-grid">
+
+      <article class="network-card">
+        <div class="number">01 / CONNECT</div>
+        <h3>Meet people.</h3>
+        <p>
+          Discover entrepreneurs, professionals, creators,
+          students, artists and builders.
+        </p>
+      </article>
+
+      <article class="network-card">
+        <div class="number">02 / DISCOVER</div>
+        <h3>Find possibility.</h3>
+        <p>
+          See what people do, what they are building and
+          what opportunities they are looking for.
+        </p>
+      </article>
+
+      <article class="network-card">
+        <div class="number">03 / GROW</div>
+        <h3>Build relationships.</h3>
+        <p>
+          Find potential collaborators, mentors, clients,
+          partners and new professional relationships.
+        </p>
+      </article>
+
+      <article class="network-card">
+        <div class="number">04 / MOVE</div>
+        <h3>Make your next move.</h3>
+        <p>
+          Put your work and ambitions in front of people
+          who may help you move forward.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FEATURE -->
+
+<section id="how" class="feature">
+
+  <div class="container">
+
+    <div class="feature-box">
+
+      <div class="section-label">
+        BUILT FOR MOVEMENT
+      </div>
+
+      <h2 class="section-title">
+        Don't just collect contacts.<br>
+        Build your network.
+      </h2>
+
+      <p class="section-copy">
+        Your PEN profile gives people a snapshot of who you are,
+        what you do, what you know and what you are looking for.
       </p>
+
+      <div class="feature-points">
+
+        <div class="feature-point">
+          <strong>Your Identity</strong>
+          <span>
+            Profile picture, profession, category and location.
+          </span>
+        </div>
+
+        <div class="feature-point">
+          <strong>Your Skills</strong>
+          <span>
+            Show people what you bring to the table.
+          </span>
+        </div>
+
+        <div class="feature-point">
+          <strong>Your Direction</strong>
+          <span>
+            Tell people what you're looking for next.
+          </span>
+        </div>
+
+      </div>
 
       <div class="hero-actions">
-        <a href="#join" class="btn btn-primary">
-          Join The Network →
-        </a>
-
-        <a href="#network" class="btn btn-secondary">
-          See Connect & Rise
+        <a href="#join" class="btn primary">
+          Create My Profile →
         </a>
       </div>
 
     </div>
-  </section>
 
-  <section id="network">
-    <div class="section-inner">
+  </div>
 
-      <div class="section-label">The Network</div>
+</section>
 
-      <h2 class="section-title">
-        CONNECT. GROW.<br />
-        MOVE FORWARD.
-      </h2>
 
-      <p class="section-text">
-        This is more than collecting contacts. It is a place for people with
-        vision to discover one another, exchange opportunities and create
-        momentum.
-      </p>
+<!-- JOIN -->
 
-      <div class="network-grid">
+<section class="join" id="join">
 
-        <article class="network-card">
-          <div class="network-number">01 / CONNECT</div>
-          <h3>Meet the right people.</h3>
-          <p>
-            Discover entrepreneurs, professionals, creators, students,
-            artists, builders and emerging leaders.
-          </p>
-        </article>
+  <div class="container">
 
-        <article class="network-card">
-          <div class="network-number">02 / INSPIRE</div>
-          <h3>Exchange perspective.</h3>
-          <p>
-            Put yourself around people who challenge ideas, open doors and
-            encourage growth.
-          </p>
-        </article>
+    <div class="join-grid">
 
-        <article class="network-card">
-          <div class="network-number">03 / GROW</div>
-          <h3>Build something bigger.</h3>
-          <p>
-            Find collaborators, mentors, clients, partners and people who can
-            help turn ideas into movement.
-          </p>
-        </article>
+      <div>
 
-        <article class="network-card">
-          <div class="network-number">04 / MOVE</div>
-          <h3>Make your next move.</h3>
-          <p>
-            Opportunities become more visible when the right people are in the
-            same network.
-          </p>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="connect" class="invite">
-    <div class="section-inner">
-
-      <div class="invite-box">
-
-        <div class="section-label">The Invite</div>
+        <div class="section-label">
+          JOIN THE NETWORK
+        </div>
 
         <h2 class="section-title">
-          Your next connection<br />
-          could change everything.
+          Put yourself<br>
+          in the room.
         </h2>
 
-        <p class="section-text">
-          Build a profile that tells people who you are, what you do, what
-          you're looking for and where you're headed.
+        <p class="section-copy">
+          Build a profile that tells the network who you are,
+          what you do, where you're headed and what kind of
+          people you want to connect with.
         </p>
 
-        <div class="hero-actions">
-          <a href="#join" class="btn btn-primary">
-            Create Your Profile →
-          </a>
-        </div>
+        <p class="section-copy">
+          After creating your profile, you'll enter the PEN
+          member platform.
+        </p>
 
       </div>
 
-    </div>
-  </section>
 
-  <section id="inspire">
-    <div class="section-inner">
+      <div class="form-box">
 
-      <div class="section-label">Built For Movement</div>
-
-      <h2 class="section-title">
-        Not just a network.<br />
-        A place to move.
-      </h2>
-
-      <p class="section-text">
-        Whether you're launching a company, building a career, creating art,
-        searching for talent, looking for collaboration or simply ready for
-        your next chapter, PEN gives you a place to start.
-      </p>
-
-      <div class="founder-card">
-        <div class="section-label">Founder</div>
-        <h3>Porter Empire Network</h3>
-        <p>
-          Built around people, purpose and opportunity.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="join-section" id="join">
-
-    <div class="section-inner">
-
-      <div class="join-grid">
-
-        <div>
-
-          <div class="section-label">Join The Network</div>
-
-          <h2 class="section-title">
-            Put yourself<br />
-            in the room.
-          </h2>
-
-          <p class="section-text">
-            Create your PEN profile and become discoverable to people who may
-            be able to collaborate, connect, hire, mentor, support or build
-            with you.
-          </p>
-
-          <p class="section-text">
-            Your profile picture, profession, skills, interests, social links
-            and goals become part of your professional presence inside PEN.
-          </p>
-
+        <div class="form-top">
+          <h3>Create Your PEN Profile</h3>
+          <p>Your first step into the network.</p>
         </div>
 
-        <div class="form-box">
+        <div class="message success" id="successBox">
+          Profile created. Entering PEN...
+        </div>
 
-          <div class="success" id="successBox">
-            Your application has been submitted. Welcome to Porter Empire Network.
-          </div>
+        <div class="message error" id="errorBox"></div>
 
-          <div class="error" id="errorBox"></div>
 
-          <form
-            id="joinForm"
-            action="https://formsubmit.co/Porterempirenetwork@gmail.com"
-            method="POST"
-            enctype="multipart/form-data"
+        <form
+          id="joinForm"
+          action="https://formsubmit.co/Porterempirenetwork@gmail.com"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+
+          <input
+            type="hidden"
+            name="_subject"
+            value="New Porter Empire Network Member"
           >
 
-            <input
-              type="hidden"
-              name="_subject"
-              value="New Porter Empire Network Member Application"
-            />
+          <input
+            type="hidden"
+            name="_captcha"
+            value="false"
+          >
+
+          <input
+            type="hidden"
+            name="_template"
+            value="table"
+          >
+
+          <div class="photo-box">
+
+            <div class="avatar-preview" id="avatarPreview">
+              PE
+            </div>
 
             <input
-              type="hidden"
-              name="_captcha"
-              value="false"
-            />
+              type="file"
+              id="profilePhoto"
+              name="profile_picture"
+              accept="image/jpeg,image/png,image/webp"
+            >
 
-            <input
-              type="hidden"
-              name="_template"
-              value="table"
-            />
+            <div class="help">
+              JPG, PNG or WEBP · Square image recommended
+            </div>
 
-            <input
-              type="hidden"
-              name="_next"
-              value=""
-            />
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Full Name *</label>
+              <input
+                id="fullName"
+                name="full_name"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              >
+            </div>
+
+            <div class="field">
+              <label>Email *</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+              >
+            </div>
+
+            <div class="field">
+              <label>Phone</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="field">
+              <label>Location</label>
+              <input
+                id="location"
+                name="location"
+                placeholder="City, State"
+              >
+            </div>
+
+            <div class="field">
+              <label>Category *</label>
+
+              <select id="category" name="category" required>
+
+                <option value="">
+                  Select category
+                </option>
+
+                <option>Entrepreneur</option>
+                <option>Professional</option>
+                <option>Creator</option>
+                <option>Artist</option>
+                <option>Model</option>
+                <option>Student</option>
+                <option>Business</option>
+                <option>Builder</option>
+                <option>Other</option>
+
+              </select>
+
+            </div>
+
+            <div class="field">
+              <label>Profession / Role *</label>
+
+              <input
+                id="role"
+                name="profession"
+                required
+                placeholder="Founder, Designer..."
+              >
+
+            </div>
 
             <div class="field full">
 
-              <label>Profile Picture</label>
+              <label>Skills</label>
 
-              <div class="photo-upload">
-
-                <div class="photo-preview" id="photoPreview">
-                  PE
-                </div>
-
-                <input
-                  type="file"
-                  id="profilePhoto"
-                  name="profile_picture"
-                  accept="image/jpeg,image/png,image/webp"
-                />
-
-                <div class="photo-help">
-                  JPG, PNG or WEBP. Recommended: square photo.
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="form-grid">
-
-              <div class="field">
-                <label>Full Name *</label>
-                <input
-                  id="fullName"
-                  name="full_name"
-                  type="text"
-                  required
-                  autocomplete="name"
-                />
-              </div>
-
-              <div class="field">
-                <label>Email *</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autocomplete="email"
-                />
-              </div>
-
-              <div class="field">
-                <label>Phone</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  autocomplete="tel"
-                />
-              </div>
-
-              <div class="field">
-                <label>Location</label>
-                <input
-                  id="location"
-                  name="location"
-                  type="text"
-                  placeholder="City, State"
-                />
-              </div>
-
-              <div class="field">
-                <label>Category *</label>
-
-                <select id="category" name="category" required>
-                  <option value="">Select one</option>
-                  <option>Entrepreneur</option>
-                  <option>Professional</option>
-                  <option>Creator</option>
-                  <option>Artist</option>
-                  <option>Model</option>
-                  <option>Student</option>
-                  <option>Business</option>
-                  <option>Builder</option>
-                  <option>Other</option>
-                </select>
-
-              </div>
-
-              <div class="field">
-                <label>Profession / Role *</label>
-
-                <input
-                  id="role"
-                  name="profession"
-                  type="text"
-                  required
-                  placeholder="Founder, Photographer, Designer..."
-                />
-
-              </div>
-
-              <div class="field full">
-                <label>Skills</label>
-
-                <input
-                  id="skills"
-                  name="skills"
-                  type="text"
-                  placeholder="Photography, marketing, music, coding..."
-                />
-              </div>
-
-              <div class="field full">
-                <label>What are you looking for?</label>
-
-                <input
-                  id="looking"
-                  name="looking_for"
-                  type="text"
-                  placeholder="Collaborators, clients, mentors, opportunities..."
-                />
-              </div>
-
-              <div class="field full">
-                <label>Social Links</label>
-
-                <input
-                  id="socials"
-                  name="socials"
-                  type="text"
-                  placeholder="Instagram / LinkedIn / Website"
-                />
-              </div>
-
-              <div class="field full">
-                <label>Tell us about yourself</label>
-
-                <textarea
-                  id="bio"
-                  name="bio"
-                  placeholder="Who are you? What are you building? Where are you going?"
-                ></textarea>
-              </div>
-
-            </div>
-
-            <label class="check">
               <input
-                id="agree"
-                type="checkbox"
-                required
-              />
+                id="skills"
+                name="skills"
+                placeholder="Marketing, photography, coding..."
+              >
 
-              <span>
-                I agree to join the Porter Empire Network and understand that
-                my profile information may be visible to other network members.
-              </span>
-            </label>
+            </div>
 
-            <button
-              class="btn btn-primary"
-              type="submit"
-              id="submitBtn"
-              style="width:100%;"
+            <div class="field full">
+
+              <label>What are you looking for?</label>
+
+              <input
+                id="looking"
+                name="looking_for"
+                placeholder="Collaborators, clients, mentors..."
+              >
+
+            </div>
+
+            <div class="field full">
+
+              <label>Social Links</label>
+
+              <input
+                id="socials"
+                name="socials"
+                placeholder="Instagram, LinkedIn, Website..."
+              >
+
+            </div>
+
+            <div class="field full">
+
+              <label>About You</label>
+
+              <textarea
+                id="bio"
+                name="bio"
+                placeholder="Tell the network who you are, what you're building and where you're headed..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <label class="checkbox">
+
+            <input
+              id="agree"
+              type="checkbox"
+              required
             >
-              Create My PEN Profile →
-            </button>
 
-          </form>
+            <span>
+              I agree to create a PEN profile and understand that
+              information I choose to include may be visible to
+              other network members.
+            </span>
 
-        </div>
+          </label>
+
+
+          <button
+            type="submit"
+            class="btn primary"
+            id="submitBtn"
+            style="width:100%"
+          >
+            Create My PEN Profile →
+          </button>
+
+        </form>
 
       </div>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 </main>
 
+
 <footer>
+
   <div class="footer-inner">
-    <div>© <span id="year"></span> Porter Empire Network.</div>
-    <div>People with vision. Connections with purpose.</div>
+
+    <div>
+      © <span id="year"></span> Porter Empire Network.
+    </div>
+
+    <div>
+      People with vision. Connections with purpose.
+    </div>
+
   </div>
+
 </footer>
+
 
 <script>
 
-  const nav = document.getElementById("nav");
-  const menuBtn = document.getElementById("menuBtn");
+const nav = document.getElementById("nav");
+const menuBtn = document.getElementById("menuBtn");
 
-  menuBtn.addEventListener("click", () => {
-    nav.classList.toggle("open");
+menuBtn.addEventListener("click",()=>{
+  nav.classList.toggle("open");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    nav.classList.remove("open");
   });
+});
 
-  document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("open");
-    });
-  });
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
 
-  const photoInput = document.getElementById("profilePhoto");
-  const photoPreview = document.getElementById("photoPreview");
+/* PHOTO PREVIEW */
 
-  let photoData = "";
+const photoInput =
+  document.getElementById("profilePhoto");
 
-  photoInput.addEventListener("change", () => {
+const avatarPreview =
+  document.getElementById("avatarPreview");
 
-    const file = photoInput.files[0];
+let photoData = "";
 
-    if (!file) return;
+photoInput.addEventListener("change",()=>{
 
-    if (!file.type.startsWith("image/")) {
-      alert("Please select an image.");
-      photoInput.value = "";
-      return;
-    }
+  const file = photoInput.files[0];
 
-    const reader = new FileReader();
+  if(!file) return;
 
-    reader.onload = event => {
+  if(!file.type.startsWith("image/")){
 
-      photoData = event.target.result;
+    alert("Please choose an image file.");
 
-      photoPreview.innerHTML =
-        `<img src="${photoData}" alt="Profile picture preview">`;
+    photoInput.value = "";
 
-    };
+    return;
+  }
 
-    reader.readAsDataURL(file);
+  if(file.size > 5 * 1024 * 1024){
 
-  });
+    alert("Please choose an image smaller than 5MB.");
 
-  const form = document.getElementById("joinForm");
-  const successBox = document.getElementById("successBox");
-  const errorBox = document.getElementById("errorBox");
-  const submitBtn = document.getElementById("submitBtn");
+    photoInput.value = "";
 
-  form.addEventListener("submit", async event => {
+    return;
+  }
 
-    event.preventDefault();
+  const reader = new FileReader();
 
-    errorBox.style.display = "none";
-    successBox.style.display = "none";
+  reader.onload = event => {
 
-    const profile = {
+    photoData = event.target.result;
 
-      id: "pen_" + Date.now(),
+    avatarPreview.innerHTML =
+      `<img src="${photoData}" alt="Profile preview">`;
 
-      name:
-        document.getElementById("fullName").value.trim(),
+  };
 
-      email:
-        document.getElementById("email").value.trim(),
+  reader.readAsDataURL(file);
 
-      phone:
-        document.getElementById("phone").value.trim(),
+});
 
-      location:
-        document.getElementById("location").value.trim(),
 
-      category:
-        document.getElementById("category").value,
+/* FORM */
 
-      role:
-        document.getElementById("role").value.trim(),
+const form =
+  document.getElementById("joinForm");
 
-      skills:
-        document.getElementById("skills").value.trim(),
+const successBox =
+  document.getElementById("successBox");
 
-      looking:
-        document.getElementById("looking").value.trim(),
+const errorBox =
+  document.getElementById("errorBox");
 
-      socials:
-        document.getElementById("socials").value.trim(),
+const submitBtn =
+  document.getElementById("submitBtn");
 
-      bio:
-        document.getElementById("bio").value.trim(),
 
-      photo:
-        photoData || "",
+form.addEventListener("submit",async event=>{
 
-      createdAt:
-        new Date().toISOString()
+  event.preventDefault();
 
-    };
+  successBox.style.display = "none";
+  errorBox.style.display = "none";
 
-    try {
+  const name =
+    document.getElementById("fullName").value.trim();
 
-      localStorage.setItem(
-        "penProfile",
-        JSON.stringify(profile)
-      );
+  const email =
+    document.getElementById("email").value.trim();
 
-      localStorage.setItem(
-        "penLoggedIn",
-        "true"
-      );
+  const category =
+    document.getElementById("category").value;
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Creating Your Profile...";
+  const role =
+    document.getElementById("role").value.trim();
 
-      const formData = new FormData(form);
 
-      const response = await fetch(
+  if(!name || !email || !category || !role){
+
+    errorBox.textContent =
+      "Please complete all required fields.";
+
+    errorBox.style.display = "block";
+
+    return;
+  }
+
+
+  const profile = {
+
+    id:
+      "pen_" +
+      Date.now(),
+
+    name,
+
+    email,
+
+    phone:
+      document.getElementById("phone").value.trim(),
+
+    location:
+      document.getElementById("location").value.trim(),
+
+    category,
+
+    role,
+
+    skills:
+      document.getElementById("skills").value.trim(),
+
+    looking:
+      document.getElementById("looking").value.trim(),
+
+    socials:
+      document.getElementById("socials").value.trim(),
+
+    bio:
+      document.getElementById("bio").value.trim(),
+
+    photo:
+      photoData,
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+
+  try{
+
+    localStorage.setItem(
+      "penProfile",
+      JSON.stringify(profile)
+    );
+
+    localStorage.setItem(
+      "penLoggedIn",
+      "true"
+    );
+
+
+    submitBtn.disabled = true;
+
+    submitBtn.textContent =
+      "Creating Your Profile...";
+
+
+    /*
+      Send application notification.
+
+      If FormSubmit has not been activated for
+      Porterempirenetwork@gmail.com yet, the first
+      submission may require activation.
+    */
+
+    const formData =
+      new FormData(form);
+
+
+    try{
+
+      await fetch(
         form.action,
         {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Accept": "application/json"
+          method:"POST",
+          body:formData,
+          headers:{
+            "Accept":"application/json"
           }
         }
       );
 
-      /*
-        FormSubmit may return an HTML response depending on configuration.
-        The local profile is already saved, so we continue into PEN.
-      */
+    }catch(emailError){
 
-      successBox.style.display = "block";
-
-      setTimeout(() => {
-        window.location.href = "platform.html";
-      }, 900);
-
-    } catch (error) {
-
-      /*
-        Keep the profile locally even if the email provider blocks
-        a browser request.
-      */
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Create My PEN Profile →";
-
-      errorBox.textContent =
-        "Your profile was saved. If the application email did not send, please check your FormSubmit activation/setup.";
-
-      errorBox.style.display = "block";
-
-      setTimeout(() => {
-        window.location.href = "platform.html";
-      }, 1500);
+      console.log(
+        "Email notification could not be completed:",
+        emailError
+      );
 
     }
 
-  });
+
+    successBox.style.display = "block";
+
+    setTimeout(()=>{
+
+      window.location.href =
+        "platform.html";
+
+    },900);
+
+
+  }catch(error){
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      "Create My PEN Profile →";
+
+    errorBox.textContent =
+      "Something went wrong. Please try again.";
+
+    errorBox.style.display = "block";
+
+  }
+
+});
 
 </script>
 
